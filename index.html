@@ -38,8 +38,8 @@
 </head>
 <body class="font-[Raleway] bg-gray-50 text-gray-800" style="overflow: hidden;">
 
-    <div id="landing-overlay" class="fixed inset-0 z-[100] flex items-center justify-center bg-black transition-opacity duration-700">
-        <div class="absolute inset-0 bg-cover bg-center opacity-50 mix-blend-screen" style="background-image: url('IMG_8497.jpg');"></div>
+    <div id="landing-overlay" class="fixed inset-0 z-[9999] flex items-center justify-center bg-black transition-opacity duration-700">
+        <div class="absolute inset-0 bg-cover bg-center opacity-50 mix-blend-screen pointer-events-none" style="background-image: url('IMG_8497.jpg');"></div>
 
         <div class="relative z-10 text-center px-6 max-w-3xl">
             <h1 class="text-6xl md:text-8xl font-[Oswald] text-yellow-500 mb-6 uppercase tracking-widest drop-shadow-2xl">Find Your People</h1>
@@ -47,409 +47,480 @@
             <p class="text-2xl md:text-4xl text-white font-light mb-12 drop-shadow-md">Still hard to connect?</p>
             <p class="text-xl md:text-2xl text-yellow-100 font-medium mb-12 italic tracking-wide">Skip the noise and find your circle.</p>
 
-            <button onclick="enterSite()" class="bg-yellow-500 text-black py-4 px-12 rounded-full font-bold text-xl hover:bg-yellow-400 transition-all shadow-[0_0_40px_rgba(234,179,8,0.5)] transform hover:scale-105 tracking-wide uppercase">
+            <button type="button" onclick="enterSite()" class="bg-yellow-500 text-black py-4 px-12 rounded-full font-bold text-xl hover:bg-yellow-400 transition-all shadow-[0_0_40px_rgba(234,179,8,0.5)] transform hover:scale-105 tracking-wide uppercase relative z-50 cursor-pointer pointer-events-auto">
                 Find Your People
             </button>
         </div>
     </div>
 
-    <div id="intro" class="relative bg-cover bg-center bg-no-repeat min-h-[700px] md:min-h-[850px] flex flex-col justify-center" style="background-color: #1a1a1a; background-attachment: fixed;">
-        <nav id="tm-nav" class="fixed top-0 w-full z-50 transition-all duration-500 bg-black bg-opacity-0">
-            <div class="max-w-6xl mx-auto px-4 py-4 md:py-6 flex justify-between items-center">
-                <h1 class="text-white text-2xl md:text-3xl font-semibold tracking-widest uppercase font-[Oswald] drop-shadow-md">ReadyMix Match</h1>
+    <nav id="tm-nav" class="fixed top-0 w-full z-50 transition-all duration-500 bg-black bg-opacity-0">
+        <div class="max-w-6xl mx-auto px-4 py-4 md:py-6 flex justify-between items-center">
+            <h1 onclick="switchTab('home')" class="cursor-pointer text-white text-2xl md:text-3xl font-semibold tracking-widest uppercase font-[Oswald] drop-shadow-md hover:text-yellow-500 transition">ReadyMix Match</h1>
 
-                <div class="hidden md:flex space-x-8 items-center">
-                    <a href="#curator" class="text-white hover:text-yellow-500 transition font-medium tracking-wide drop-shadow-md">Meet the Curator</a>
-                    <a href="https://instagram.com/readymixmatch" target="_blank" class="text-yellow-500 hover:text-white transition items-center font-bold flex drop-shadow-md">
-                        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" /></svg>
-                        Follow Us
-                    </a>
-                </div>
-            </div>
-        </nav>
-
-        <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-black/80"></div>
-
-        <div class="relative max-w-md mx-auto px-4 z-10 mt-16" data-aos="fade-up">
-            <div class="bg-black/80 p-8 md:p-10 mb-8 text-center rounded-3xl shadow-2xl backdrop-blur-xl border border-white/10">
-                <h2 class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-100 text-3xl md:text-4xl font-bold mb-6 font-[Oswald] uppercase tracking-wider">
-                    Find your people.
-                </h2>
-                <p class="text-gray-200 leading-relaxed text-lg font-light mb-8">
-                    At <strong class="text-white font-semibold">ReadyMix Match</strong>, we curate small-group events designed to spark genuine connections.
-                </p>
-                <div class="flex flex-col space-y-6 text-left max-w-sm mx-auto">
-                    <div class="flex items-start">
-                        <span class="text-yellow-400 mr-4 text-xl mt-0.5 flex-shrink-0">✨</span>
-                        <p class="text-gray-300 text-sm font-medium leading-relaxed">Tell us your preferences and what you love to do.</p>
-                    </div>
-                    <div class="flex items-start">
-                        <span class="text-yellow-400 mr-4 text-xl mt-0.5 flex-shrink-0">🤝</span>
-                        <p class="text-gray-300 text-sm font-medium leading-relaxed">Get matched with a tailored group of like-minded people.</p>
-                    </div>
-                    <div class="flex items-start">
-                        <span class="text-yellow-400 mr-4 text-xl mt-0.5 flex-shrink-0">💌</span>
-                        <p class="text-gray-300 text-sm font-medium leading-relaxed">Receive a personal invite to an upcoming experience that fits your schedule.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="text-center">
-                <a href="#signup" onclick="document.getElementById('signup').scrollIntoView({behavior: 'smooth'})" class="inline-flex items-center justify-center bg-yellow-500 text-black py-4 px-12 rounded-full font-bold text-lg hover:bg-yellow-400 transition-all shadow-[0_10px_30px_rgba(234,179,8,0.3)] transform hover:-translate-y-1 uppercase tracking-widest">
-                    Find Your Crew
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="#curator" onclick="switchTab('home')" class="text-white hover:text-yellow-500 transition font-medium tracking-wide drop-shadow-md">Meet the Curator</a>
+                <a href="#" onclick="switchTab('highlights'); return false;" class="text-white hover:text-yellow-500 transition font-medium tracking-wide drop-shadow-md">Event Highlights</a>
+                <a href="https://instagram.com/readymixmatch" target="_blank" class="text-yellow-500 hover:text-white transition items-center font-bold flex drop-shadow-md">
+                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" /></svg>
+                    Follow Us
                 </a>
             </div>
         </div>
-    </div>
+    </nav>
 
-    <div class="bg-white py-24 px-4 relative overflow-hidden">
-        <div class="absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 30px 30px;"></div>
+    <div id="tab-home">
 
-        <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-12 md:gap-20 relative z-10">
-            <div class="md:w-1/2 w-full" data-aos="fade-right">
-                <div class="relative rounded-3xl overflow-hidden shadow-2xl transform hover:scale-[1.02] transition-transform duration-500">
-                    <img src="EventImage.jpg" alt="Game Night Flyer" class="w-full object-cover">
-                    <div class="absolute inset-0 border border-black/10 rounded-3xl pointer-events-none"></div>
+        <div id="intro" class="relative bg-cover bg-center bg-no-repeat min-h-[700px] md:min-h-[850px] flex flex-col justify-center" style="background-image: url('IMG_8497.jpg'); background-color: #1a1a1a; background-attachment: fixed;">
+            <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-black/80"></div>
+
+            <div class="relative max-w-md mx-auto px-4 z-10 mt-16" data-aos="fade-up">
+                <div class="bg-black/80 p-8 md:p-10 mb-8 text-center rounded-3xl shadow-2xl backdrop-blur-xl border border-white/10">
+                    <h2 class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-100 text-3xl md:text-4xl font-bold mb-6 font-[Oswald] uppercase tracking-wider">
+                        Find your people.
+                    </h2>
+                    <p class="text-gray-200 leading-relaxed text-lg font-light mb-8">
+                        At <strong class="text-white font-semibold">ReadyMix Match</strong>, we curate small-group events designed to spark genuine connections.
+                    </p>
+                    <div class="flex flex-col space-y-6 text-left max-w-sm mx-auto">
+                        <div class="flex items-start">
+                            <span class="text-yellow-400 mr-4 text-xl mt-0.5 flex-shrink-0">✨</span>
+                            <p class="text-gray-300 text-sm font-medium leading-relaxed">Tell us your preferences and what you love to do.</p>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="text-yellow-400 mr-4 text-xl mt-0.5 flex-shrink-0">🤝</span>
+                            <p class="text-gray-300 text-sm font-medium leading-relaxed">Get matched with a tailored group of like-minded people.</p>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="text-yellow-400 mr-4 text-xl mt-0.5 flex-shrink-0">💌</span>
+                            <p class="text-gray-300 text-sm font-medium leading-relaxed">Receive a personal invite to an upcoming experience that fits your schedule.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <a href="#signup" onclick="document.getElementById('signup').scrollIntoView({behavior: 'smooth'})" class="inline-flex items-center justify-center bg-yellow-500 text-black py-4 px-12 rounded-full font-bold text-lg hover:bg-yellow-400 transition-all shadow-[0_10px_30px_rgba(234,179,8,0.3)] transform hover:-translate-y-1 uppercase tracking-widest relative z-50 cursor-pointer">
+                        Find Your Crew
+                    </a>
                 </div>
             </div>
-            <div class="md:w-1/2 text-center md:text-left" data-aos="fade-left">
-                <div class="inline-block bg-yellow-500 text-black font-bold px-4 py-1.5 rounded-full uppercase tracking-widest text-xs mb-6 shadow-sm">Upcoming Experience</div>
-                <h2 class="text-5xl md:text-6xl font-[Oswald] text-gray-900 mb-4 uppercase tracking-wide">Game Night Ready</h2>
-                <div class="flex items-center justify-center md:justify-start text-2xl text-yellow-600 font-bold mb-6">
-                    <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                    Saturday Apr 11 at 6:00 PM
-                </div>
-                <p class="text-lg text-gray-600 mb-10 leading-relaxed max-w-lg mx-auto md:mx-0">
-                    New to Chicago? New to the building? Meet new friends! Skip the awkward introductions and join us on Floor 32 for a curated evening of games, drinks, and great company.
+        </div>
+
+        <div id="survey-section" class="bg-white py-24 px-4 relative overflow-hidden">
+            <div class="absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 30px 30px;"></div>
+            <div class="max-w-4xl mx-auto text-center relative z-10" data-aos="fade-up">
+                <div class="inline-block bg-yellow-500 text-black font-bold px-4 py-1.5 rounded-full uppercase tracking-widest text-xs mb-6 shadow-sm">Post-Event Feedback</div>
+                <h2 class="text-5xl md:text-6xl font-[Oswald] text-gray-900 mb-6 uppercase tracking-wide">How was the vibe?</h2>
+
+                <p class="text-lg text-gray-600 mb-10 leading-relaxed max-w-xl mx-auto">
+                    We're always looking to improve our experiences. If you recently attended one of our events, let us know what you thought!
                 </p>
-                <a href="boardgame.html" class="bg-black text-white py-4 px-10 rounded-full font-bold text-lg hover:bg-gray-800 transition-all shadow-lg inline-flex items-center transform hover:-translate-y-1 uppercase tracking-wide">
-    			RSVP for Board Game Night
-    			<svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-		</a>
-            </div>
-        </div>
-    </div>
 
-    <div class="bg-[#111] py-24 px-4 border-t-4 border-yellow-500 relative overflow-hidden shadow-inner">
-        <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div class="relative z-10" data-aos="fade-right">
-                <h2 class="text-5xl md:text-6xl font-[Oswald] text-yellow-500 uppercase tracking-widest mb-10 drop-shadow-lg">Why we are different?</h2>
-                <ul class="space-y-6 text-xl md:text-2xl text-gray-300 font-light tracking-wide">
-                    <li class="flex items-center bg-white/5 p-4 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors">
-                        <svg class="w-8 h-8 text-red-500 mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg>
-                        No endless swiping
-                    </li>
-                    <li class="flex items-center bg-white/5 p-4 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors">
-                        <svg class="w-8 h-8 text-red-500 mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg>
-                        No large, awkward meetups
-                    </li>
-                    <li class="flex items-center bg-white/5 p-4 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors">
-                        <svg class="w-8 h-8 text-red-500 mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg>
-                        No random group chats
-                    </li>
-                </ul>
-                <div class="mt-12 inline-block bg-white text-black px-8 py-5 rounded-2xl font-bold text-2xl md:text-3xl shadow-2xl transform -rotate-2 border-4 border-yellow-500 hover:-rotate-1 transition-transform">
-                    Just curated groups that actually <span class="text-yellow-500 font-[Oswald] uppercase tracking-widest">click.</span>
-                </div>
-            </div>
-            <div class="grid grid-cols-2 gap-4 md:gap-6 relative" data-aos="fade-left">
-                <div class="mt-12 group"><img src="IMG_8498.jpg" alt="Running in desert" class="w-full h-64 md:h-80 object-cover rounded-3xl shadow-[0_15px_30px_rgba(0,0,0,0.5)] border-2 border-gray-800 transform group-hover:-translate-y-2 transition-transform"></div>
-                <div class="group"><img src="IMG_8500.jpg" alt="Making Pizza" class="w-full h-72 md:h-96 object-cover rounded-3xl shadow-[0_15px_30px_rgba(0,0,0,0.5)] border-2 border-gray-800 transform group-hover:-translate-y-2 transition-transform"></div>
-                <div class="-mt-12 group"><img src="IMG_8499.jpg" alt="Group Dinner" class="w-full h-72 md:h-96 object-cover rounded-3xl shadow-[0_15px_30px_rgba(0,0,0,0.5)] border-2 border-gray-800 transform group-hover:-translate-y-2 transition-transform"></div>
-                <div class="mt-4 group"><img src="IMG_8501.jpg" alt="Playing Games" class="w-full h-64 md:h-80 object-cover rounded-3xl shadow-[0_15px_30px_rgba(0,0,0,0.5)] border-2 border-gray-800 transform group-hover:-translate-y-2 transition-transform"></div>
-            </div>
-        </div>
-    </div>
-
-    <div id="signup" class="py-24 bg-gray-100">
-        <div class="container mx-auto max-w-3xl px-4" data-aos="fade-up">
-            <div class="bg-white rounded-3xl shadow-[0_8px_40px_rgba(0,0,0,0.08)] p-8 md:p-12 border border-gray-200/60">
-
-                <div id="progress-container" class="mb-10 hidden">
-                    <div class="flex justify-between mb-3">
-                        <span id="step-counter" class="text-xs font-bold text-gray-400 uppercase tracking-widest">Step 1 of 5</span>
-                    </div>
-                    <div class="w-full bg-gray-100 rounded-full h-2">
-                        <div id="progress-bar" class="bg-yellow-500 h-2 rounded-full transition-all duration-700 ease-out shadow-sm" style="width: 20%"></div>
-                    </div>
-                </div>
-
-                <form id="readymix-form" class="space-y-6" onsubmit="event.preventDefault();">
-
-                    <div class="form-step" id="step-1">
-                        <div class="text-center mb-10">
-                            <h2 class="text-4xl font-[Oswald] text-gray-900 mb-2 uppercase tracking-wide">Join the Waitlist</h2>
-                            <p class="text-gray-500">The essentials to get you on the radar.</p>
-                        </div>
-
-                        <div class="space-y-5">
-                            <div>
-                                <input type="text" id="user_name" placeholder="What should we call you? *" class="w-full bg-gray-50 border border-gray-200 px-6 py-4 rounded-xl text-lg premium-input outline-none">
-                                <p id="name_error" class="error-msg text-red-500 text-sm font-semibold mt-2 ml-2 hidden">Please enter your name.</p>
-                            </div>
-
-                            <div>
-                                <input type="number" id="user_age" placeholder="Your Age *" class="w-full bg-gray-50 border border-gray-200 px-6 py-4 rounded-xl text-lg premium-input outline-none">
-                                <p id="age_error" class="error-msg text-red-500 text-sm font-semibold mt-2 ml-2 hidden">You must be 18 or older to join.</p>
-                            </div>
-
-                            <div>
-                                <input type="text" id="user_email" placeholder="Where can we send your invites? *" class="w-full bg-gray-50 border border-gray-200 px-6 py-4 rounded-xl text-lg premium-input outline-none">
-                                <p id="email_error" class="error-msg text-red-500 text-sm font-semibold mt-2 ml-2 hidden">Please enter a valid email address.</p>
-                            </div>
-
-                            <div>
-                                <input type="tel" id="user_phone" placeholder="Phone Number (Optional - For day-of updates)" class="w-full bg-gray-50 border border-gray-200 px-6 py-4 rounded-xl text-lg premium-input outline-none">
-                                <p id="phone_error" class="error-msg text-red-500 text-sm font-semibold mt-2 ml-2 hidden">Please enter a valid 10-digit phone number.</p>
-                            </div>
-                        </div>
-
-                        <div id="step-1-buttons" class="flex flex-col gap-4 mt-12">
-                            <button type="button" id="quick-submit-btn" class="w-full bg-black text-white px-6 py-4 font-bold text-lg rounded-xl hover:bg-gray-800 transition-all shadow-[0_4px_14px_rgba(0,0,0,0.15)] flex justify-center items-center group" onclick="submitForm('quick')">
-                                Join Waitlist
-                            </button>
-
-                            <div class="flex items-center justify-center my-2">
-                                <div class="border-t border-gray-200 flex-grow"></div>
-                                <span class="px-4 text-sm text-gray-400 font-bold uppercase tracking-widest">or</span>
-                                <div class="border-t border-gray-200 flex-grow"></div>
-                            </div>
-
-                            <button type="button" class="w-full bg-white border-2 border-yellow-500 text-yellow-600 px-6 py-4 font-bold text-lg rounded-xl hover:bg-yellow-50 transition-colors shadow-sm" onclick="changeStep(1)">
-                                Let's customize it for future preferences
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="form-step hidden" id="step-2">
-                        <h2 class="text-3xl font-bold mb-8 text-gray-800">Location & Availability</h2>
-
-                        <label class="block mb-4 font-semibold text-gray-700 text-lg">Where are you looking to hang out?</label>
-                        <div class="flex space-x-6 mb-8 bg-gray-50 p-4 rounded-xl border border-gray-100">
-                            <label class="flex items-center cursor-pointer text-lg font-medium text-gray-700 hover:text-yellow-600 transition-colors"><input type="radio" name="loc_type" value="city" class="mr-3 w-5 h-5 accent-yellow-500" checked onchange="toggleLocationMode()"> Search by City</label>
-                            <label class="flex items-center cursor-pointer text-lg font-medium text-gray-700 hover:text-yellow-600 transition-colors"><input type="radio" name="loc_type" value="zip" class="mr-3 w-5 h-5 accent-yellow-500" onchange="toggleLocationMode()"> Search by Zip Code</label>
-                        </div>
-
-                        <div id="city-section" class="mb-10">
-                            <label class="block mb-2 text-sm font-semibold text-gray-500 uppercase tracking-wider">Select up to 5 cities</label>
-                            <input list="us-cities" id="city-input" placeholder="Start typing a city..." class="w-full bg-gray-50 border border-gray-200 px-6 py-4 rounded-xl text-lg premium-input outline-none mb-3">
-                            <datalist id="us-cities">
-                                <option value="New York, NY"></option>
-                                <option value="Los Angeles, CA"></option>
-                                <option value="Chicago, IL"></option>
-                                <option value="Houston, TX"></option>
-                                <option value="Phoenix, AZ"></option>
-                                <option value="Philadelphia, PA"></option>
-                                <option value="San Antonio, TX"></option>
-                                <option value="San Diego, CA"></option>
-                                <option value="Dallas, TX"></option>
-                                <option value="Austin, TX"></option>
-                                <option value="Lancaster, PA"></option>
-                                <option value="Orlando, FL"></option>
-                            </datalist>
-                            <div id="selected-cities" class="flex flex-wrap gap-2 mt-3"></div>
-                        </div>
-
-                        <div id="zip-section" class="hidden mb-10 p-6 bg-gray-50 border border-gray-200 rounded-2xl shadow-sm">
-                            <input type="text" id="zip-input" placeholder="Enter Zip Code" class="w-full bg-white border border-gray-200 px-6 py-4 rounded-xl text-lg premium-input outline-none mb-6" onkeyup="simulateRadiusSearch()" maxlength="5">
-                            <label class="block mb-3 font-bold text-gray-700">Search Radius: <span id="radius-display" class="text-yellow-600 ml-2">25 miles</span></label>
-                            <input type="range" id="radius-slider" min="5" max="250" step="5" value="25" class="w-full accent-yellow-500 mb-2" onchange="updateRadiusDisplay(); simulateRadiusSearch();">
-                            <div class="flex justify-between text-xs text-gray-400 font-bold uppercase tracking-widest"><span>5 mi</span><span>125 mi</span><span>250 mi</span></div>
-                            <div id="dynamic-cities-container" class="mt-8 hidden">
-                                <label class="block mb-3 text-sm font-bold text-gray-500 uppercase tracking-wider">Select up to 5 nearby cities:</label>
-                                <div id="nearby-cities-list" class="flex flex-wrap gap-2 max-h-48 overflow-y-auto custom-scrollbar p-2 bg-white rounded-xl border border-gray-100"></div>
-                                <p id="city-limit-warning" class="text-red-500 text-xs mt-2 hidden font-semibold">You can only select up to 5 cities.</p>
-                            </div>
-                        </div>
-                        <p id="location_error" class="error-msg text-red-500 text-sm font-semibold mb-6 hidden">Please select a location before continuing.</p>
-
-                        <label class="block mb-4 font-semibold text-gray-700 text-lg">When are you usually free?</label>
-                        <div class="flex flex-wrap gap-3 mb-10">
-                            <label class="selectable-chip border-2 border-gray-200 bg-white px-5 py-3 rounded-xl cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md"><input type="checkbox" class="hidden" value="weekday"> Weekday Evenings</label>
-                            <label class="selectable-chip border-2 border-gray-200 bg-white px-5 py-3 rounded-xl cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md"><input type="checkbox" class="hidden" value="weekend"> Weekends</label>
-                            <label class="selectable-chip border-2 border-gray-200 bg-white px-5 py-3 rounded-xl cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md"><input type="checkbox" class="hidden" value="anytime"> Anytime</label>
-                        </div>
-
-                        <label class="block mb-4 font-semibold text-gray-700 text-lg">Dietary preferences?</label>
-                        <select class="w-full bg-gray-50 border border-gray-200 px-6 py-4 rounded-xl text-lg premium-input outline-none cursor-pointer appearance-none" id="diet_pref">
-                            <option>No Restrictions</option>
-                            <option>Vegetarian</option>
-                            <option>Vegan</option>
-                            <option>Gluten-Free</option>
-                            <option>Halal</option>
-                        </select>
-                    </div>
-
-                    <div class="form-step hidden" id="step-3">
-                        <h2 class="text-3xl font-bold mb-8 text-gray-800">Event Preferences</h2>
-                        <label class="block mb-4 font-semibold text-gray-700 text-lg">Typical budget per event?</label>
-                        <div class="flex flex-col sm:flex-row gap-4 mb-10">
-                            <label class="selectable-chip flex-1 text-center border-2 border-gray-200 bg-white px-4 py-4 rounded-xl cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md">
-                                <input type="radio" name="budget" class="hidden budget-input" value="low"> <span class="block text-lg">💸</span> Ballin' on a budget (<$20)
-                            </label>
-                            <label class="selectable-chip flex-1 text-center border-2 border-gray-200 bg-white px-4 py-4 rounded-xl cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md">
-                                <input type="radio" name="budget" class="hidden budget-input" value="mid"> <span class="block text-lg">💳</span> Mid-range ($20-$40)
-                            </label>
-                            <label class="selectable-chip flex-1 text-center border-2 border-gray-200 bg-white px-4 py-4 rounded-xl cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md">
-                                <input type="radio" name="budget" class="hidden budget-input" value="high"> <span class="block text-lg">💎</span> Treat myself ($40-$80+)
-                            </label>
-                        </div>
-
-                        <label class="block mb-4 font-semibold text-gray-700 text-lg">What kind of vibe? (Select all that apply)</label>
-                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-10">
-                            <label class="selectable-chip border-2 border-gray-200 bg-white p-5 rounded-xl text-center cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md flex flex-col items-center justify-center gap-2"><input type="checkbox" class="hidden vibe-input" value="Outdoor"> <span class="text-2xl">🌳</span> Outdoor</label>
-                            <label class="selectable-chip border-2 border-gray-200 bg-white p-5 rounded-xl text-center cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md flex flex-col items-center justify-center gap-2"><input type="checkbox" class="hidden vibe-input" value="Indoor"> <span class="text-2xl">🏠</span> Indoor</label>
-                            <label class="selectable-chip border-2 border-gray-200 bg-white p-5 rounded-xl text-center cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md flex flex-col items-center justify-center gap-2"><input type="checkbox" class="hidden vibe-input" value="Food"> <span class="text-2xl">🍕</span> Food & Drink</label>
-                            <label class="selectable-chip border-2 border-gray-200 bg-white p-5 rounded-xl text-center cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md flex flex-col items-center justify-center gap-2"><input type="checkbox" class="hidden vibe-input" value="Recreation"> <span class="text-2xl">🎯</span> Recreation</label>
-                            <label class="selectable-chip border-2 border-gray-200 bg-white p-5 rounded-xl text-center cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md flex flex-col items-center justify-center gap-2"><input type="checkbox" class="hidden vibe-input" value="Education"> <span class="text-2xl">🧠</span> Education</label>
-                        </div>
-
-                        <div id="recommendations-section" class="hidden bg-yellow-50 border-2 border-yellow-200 p-6 rounded-2xl shadow-sm transition-all duration-500">
-                            <label class="block mb-4 font-bold text-yellow-800 text-lg">✨ Recommended Activities for You</label>
-                            <p class="text-sm text-yellow-700 mb-4 opacity-80">Select the ones that sound like a good time.</p>
-                            <div id="dynamic-activities" class="flex flex-wrap gap-2"></div>
-                        </div>
-                    </div>
-
-                    <div class="form-step hidden" id="step-4">
-                        <h2 class="text-3xl font-bold mb-8 text-gray-800">The Crowd</h2>
-                        <label class="block mb-4 font-semibold text-gray-700 text-lg">Who are you looking to connect with?</label>
-                        <div class="flex flex-col space-y-4 mb-8 bg-gray-50 p-6 border border-gray-200 rounded-2xl shadow-sm">
-                            <label class="flex items-center text-lg cursor-pointer font-medium hover:text-yellow-600 transition-colors"><input type="radio" name="gender_pref" class="mr-4 w-5 h-5 accent-yellow-500"> Same gender</label>
-                            <label class="flex items-center text-lg cursor-pointer font-medium hover:text-yellow-600 transition-colors"><input type="radio" name="gender_pref" class="mr-4 w-5 h-5 accent-yellow-500"> Mixed gender / Gender-balanced</label>
-                        </div>
-
-                        <label class="block mb-4 font-semibold text-gray-700 text-lg">Age preference:</label>
-                        <div class="flex flex-col space-y-4 mb-10 bg-gray-50 p-6 border border-gray-200 rounded-2xl shadow-sm">
-                            <label class="flex items-center text-lg cursor-pointer font-medium hover:text-yellow-600 transition-colors"><input type="radio" name="age_pref" class="mr-4 w-5 h-5 accent-yellow-500"> Keep it close to my age (+/- 5 years)</label>
-                            <label class="flex items-center text-lg cursor-pointer font-medium hover:text-yellow-600 transition-colors"><input type="radio" name="age_pref" class="mr-4 w-5 h-5 accent-yellow-500"> I'm open to all ages</label>
-                        </div>
-
-                        <div class="bg-gray-50 p-6 border border-gray-200 rounded-2xl shadow-sm space-y-6">
-                            <div class="flex items-center justify-between border-b border-gray-200 pb-6">
-                                <span class="font-bold text-gray-700 text-lg">Looking for professional networking?</span>
-                                <label class="relative inline-flex items-center cursor-pointer">
-                                    <input type="checkbox" class="sr-only peer">
-                                    <div class="w-11 h-6 bg-gray-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-yellow-500"></div>
-                                </label>
-                            </div>
-                            <div class="flex items-center justify-between">
-                                <span class="font-bold text-gray-700 text-lg">Bringing a plus one?</span>
-                                <label class="relative inline-flex items-center cursor-pointer">
-                                    <input type="checkbox" class="sr-only peer">
-                                    <div class="w-11 h-6 bg-gray-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-yellow-500"></div>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-step hidden" id="step-5">
-                        <h2 class="text-3xl font-bold mb-8 text-gray-800">About You</h2>
-                        <label class="block mb-4 font-semibold text-gray-700 text-lg">Personality? (Select up to 3)</label>
-                        <div class="flex flex-wrap gap-3 mb-10">
-                            <label class="selectable-chip border-2 border-gray-200 bg-white px-5 py-2 rounded-full cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm"><input type="checkbox" class="hidden" value="Outgoing"> Outgoing</label>
-                            <label class="selectable-chip border-2 border-gray-200 bg-white px-5 py-2 rounded-full cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm"><input type="checkbox" class="hidden" value="Introverted"> Introverted</label>
-                            <label class="selectable-chip border-2 border-gray-200 bg-white px-5 py-2 rounded-full cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm"><input type="checkbox" class="hidden" value="Extroverted"> Extroverted</label>
-                            <label class="selectable-chip border-2 border-gray-200 bg-white px-5 py-2 rounded-full cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm"><input type="checkbox" class="hidden" value="Trustworthy"> Trustworthy</label>
-                            <label class="selectable-chip border-2 border-gray-200 bg-white px-5 py-2 rounded-full cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm"><input type="checkbox" class="hidden" value="Skeptical"> Skeptical</label>
-                            <label class="selectable-chip border-2 border-gray-200 bg-white px-5 py-2 rounded-full cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm"><input type="checkbox" class="hidden" value="Cautious"> Cautious</label>
-                        </div>
-
-                        <label class="block mb-6 font-semibold text-gray-700 text-lg">Willing to step out of your comfort zone?</label>
-                        <div class="mb-10 bg-gray-50 p-6 rounded-2xl border border-gray-200 shadow-sm">
-                            <input type="range" id="comfort_zone" min="1" max="3" step="1" class="w-full accent-yellow-500 bg-gray-200 h-2 rounded-lg appearance-none cursor-pointer">
-                            <div class="flex justify-between text-xs text-gray-500 font-bold mt-4 uppercase tracking-widest">
-                                <span>Stick to what I know</span>
-                                <span class="text-center">Maybe a little</span>
-                                <span>Absolutely!</span>
-                            </div>
-                        </div>
-
-                        <label class="block mb-4 font-semibold text-gray-700 text-lg">What are you looking for?</label>
-                        <textarea id="looking_for" rows="4" class="w-full bg-gray-50 border border-gray-200 p-6 rounded-2xl text-lg premium-input outline-none resize-none" placeholder="e.g., Someone to try new restaurants with, a gym buddy, or just good conversation..."></textarea>
-                    </div>
-
-                    <div id="nav-buttons" class="hidden justify-between mt-10 pt-8 border-t border-gray-200">
-                        <button type="button" id="prev-btn" class="hidden px-8 py-3 border-2 border-gray-300 text-gray-600 font-bold rounded-xl hover:bg-gray-100 transition-colors focus:outline-none" onclick="changeStep(-1)">Back</button>
-                        <button type="button" id="next-btn" class="ml-auto bg-black text-white px-10 py-4 font-bold rounded-xl hover:bg-gray-800 transition-all shadow-[0_4px_14px_rgba(0,0,0,0.15)] flex items-center group" onclick="changeStep(1)">
-                            Next Step <svg class="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                        </button>
-                        <button type="button" id="submit-btn" class="hidden ml-auto bg-yellow-500 text-black px-10 py-4 font-bold rounded-xl hover:bg-yellow-400 transition-all shadow-[0_4px_14px_rgba(234,179,8,0.3)] transform hover:-translate-y-1 uppercase tracking-wide" onclick="submitForm('full')">
-                            Complete Sign Up
-                        </button>
-                    </div>
-
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <div id="chicago-launch" class="bg-yellow-500 py-24 px-4 text-center border-t-8 border-yellow-600 relative overflow-hidden">
-        <div class="absolute -top-24 -right-24 w-64 h-64 bg-yellow-400 rounded-full opacity-50 blur-3xl pointer-events-none"></div>
-        <div class="absolute -bottom-24 -left-24 w-64 h-64 bg-yellow-600 rounded-full opacity-50 blur-3xl pointer-events-none"></div>
-
-        <div class="max-w-3xl mx-auto bg-white p-10 md:p-14 rounded-[3rem] shadow-2xl relative z-10" data-aos="zoom-in">
-            <div class="absolute -top-6 left-1/2 transform -translate-x-1/2 bg-black text-yellow-400 px-8 py-3 rounded-full text-sm font-bold uppercase tracking-widest shadow-xl flex items-center">
-                <span class="mr-2">🔓</span> Location Unlock
-            </div>
-            <h3 class="text-4xl md:text-6xl font-[Oswald] text-gray-900 mb-4 uppercase tracking-wide mt-4">Coming Soon to Chicago</h3>
-            <p class="text-gray-600 mb-10 text-xl font-medium">Sign up to get access to our Launch Party: <span class="text-yellow-600 font-bold underline decoration-2 underline-offset-4">First Event is free!</span></p>
-
-            <form onsubmit="submitChicagoForm(event)" class="flex flex-col gap-5 max-w-xl mx-auto">
-                <input type="text" id="chicago_name" placeholder="Enter your name" required class="w-full px-6 py-4 rounded-xl border-2 border-gray-200 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent text-lg bg-gray-50 transition-shadow">
-                <input type="email" id="chicago_email" placeholder="Enter your email address" required class="w-full px-6 py-4 rounded-xl border-2 border-gray-200 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent text-lg bg-gray-50 transition-shadow">
-                <button type="submit" id="chicago-submit-btn" class="w-full bg-black text-white px-10 py-4 rounded-xl font-bold text-lg hover:bg-gray-800 transition-all shadow-[0_10px_20px_rgba(0,0,0,0.2)] transform hover:-translate-y-1 uppercase tracking-widest mt-2">
-                    Get Access
+                <button id="start-survey-btn" onclick="document.getElementById('survey-form-container').classList.remove('hidden'); this.classList.add('hidden');" class="bg-black text-white py-4 px-10 rounded-full font-bold text-lg hover:bg-gray-800 transition-all shadow-lg inline-flex items-center transform hover:-translate-y-1 uppercase tracking-wide cursor-pointer relative z-50">
+                    Did you attend the event?
                 </button>
-            </form>
-        </div>
-    </div>
 
-    <div id="curator" class="bg-white py-24 px-4 border-t border-gray-100">
-        <div class="max-w-4xl mx-auto text-center" data-aos="fade-up">
-            <span class="text-yellow-500 font-bold tracking-widest uppercase text-sm mb-2 block">Connect Offline</span>
-            <h2 class="text-4xl md:text-5xl font-[Oswald] text-gray-900 mb-6 uppercase tracking-wide">Meet the Curator</h2>
-            <p class="text-xl text-gray-600 mb-10 font-light max-w-2xl mx-auto">Curious to know about us? Skip the screen time and come say hi. We're hanging out every Friday to chat about the community, events, and what you're looking for.</p>
+                <div id="survey-form-container" class="hidden mt-10 bg-gray-50 p-8 md:p-12 rounded-3xl shadow-xl text-left border border-gray-200">
+                    <form id="feedback-form" onsubmit="submitSurvey(event)" class="space-y-8">
+                        <div>
+                            <label class="block mb-3 font-bold text-gray-800 text-lg">Did you like the experience?</label>
+                            <div class="flex gap-4">
+                                <label class="flex-1 text-center border-2 border-gray-200 bg-white px-4 py-3 rounded-xl cursor-pointer hover:border-yellow-400 hover:bg-yellow-50 transition-all font-medium text-gray-700">
+                                    <input type="radio" name="liked_exp" value="Yes" class="mr-2 accent-yellow-500" required> Yes
+                                </label>
+                                <label class="flex-1 text-center border-2 border-gray-200 bg-white px-4 py-3 rounded-xl cursor-pointer hover:border-yellow-400 hover:bg-yellow-50 transition-all font-medium text-gray-700">
+                                    <input type="radio" name="liked_exp" value="No" class="mr-2 accent-yellow-500"> No
+                                </label>
+                            </div>
+                        </div>
 
-            <a href="https://maps.app.goo.gl/AoR4nJePpBDQCTqt5?g_st=iw" target="_blank" class="inline-flex flex-col sm:flex-row items-center justify-center bg-gray-50 border border-gray-200 py-6 px-10 rounded-3xl shadow-sm hover:shadow-xl hover:border-yellow-400 transition-all duration-300 group text-left transform hover:-translate-y-1">
-                <div class="bg-yellow-100 p-4 rounded-full mb-4 sm:mb-0 sm:mr-6 group-hover:scale-110 transition-transform">
-                    <span class="text-3xl">☕</span>
+                        <div>
+                            <label class="block mb-3 font-bold text-gray-800 text-lg">Will you want to repeat the same experience?</label>
+                            <div class="flex gap-4">
+                                <label class="flex-1 text-center border-2 border-gray-200 bg-white px-4 py-3 rounded-xl cursor-pointer hover:border-yellow-400 hover:bg-yellow-50 transition-all font-medium text-gray-700">
+                                    <input type="radio" name="repeat_exp" value="Yes" class="mr-2 accent-yellow-500" required> Yes
+                                </label>
+                                <label class="flex-1 text-center border-2 border-gray-200 bg-white px-4 py-3 rounded-xl cursor-pointer hover:border-yellow-400 hover:bg-yellow-50 transition-all font-medium text-gray-700">
+                                    <input type="radio" name="repeat_exp" value="No" class="mr-2 accent-yellow-500"> No
+                                </label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block mb-3 font-bold text-gray-800 text-lg">Are you available to join the event next week?</label>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <label class="text-center border-2 border-gray-200 bg-white px-4 py-3 rounded-xl cursor-pointer hover:border-yellow-400 hover:bg-yellow-50 transition-all font-medium text-gray-700">
+                                    <input type="radio" name="next_week" value="Yes weekdays" class="mr-2 accent-yellow-500" required> Yes weekdays
+                                </label>
+                                <label class="text-center border-2 border-gray-200 bg-white px-4 py-3 rounded-xl cursor-pointer hover:border-yellow-400 hover:bg-yellow-50 transition-all font-medium text-gray-700">
+                                    <input type="radio" name="next_week" value="Yes weekends" class="mr-2 accent-yellow-500"> Yes weekends
+                                </label>
+                                <label class="text-center border-2 border-gray-200 bg-white px-4 py-3 rounded-xl cursor-pointer hover:border-yellow-400 hover:bg-yellow-50 transition-all font-medium text-gray-700">
+                                    <input type="radio" name="next_week" value="No" class="mr-2 accent-yellow-500"> No
+                                </label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block mb-3 font-bold text-gray-800 text-lg">What kind of event would you like to attend?</label>
+                            <select name="event_type" class="w-full bg-white border border-gray-200 px-6 py-4 rounded-xl text-lg outline-none cursor-pointer hover:border-yellow-400 focus:border-yellow-500" required>
+                                <option value="" disabled selected>Select an option...</option>
+                                <option value="Yoga class + coffee">Yoga class + coffee</option>
+                                <option value="Bowling">Bowling</option>
+                                <option value="Cooking class">Cooking class</option>
+                                <option value="Pottery class">Pottery class</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block mb-3 font-bold text-gray-800 text-lg">Please let us know willingness to pay so we can lock in the event!</label>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <label class="text-center border-2 border-gray-200 bg-white px-4 py-3 rounded-xl cursor-pointer hover:border-yellow-400 hover:bg-yellow-50 transition-all font-medium text-gray-700">
+                                    <input type="radio" name="willingness_pay" value="20-40" class="mr-2 accent-yellow-500" required> $20 - $40
+                                </label>
+                                <label class="text-center border-2 border-gray-200 bg-white px-4 py-3 rounded-xl cursor-pointer hover:border-yellow-400 hover:bg-yellow-50 transition-all font-medium text-gray-700">
+                                    <input type="radio" name="willingness_pay" value="40-50" class="mr-2 accent-yellow-500"> $40 - $50
+                                </label>
+                                <label class="text-center border-2 border-gray-200 bg-white px-4 py-3 rounded-xl cursor-pointer hover:border-yellow-400 hover:bg-yellow-50 transition-all font-medium text-gray-700">
+                                    <input type="radio" name="willingness_pay" value="50-80" class="mr-2 accent-yellow-500"> $50 - $80
+                                </label>
+                            </div>
+                        </div>
+
+                        <hr class="border-gray-200 my-8">
+                        <p class="text-sm text-gray-500 mb-4 uppercase tracking-widest font-bold">Your Details</p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block mb-2 font-bold text-gray-800 text-lg">Your Name</label>
+                                <input type="text" id="survey_name" placeholder="Enter your name" required class="w-full bg-white border border-gray-200 px-6 py-4 rounded-xl text-lg outline-none hover:border-yellow-400 focus:border-yellow-500">
+                            </div>
+                            <div>
+                                <label class="block mb-2 font-bold text-gray-800 text-lg">Your Email</label>
+                                <input type="email" id="survey_email" placeholder="Enter your email address" required class="w-full bg-white border border-gray-200 px-6 py-4 rounded-xl text-lg outline-none hover:border-yellow-400 focus:border-yellow-500">
+                            </div>
+                        </div>
+
+                        <button type="submit" id="survey-submit-btn" class="w-full bg-yellow-500 text-black px-10 py-4 font-bold text-lg rounded-xl hover:bg-yellow-400 transition-all shadow-[0_4px_14px_rgba(234,179,8,0.3)] transform hover:-translate-y-1 uppercase tracking-wide mt-4 cursor-pointer">
+                            Submit Feedback
+                        </button>
+                    </form>
                 </div>
-                <div>
-                    <p class="text-2xl font-bold text-gray-900 flex items-center group-hover:text-yellow-600 transition-colors">
-                        Blue Bottle Cafe
-                        <svg class="w-5 h-5 ml-2 text-gray-400 group-hover:text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                    </p>
-                    <p class="text-lg text-gray-500 mt-1 flex items-center">
-                        <span class="mr-2">🕒</span> Fridays: 5:30 PM – 6:30 PM
-                    </p>
-                </div>
-            </a>
+            </div>
         </div>
-    </div>
 
-    <footer class="bg-black text-white py-16 text-center border-t border-gray-900">
-        <div class="mb-8 flex justify-center">
-            <a href="https://instagram.com/readymixmatch" target="_blank" class="inline-flex items-center text-yellow-500 hover:text-white transition-colors text-2xl font-[Oswald] tracking-widest uppercase">
-                <svg class="w-8 h-8 mr-3" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" /></svg>
-                Follow on Instagram
-            </a>
+        <div class="bg-[#111] py-24 px-4 border-t-4 border-yellow-500 relative overflow-hidden shadow-inner">
+            <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div class="relative z-10" data-aos="fade-right">
+                    <h2 class="text-5xl md:text-6xl font-[Oswald] text-yellow-500 uppercase tracking-widest mb-10 drop-shadow-lg">Why we are different?</h2>
+                    <ul class="space-y-6 text-xl md:text-2xl text-gray-300 font-light tracking-wide">
+                        <li class="flex items-center bg-white/5 p-4 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors">
+                            <svg class="w-8 h-8 text-red-500 mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg>
+                            No endless swiping
+                        </li>
+                        <li class="flex items-center bg-white/5 p-4 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors">
+                            <svg class="w-8 h-8 text-red-500 mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg>
+                            No large, awkward meetups
+                        </li>
+                        <li class="flex items-center bg-white/5 p-4 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors">
+                            <svg class="w-8 h-8 text-red-500 mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg>
+                            No random group chats
+                        </li>
+                    </ul>
+                    <div class="mt-12 inline-block bg-white text-black px-8 py-5 rounded-2xl font-bold text-2xl md:text-3xl shadow-2xl transform -rotate-2 border-4 border-yellow-500 hover:-rotate-1 transition-transform">
+                        Just curated groups that actually <span class="text-yellow-500 font-[Oswald] uppercase tracking-widest">click.</span>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4 md:gap-6 relative" data-aos="fade-left">
+                    <div class="mt-12 group"><img src="IMG_8498.jpg" alt="Running in desert" class="w-full h-64 md:h-80 object-cover rounded-3xl shadow-[0_15px_30px_rgba(0,0,0,0.5)] border-2 border-gray-800 transform group-hover:-translate-y-2 transition-transform"></div>
+                    <div class="group"><img src="IMG_8500.jpg" alt="Making Pizza" class="w-full h-72 md:h-96 object-cover rounded-3xl shadow-[0_15px_30px_rgba(0,0,0,0.5)] border-2 border-gray-800 transform group-hover:-translate-y-2 transition-transform"></div>
+                    <div class="-mt-12 group"><img src="IMG_8499.jpg" alt="Group Dinner" class="w-full h-72 md:h-96 object-cover rounded-3xl shadow-[0_15px_30px_rgba(0,0,0,0.5)] border-2 border-gray-800 transform group-hover:-translate-y-2 transition-transform"></div>
+                    <div class="mt-4 group"><img src="IMG_8501.jpg" alt="Playing Games" class="w-full h-64 md:h-80 object-cover rounded-3xl shadow-[0_15px_30px_rgba(0,0,0,0.5)] border-2 border-gray-800 transform group-hover:-translate-y-2 transition-transform"></div>
+                </div>
+            </div>
         </div>
-        <p class="text-gray-500 text-sm tracking-wide uppercase">&copy; 2026 ReadyMix Match. All rights reserved.</p>
+
+        <div id="signup" class="py-24 bg-gray-100">
+            <div class="container mx-auto max-w-3xl px-4" data-aos="fade-up">
+                <div class="bg-white rounded-3xl shadow-[0_8px_40px_rgba(0,0,0,0.08)] p-8 md:p-12 border border-gray-200/60">
+
+                    <div id="progress-container" class="mb-10 hidden">
+                        <div class="flex justify-between mb-3">
+                            <span id="step-counter" class="text-xs font-bold text-gray-400 uppercase tracking-widest">Step 1 of 5</span>
+                        </div>
+                        <div class="w-full bg-gray-100 rounded-full h-2">
+                            <div id="progress-bar" class="bg-yellow-500 h-2 rounded-full transition-all duration-700 ease-out shadow-sm" style="width: 20%"></div>
+                        </div>
+                    </div>
+
+                    <form id="readymix-form" class="space-y-6" onsubmit="event.preventDefault();">
+
+                        <div class="form-step" id="step-1">
+                            <div class="text-center mb-10">
+                                <h2 class="text-4xl font-[Oswald] text-gray-900 mb-2 uppercase tracking-wide">Join the Waitlist</h2>
+                                <p class="text-gray-500">The essentials to get you on the radar.</p>
+                            </div>
+
+                            <div class="space-y-5">
+                                <div>
+                                    <input type="text" id="user_name" placeholder="What should we call you? *" class="w-full bg-gray-50 border border-gray-200 px-6 py-4 rounded-xl text-lg premium-input outline-none">
+                                    <p id="name_error" class="error-msg text-red-500 text-sm font-semibold mt-2 ml-2 hidden">Please enter your name.</p>
+                                </div>
+
+                                <div>
+                                    <input type="number" id="user_age" placeholder="Your Age *" class="w-full bg-gray-50 border border-gray-200 px-6 py-4 rounded-xl text-lg premium-input outline-none">
+                                    <p id="age_error" class="error-msg text-red-500 text-sm font-semibold mt-2 ml-2 hidden">You must be 18 or older to join.</p>
+                                </div>
+
+                                <div>
+                                    <input type="text" id="user_email" placeholder="Where can we send your invites? *" class="w-full bg-gray-50 border border-gray-200 px-6 py-4 rounded-xl text-lg premium-input outline-none">
+                                    <p id="email_error" class="error-msg text-red-500 text-sm font-semibold mt-2 ml-2 hidden">Please enter a valid email address.</p>
+                                </div>
+
+                                <div>
+                                    <input type="tel" id="user_phone" placeholder="Phone Number (Optional - For day-of updates)" class="w-full bg-gray-50 border border-gray-200 px-6 py-4 rounded-xl text-lg premium-input outline-none">
+                                    <p id="phone_error" class="error-msg text-red-500 text-sm font-semibold mt-2 ml-2 hidden">Please enter a valid 10-digit phone number.</p>
+                                </div>
+                            </div>
+
+                            <div id="step-1-buttons" class="flex flex-col gap-4 mt-12">
+                                <button type="button" id="quick-submit-btn" class="w-full bg-black text-white px-6 py-4 font-bold text-lg rounded-xl hover:bg-gray-800 transition-all shadow-[0_4px_14px_rgba(0,0,0,0.15)] flex justify-center items-center group cursor-pointer" onclick="submitForm('quick')">
+                                    Join Waitlist
+                                </button>
+
+                                <div class="flex items-center justify-center my-2">
+                                    <div class="border-t border-gray-200 flex-grow"></div>
+                                    <span class="px-4 text-sm text-gray-400 font-bold uppercase tracking-widest">or</span>
+                                    <div class="border-t border-gray-200 flex-grow"></div>
+                                </div>
+
+                                <button type="button" class="w-full bg-white border-2 border-yellow-500 text-yellow-600 px-6 py-4 font-bold text-lg rounded-xl hover:bg-yellow-50 transition-colors shadow-sm cursor-pointer" onclick="changeStep(1)">
+                                    Let's customize it for future preferences
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="form-step hidden" id="step-2">
+                            <h2 class="text-3xl font-bold mb-8 text-gray-800">Location & Availability</h2>
+
+                            <label class="block mb-4 font-semibold text-gray-700 text-lg">Where are you looking to hang out?</label>
+                            <div class="flex space-x-6 mb-8 bg-gray-50 p-4 rounded-xl border border-gray-100">
+                                <label class="flex items-center cursor-pointer text-lg font-medium text-gray-700 hover:text-yellow-600 transition-colors"><input type="radio" name="loc_type" value="city" class="mr-3 w-5 h-5 accent-yellow-500" checked onchange="toggleLocationMode()"> Search by City</label>
+                                <label class="flex items-center cursor-pointer text-lg font-medium text-gray-700 hover:text-yellow-600 transition-colors"><input type="radio" name="loc_type" value="zip" class="mr-3 w-5 h-5 accent-yellow-500" onchange="toggleLocationMode()"> Search by Zip Code</label>
+                            </div>
+
+                            <div id="city-section" class="mb-10">
+                                <label class="block mb-2 text-sm font-semibold text-gray-500 uppercase tracking-wider">Select up to 5 cities</label>
+                                <input list="us-cities" id="city-input" placeholder="Start typing a city..." class="w-full bg-gray-50 border border-gray-200 px-6 py-4 rounded-xl text-lg premium-input outline-none mb-3">
+                                <datalist id="us-cities">
+                                    <option value="New York, NY"></option>
+                                    <option value="Los Angeles, CA"></option>
+                                    <option value="Chicago, IL"></option>
+                                    <option value="Houston, TX"></option>
+                                    <option value="Phoenix, AZ"></option>
+                                    <option value="Philadelphia, PA"></option>
+                                    <option value="San Antonio, TX"></option>
+                                    <option value="San Diego, CA"></option>
+                                    <option value="Dallas, TX"></option>
+                                    <option value="Austin, TX"></option>
+                                    <option value="Lancaster, PA"></option>
+                                    <option value="Orlando, FL"></option>
+                                </datalist>
+                                <div id="selected-cities" class="flex flex-wrap gap-2 mt-3"></div>
+                            </div>
+
+                            <div id="zip-section" class="hidden mb-10 p-6 bg-gray-50 border border-gray-200 rounded-2xl shadow-sm">
+                                <input type="text" id="zip-input" placeholder="Enter Zip Code" class="w-full bg-white border border-gray-200 px-6 py-4 rounded-xl text-lg premium-input outline-none mb-6" onkeyup="simulateRadiusSearch()" maxlength="5">
+                                <label class="block mb-3 font-bold text-gray-700">Search Radius: <span id="radius-display" class="text-yellow-600 ml-2">25 miles</span></label>
+                                <input type="range" id="radius-slider" min="5" max="250" step="5" value="25" class="w-full accent-yellow-500 mb-2" onchange="updateRadiusDisplay(); simulateRadiusSearch();">
+                                <div class="flex justify-between text-xs text-gray-400 font-bold uppercase tracking-widest"><span>5 mi</span><span>125 mi</span><span>250 mi</span></div>
+                                <div id="dynamic-cities-container" class="mt-8 hidden">
+                                    <label class="block mb-3 text-sm font-bold text-gray-500 uppercase tracking-wider">Select up to 5 nearby cities:</label>
+                                    <div id="nearby-cities-list" class="flex flex-wrap gap-2 max-h-48 overflow-y-auto custom-scrollbar p-2 bg-white rounded-xl border border-gray-100"></div>
+                                    <p id="city-limit-warning" class="text-red-500 text-xs mt-2 hidden font-semibold">You can only select up to 5 cities.</p>
+                                </div>
+                            </div>
+                            <p id="location_error" class="error-msg text-red-500 text-sm font-semibold mb-6 hidden">Please select a location before continuing.</p>
+
+                            <label class="block mb-4 font-semibold text-gray-700 text-lg">When are you usually free?</label>
+                            <div class="flex flex-wrap gap-3 mb-10">
+                                <label class="selectable-chip border-2 border-gray-200 bg-white px-5 py-3 rounded-xl cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md"><input type="checkbox" class="hidden" value="weekday"> Weekday Evenings</label>
+                                <label class="selectable-chip border-2 border-gray-200 bg-white px-5 py-3 rounded-xl cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md"><input type="checkbox" class="hidden" value="weekend"> Weekends</label>
+                                <label class="selectable-chip border-2 border-gray-200 bg-white px-5 py-3 rounded-xl cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md"><input type="checkbox" class="hidden" value="anytime"> Anytime</label>
+                            </div>
+
+                            <label class="block mb-4 font-semibold text-gray-700 text-lg">Dietary preferences?</label>
+                            <select class="w-full bg-gray-50 border border-gray-200 px-6 py-4 rounded-xl text-lg premium-input outline-none cursor-pointer appearance-none" id="diet_pref">
+                                <option>No Restrictions</option>
+                                <option>Vegetarian</option>
+                                <option>Vegan</option>
+                                <option>Gluten-Free</option>
+                                <option>Halal</option>
+                            </select>
+                        </div>
+
+                        <div class="form-step hidden" id="step-3">
+                            <h2 class="text-3xl font-bold mb-8 text-gray-800">Event Preferences</h2>
+                            <label class="block mb-4 font-semibold text-gray-700 text-lg">Typical budget per event?</label>
+                            <div class="flex flex-col sm:flex-row gap-4 mb-10">
+                                <label class="selectable-chip flex-1 text-center border-2 border-gray-200 bg-white px-4 py-4 rounded-xl cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md">
+                                    <input type="radio" name="budget" class="hidden budget-input" value="low"> <span class="block text-lg">💸</span> Ballin' on a budget (<$20)
+                                </label>
+                                <label class="selectable-chip flex-1 text-center border-2 border-gray-200 bg-white px-4 py-4 rounded-xl cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md">
+                                    <input type="radio" name="budget" class="hidden budget-input" value="mid"> <span class="block text-lg">💳</span> Mid-range ($20-$40)
+                                </label>
+                                <label class="selectable-chip flex-1 text-center border-2 border-gray-200 bg-white px-4 py-4 rounded-xl cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md">
+                                    <input type="radio" name="budget" class="hidden budget-input" value="high"> <span class="block text-lg">💎</span> Treat myself ($40-$80+)
+                                </label>
+                            </div>
+
+                            <label class="block mb-4 font-semibold text-gray-700 text-lg">What kind of vibe? (Select all that apply)</label>
+                            <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-10">
+                                <label class="selectable-chip border-2 border-gray-200 bg-white p-5 rounded-xl text-center cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md flex flex-col items-center justify-center gap-2"><input type="checkbox" class="hidden vibe-input" value="Outdoor"> <span class="text-2xl">🌳</span> Outdoor</label>
+                                <label class="selectable-chip border-2 border-gray-200 bg-white p-5 rounded-xl text-center cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md flex flex-col items-center justify-center gap-2"><input type="checkbox" class="hidden vibe-input" value="Indoor"> <span class="text-2xl">🏠</span> Indoor</label>
+                                <label class="selectable-chip border-2 border-gray-200 bg-white p-5 rounded-xl text-center cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md flex flex-col items-center justify-center gap-2"><input type="checkbox" class="hidden vibe-input" value="Food"> <span class="text-2xl">🍕</span> Food & Drink</label>
+                                <label class="selectable-chip border-2 border-gray-200 bg-white p-5 rounded-xl text-center cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md flex flex-col items-center justify-center gap-2"><input type="checkbox" class="hidden vibe-input" value="Recreation"> <span class="text-2xl">🎯</span> Recreation</label>
+                                <label class="selectable-chip border-2 border-gray-200 bg-white p-5 rounded-xl text-center cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md flex flex-col items-center justify-center gap-2"><input type="checkbox" class="hidden vibe-input" value="Education"> <span class="text-2xl">🧠</span> Education</label>
+                            </div>
+
+                            <div id="recommendations-section" class="hidden bg-yellow-50 border-2 border-yellow-200 p-6 rounded-2xl shadow-sm transition-all duration-500">
+                                <label class="block mb-4 font-bold text-yellow-800 text-lg">✨ Recommended Activities for You</label>
+                                <p class="text-sm text-yellow-700 mb-4 opacity-80">Select the ones that sound like a good time.</p>
+                                <div id="dynamic-activities" class="flex flex-wrap gap-2"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-step hidden" id="step-4">
+                            <h2 class="text-3xl font-bold mb-8 text-gray-800">The Crowd</h2>
+                            <label class="block mb-4 font-semibold text-gray-700 text-lg">Who are you looking to connect with?</label>
+                            <div class="flex flex-col space-y-4 mb-8 bg-gray-50 p-6 border border-gray-200 rounded-2xl shadow-sm">
+                                <label class="flex items-center text-lg cursor-pointer font-medium hover:text-yellow-600 transition-colors"><input type="radio" name="gender_pref" class="mr-4 w-5 h-5 accent-yellow-500"> Same gender</label>
+                                <label class="flex items-center text-lg cursor-pointer font-medium hover:text-yellow-600 transition-colors"><input type="radio" name="gender_pref" class="mr-4 w-5 h-5 accent-yellow-500"> Mixed gender / Gender-balanced</label>
+                            </div>
+
+                            <label class="block mb-4 font-semibold text-gray-700 text-lg">Age preference:</label>
+                            <div class="flex flex-col space-y-4 mb-10 bg-gray-50 p-6 border border-gray-200 rounded-2xl shadow-sm">
+                                <label class="flex items-center text-lg cursor-pointer font-medium hover:text-yellow-600 transition-colors"><input type="radio" name="age_pref" class="mr-4 w-5 h-5 accent-yellow-500"> Keep it close to my age (+/- 5 years)</label>
+                                <label class="flex items-center text-lg cursor-pointer font-medium hover:text-yellow-600 transition-colors"><input type="radio" name="age_pref" class="mr-4 w-5 h-5 accent-yellow-500"> I'm open to all ages</label>
+                            </div>
+
+                            <div class="bg-gray-50 p-6 border border-gray-200 rounded-2xl shadow-sm space-y-6">
+                                <div class="flex items-center justify-between border-b border-gray-200 pb-6">
+                                    <span class="font-bold text-gray-700 text-lg">Looking for professional networking?</span>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" class="sr-only peer">
+                                        <div class="w-11 h-6 bg-gray-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-yellow-500"></div>
+                                    </label>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span class="font-bold text-gray-700 text-lg">Bringing a plus one?</span>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" class="sr-only peer">
+                                        <div class="w-11 h-6 bg-gray-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-yellow-500"></div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-step hidden" id="step-5">
+                            <h2 class="text-3xl font-bold mb-8 text-gray-800">About You</h2>
+                            <label class="block mb-4 font-semibold text-gray-700 text-lg">Personality? (Select up to 3)</label>
+                            <div class="flex flex-wrap gap-3 mb-10">
+                                <label class="selectable-chip border-2 border-gray-200 bg-white px-5 py-2 rounded-full cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm"><input type="checkbox" class="hidden" value="Outgoing"> Outgoing</label>
+                                <label class="selectable-chip border-2 border-gray-200 bg-white px-5 py-2 rounded-full cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm"><input type="checkbox" class="hidden" value="Introverted"> Introverted</label>
+                                <label class="selectable-chip border-2 border-gray-200 bg-white px-5 py-2 rounded-full cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm"><input type="checkbox" class="hidden" value="Extroverted"> Extroverted</label>
+                                <label class="selectable-chip border-2 border-gray-200 bg-white px-5 py-2 rounded-full cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm"><input type="checkbox" class="hidden" value="Trustworthy"> Trustworthy</label>
+                                <label class="selectable-chip border-2 border-gray-200 bg-white px-5 py-2 rounded-full cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm"><input type="checkbox" class="hidden" value="Skeptical"> Skeptical</label>
+                                <label class="selectable-chip border-2 border-gray-200 bg-white px-5 py-2 rounded-full cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm"><input type="checkbox" class="hidden" value="Cautious"> Cautious</label>
+                            </div>
+
+                            <label class="block mb-6 font-semibold text-gray-700 text-lg">Willing to step out of your comfort zone?</label>
+                            <div class="mb-10 bg-gray-50 p-6 rounded-2xl border border-gray-200 shadow-sm">
+                                <input type="range" id="comfort_zone" min="1" max="3" step="1" class="w-full accent-yellow-500 bg-gray-200 h-2 rounded-lg appearance-none cursor-pointer">
+                                <div class="flex justify-between text-xs text-gray-500 font-bold mt-4 uppercase tracking-widest">
+                                    <span>Stick to what I know</span>
+                                    <span class="text-center">Maybe a little</span>
+                                    <span>Absolutely!</span>
+                                </div>
+                            </div>
+
+                            <label class="block mb-4 font-semibold text-gray-700 text-lg">What are you looking for?</label>
+                            <textarea id="looking_for" rows="4" class="w-full bg-gray-50 border border-gray-200 p-6 rounded-2xl text-lg premium-input outline-none resize-none" placeholder="e.g., Someone to try new restaurants with, a gym buddy, or just good conversation..."></textarea>
+                        </div>
+
+                        <div id="nav-buttons" class="hidden justify-between mt-10 pt-8 border-t border-gray-200">
+                            <button type="button" id="prev-btn" class="hidden px-8 py-3 border-2 border-gray-300 text-gray-600 font-bold rounded-xl hover:bg-gray-100 transition-colors focus:outline-none cursor-pointer" onclick="changeStep(-1)">Back</button>
+                            <button type="button" id="next-btn" class="ml-auto bg-black text-white px-10 py-4 font-bold rounded-xl hover:bg-gray-800 transition-all shadow-[0_4px_14px_rgba(0,0,0,0.15)] flex items-center group cursor-pointer" onclick="changeStep(1)">
+                                Next Step <svg class="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                            </button>
+                            <button type="button" id="submit-btn" class="hidden ml-auto bg-yellow-500 text-black px-10 py-4 font-bold rounded-xl hover:bg-yellow-400 transition-all shadow-[0_4px_14px_rgba(234,179,8,0.3)] transform hover:-translate-y-1 uppercase tracking-wide cursor-pointer" onclick="submitForm('full')">
+                                Complete Sign Up
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div id="curator" class="bg-white py-24 px-4 border-t border-gray-100">
+            <div class="max-w-4xl mx-auto text-center" data-aos="fade-up">
+                <span class="text-yellow-500 font-bold tracking-widest uppercase text-sm mb-2 block">Connect Offline</span>
+                <h2 class="text-4xl md:text-5xl font-[Oswald] text-gray-900 mb-6 uppercase tracking-wide">Meet the Curator</h2>
+                <p class="text-xl text-gray-600 mb-10 font-light max-w-2xl mx-auto">Curious to know about us? Skip the screen time and come say hi. We're hanging out every Friday to chat about the community, events, and what you're looking for.</p>
+
+                <a href="https://share.google/36SWnq03QtWmj82Xx" target="_blank" class="inline-flex flex-col sm:flex-row items-center justify-center bg-gray-50 border border-gray-200 py-6 px-10 rounded-3xl shadow-sm hover:shadow-xl hover:border-yellow-400 transition-all duration-300 group text-left transform hover:-translate-y-1">
+                    <div class="bg-yellow-100 p-4 rounded-full mb-4 sm:mb-0 sm:mr-6 group-hover:scale-110 transition-transform">
+                        <span class="text-3xl">☕</span>
+                    </div>
+                    <div>
+                        <p class="text-2xl font-bold text-gray-900 flex items-center group-hover:text-yellow-600 transition-colors">
+                            Starbucks
+                            <svg class="w-5 h-5 ml-2 text-gray-400 group-hover:text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                        </p>
+                        <p class="text-lg text-gray-500 mt-1 flex items-center">
+                            <span class="mr-2">📍</span> 505 N Michigan Ave, Chicago, IL 60611
+                        </p>
+                        <p class="text-lg text-gray-500 mt-1 flex items-center">
+                            <span class="mr-2">🕒</span> Fridays: 5:30 PM – 6:30 PM
+                        </p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div> <div id="tab-highlights" class="hidden min-h-screen bg-[#111] pt-32 pb-24">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <button onclick="switchTab('home')" class="mb-12 inline-flex items-center text-gray-400 hover:text-yellow-500 transition-colors font-bold uppercase tracking-wider text-sm border border-gray-700 hover:border-yellow-500 px-5 py-2 rounded-full cursor-pointer">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                Back to Home
+            </button>
+
+            <span class="text-yellow-500 font-bold tracking-widest uppercase text-sm mb-2 block">Captured Memories</span>
+            <h2 class="text-5xl md:text-6xl font-[Oswald] text-white uppercase tracking-widest mb-12 drop-shadow-lg">Event Highlights</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="group overflow-hidden rounded-3xl shadow-[0_15px_30px_rgba(0,0,0,0.5)] border-2 border-gray-800">
+                    <img src="6104dacc-56fa-41aa-a58d-80926bac4632.jpg" alt="Group playing games" class="w-full h-80 md:h-[400px] object-cover transform group-hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="group overflow-hidden rounded-3xl shadow-[0_15px_30px_rgba(0,0,0,0.5)] border-2 border-gray-800">
+                    <img src="504725e4-dc72-4260-8bb8-7cf6bacfab12.jpg" alt="People playing Ticket to Ride" class="w-full h-80 md:h-[400px] object-cover transform group-hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="group overflow-hidden rounded-3xl shadow-[0_15px_30px_rgba(0,0,0,0.5)] border-2 border-gray-800">
+                    <img src="60061c86-2035-4f50-a754-f37a59bcae39.JPG" alt="Ticket to Ride board game" class="w-full h-80 md:h-[400px] object-cover transform group-hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="group overflow-hidden rounded-3xl shadow-[0_15px_30px_rgba(0,0,0,0.5)] border-2 border-gray-800">
+                    <img src="4b474bbe-6440-4866-9d81-356f7a40057a.JPG" alt="Game categories" class="w-full h-80 md:h-[400px] object-cover transform group-hover:scale-105 transition-transform duration-500">
+                </div>
+            </div>
+        </div>
+    </div> <footer class="bg-black text-white py-16 text-center border-t border-gray-900">
+        <p class="text-gray-500 text-sm tracking-wide uppercase">© 2026 ReadyMix Match. All rights reserved.</p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
     <script>
-        // Initialize AOS animations
-        AOS.init({
-            once: true,
-            duration: 800,
-            offset: 100,
-        });
+        AOS.init({ once: true, duration: 800, offset: 100 });
 
-        // --- STICKY NAVBAR LOGIC ---
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('tm-nav');
             if (window.scrollY > 50) {
@@ -460,6 +531,28 @@
                 nav.classList.add('bg-opacity-0', 'border-transparent');
             }
         });
+
+        // Tab Switching Logic
+        function switchTab(tabId) {
+            if (tabId === 'highlights') {
+                document.getElementById('tab-home').classList.add('hidden');
+                document.getElementById('tab-highlights').classList.remove('hidden');
+            } else {
+                document.getElementById('tab-highlights').classList.add('hidden');
+                document.getElementById('tab-home').classList.remove('hidden');
+            }
+            window.scrollTo(0, 0);
+            AOS.refresh();
+        }
+
+        function enterSite() {
+            const overlay = document.getElementById('landing-overlay');
+            overlay.classList.add('opacity-0');
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }, 700);
+        }
 
         // --- IMAGE SLIDER LOGIC ---
         const heroImages = ['IMG_8498.jpg', 'IMG_8499.jpg', 'IMG_8500.jpg', 'IMG_8501.jpg'];
@@ -473,15 +566,7 @@
         introSection.style.backgroundImage = `url('${heroImages[0]}')`;
         setInterval(changeHeroBackground, 5000);
 
-        function enterSite() {
-            const overlay = document.getElementById('landing-overlay');
-            overlay.classList.add('opacity-0');
-            setTimeout(() => {
-                overlay.style.display = 'none';
-                document.body.style.overflow = 'auto';
-            }, 700);
-        }
-
+        // --- WAITLIST MULTI-STEP LOGIC ---
         let currentStep = 1;
         const totalSteps = 5;
 
@@ -587,7 +672,7 @@
             chosenCities.forEach(city => {
                 const chip = document.createElement('div');
                 chip.className = 'inline-flex items-center bg-yellow-100 border border-yellow-500 text-yellow-900 px-3 py-1 rounded-full text-sm font-medium shadow-sm';
-                chip.innerHTML = `${city} <button type="button" class="ml-2 text-yellow-700 hover:text-red-600 font-bold focus:outline-none transition-colors" onclick="removeCity('${city}')">&times;</button>`;
+                chip.innerHTML = `${city} <button type="button" class="ml-2 text-yellow-700 hover:text-red-600 font-bold focus:outline-none transition-colors" onclick="removeCity('${city}')">×</button>`;
                 selectedCitiesContainer.appendChild(chip);
             });
             if (chosenCities.length >= 5) {
@@ -774,17 +859,16 @@
             } else { container.classList.add('hidden'); }
         }
 
-        // --- SUBMISSION LOGIC WITH LOADING SPINNERS ---
         const supabaseUrl = 'https://wsxnvbjcglyebnncwhsi.supabase.co';
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndzeG52YmpjZ2x5ZWJubmN3aHNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMxNDQyODEsImV4cCI6MjA4ODcyMDI4MX0.vh5fy0VFOb7lJpcHOec1rVtd59z7KEoMR3PTXH74FX8';
 
+        // --- WAITLIST SUBMISSION LOGIC ---
         async function submitForm(mode) {
             if (mode === 'quick' && !validateStep(1)) return;
 
             const submitBtn = mode === 'quick' ? document.getElementById('quick-submit-btn') : document.getElementById('submit-btn');
             const originalText = submitBtn.innerText;
 
-            // Add loading spinner UI to button
             submitBtn.innerHTML = `<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Processing...`;
             submitBtn.disabled = true;
 
@@ -827,7 +911,6 @@
                     looking_for = document.querySelector('#step-5 textarea').value;
                 }
 
-                // 1. SAVE TO DATABASE
                 const { data, error } = await supabase
                     .from('readymix_users')
                     .insert([{
@@ -840,7 +923,6 @@
 
                 if (error) throw new Error("Database save failed: " + error.message);
 
-                // 2. TRIGGER EDGE FUNCTION EMAIL
                 const { data: emailData, error: emailError } = await supabase.functions.invoke('send-welcome-email', {
                     body: { name: name, email: email, source: 'waitlist' }
                 });
@@ -856,37 +938,63 @@
             }
         }
 
-        // --- CHICAGO EVENT SUBMISSION LOGIC ---
-        async function submitChicagoForm(event) {
+        // --- SUBMIT FEEDBACK SURVEY LOGIC ---
+        async function submitSurvey(event) {
             event.preventDefault();
-            const btn = document.getElementById('chicago-submit-btn');
+            const btn = document.getElementById('survey-submit-btn');
             const ogText = btn.innerText;
 
-            // Add loading spinner UI to button
-            btn.innerHTML = `<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Securing Spot...`;
+            btn.innerHTML = `Processing...`;
             btn.disabled = true;
 
             try {
-                const name = document.getElementById('chicago_name').value.trim();
-                const email = document.getElementById('chicago_email').value.trim();
+                const name = document.getElementById('survey_name').value.trim();
+                const email = document.getElementById('survey_email').value.trim();
 
+                const liked = document.querySelector('input[name="liked_exp"]:checked')?.value;
+                const repeat = document.querySelector('input[name="repeat_exp"]:checked')?.value;
+                const nextWeek = document.querySelector('input[name="next_week"]:checked')?.value;
+                const eventType = document.querySelector('select[name="event_type"]').value;
+                const willingness = document.querySelector('input[name="willingness_pay"]:checked')?.value;
+
+                const sourceTag = 'survey';
+
+                const surveyDetails = `
+                                Liked Experience: ${liked}
+                                Wants to Repeat: ${repeat}
+                                Available Next Week: ${nextWeek}
+                                Preferred Event: ${eventType}
+                                Willing to Pay: $${willingness}
+                            `.trim();
+
+                if (!window.supabase) throw new Error("Supabase library failed to load.");
                 const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
-                const { data, error } = await supabase
-                    .from('readymix_users')
-                    .insert([{ name: name, email: email, location_type: 'chicago_launch' }]);
+                const feedbackData = {
+                    name: name,
+                    email: email,
+                    source: sourceTag,
+                    survey_answers: surveyDetails,
+                    notify_hosts: true,
+                    admin_emails: ['kvbiddle@gmail.com', 'shukladivya43@gmail.com']
+                };
 
-                if (error) throw new Error("Database save failed.");
-
-                await supabase.functions.invoke('send-welcome-email', {
-                    body: { name: name, email: email, source: 'chicago' }
+                const { error: emailError } = await supabase.functions.invoke('send-welcome-email', {
+                    body: feedbackData
                 });
 
-                alert('You are on the list for Chicago! Keep an eye on your inbox.');
-                window.location.reload();
+                if (emailError) console.error("Email Error:", emailError);
+
+                alert("Thank you! Your feedback has been received and a confirmation email has been sent.");
+
+                document.getElementById('feedback-form').reset();
+                document.getElementById('survey-form-container').classList.add('hidden');
+                document.getElementById('start-survey-btn').classList.remove('hidden');
 
             } catch (e) {
-                alert("Something went wrong. Please try again.");
+                console.error("Submission Error:", e);
+                alert("Something went wrong: " + e.message);
+            } finally {
                 btn.innerHTML = ogText;
                 btn.disabled = false;
             }
