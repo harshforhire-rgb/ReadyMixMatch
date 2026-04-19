@@ -133,55 +133,62 @@
                         </div>
 
                         <div>
-                            <label class="block mb-3 font-bold text-gray-800 text-lg">Will you want to repeat the same experience?</label>
+                            <label class="block mb-3 font-bold text-gray-800 text-lg">Would you be interested in attending future events?</label>
                             <div class="flex gap-4">
                                 <label class="flex-1 text-center border-2 border-gray-200 bg-white px-4 py-3 rounded-xl cursor-pointer hover:border-yellow-400 hover:bg-yellow-50 transition-all font-medium text-gray-700">
-                                    <input type="radio" name="repeat_exp" value="Yes" class="mr-2 accent-yellow-500" required> Yes
+                                    <input type="radio" name="repeat_exp" value="Yes" class="mr-2 accent-yellow-500" onchange="toggleFutureEvents(true)" required> Yes
                                 </label>
                                 <label class="flex-1 text-center border-2 border-gray-200 bg-white px-4 py-3 rounded-xl cursor-pointer hover:border-yellow-400 hover:bg-yellow-50 transition-all font-medium text-gray-700">
-                                    <input type="radio" name="repeat_exp" value="No" class="mr-2 accent-yellow-500"> No
+                                    <input type="radio" name="repeat_exp" value="No" class="mr-2 accent-yellow-500" onchange="toggleFutureEvents(false)"> No
                                 </label>
                             </div>
                         </div>
 
-                        <div>
-                            <label class="block mb-3 font-bold text-gray-800 text-lg">Are you available to join the event next week?</label>
-                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                                <label class="text-center border-2 border-gray-200 bg-white px-4 py-3 rounded-xl cursor-pointer hover:border-yellow-400 hover:bg-yellow-50 transition-all font-medium text-gray-700">
-                                    <input type="radio" name="next_week" value="Yes weekdays" class="mr-2 accent-yellow-500" required> Yes weekdays
-                                </label>
-                                <label class="text-center border-2 border-gray-200 bg-white px-4 py-3 rounded-xl cursor-pointer hover:border-yellow-400 hover:bg-yellow-50 transition-all font-medium text-gray-700">
-                                    <input type="radio" name="next_week" value="Yes weekends" class="mr-2 accent-yellow-500"> Yes weekends
-                                </label>
-                                <label class="text-center border-2 border-gray-200 bg-white px-4 py-3 rounded-xl cursor-pointer hover:border-yellow-400 hover:bg-yellow-50 transition-all font-medium text-gray-700">
-                                    <input type="radio" name="next_week" value="No" class="mr-2 accent-yellow-500"> No
-                                </label>
+                        <div id="why-no-section" class="hidden mt-8">
+                            <label class="block mb-3 font-bold text-gray-800 text-lg">We're sorry to hear that! What could we have done better?</label>
+                            <textarea id="why_no_reason" rows="3" class="w-full bg-white border border-gray-200 p-4 rounded-xl text-lg outline-none resize-none hover:border-yellow-400 focus:border-yellow-500" placeholder="Let us know your thoughts..."></textarea>
+                        </div>
+
+                        <div id="dependent-questions" class="space-y-8 mt-8">
+                            <div>
+                                <label class="block mb-3 font-bold text-gray-800 text-lg">Are you available to join the event next week?</label>
+                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                    <label class="text-center border-2 border-gray-200 bg-white px-4 py-3 rounded-xl cursor-pointer hover:border-yellow-400 hover:bg-yellow-50 transition-all font-medium text-gray-700">
+                                        <input type="radio" name="next_week" value="Yes weekdays" class="mr-2 accent-yellow-500 dependent-input" required> Yes weekdays
+                                    </label>
+                                    <label class="text-center border-2 border-gray-200 bg-white px-4 py-3 rounded-xl cursor-pointer hover:border-yellow-400 hover:bg-yellow-50 transition-all font-medium text-gray-700">
+                                        <input type="radio" name="next_week" value="Yes weekends" class="mr-2 accent-yellow-500 dependent-input"> Yes weekends
+                                    </label>
+                                    <label class="text-center border-2 border-gray-200 bg-white px-4 py-3 rounded-xl cursor-pointer hover:border-yellow-400 hover:bg-yellow-50 transition-all font-medium text-gray-700">
+                                        <input type="radio" name="next_week" value="No" class="mr-2 accent-yellow-500 dependent-input"> No
+                                    </label>
+                                </div>
                             </div>
-                        </div>
 
-                        <div>
-                            <label class="block mb-3 font-bold text-gray-800 text-lg">What kind of event would you like to attend?</label>
-                            <select name="event_type" class="w-full bg-white border border-gray-200 px-6 py-4 rounded-xl text-lg outline-none cursor-pointer hover:border-yellow-400 focus:border-yellow-500" required>
-                                <option value="" disabled selected>Select an option...</option>
-                                <option value="Yoga class + coffee">Yoga class + coffee</option>
-                                <option value="Bowling">Bowling</option>
-                                <option value="Cooking class">Cooking class</option>
-                                <option value="Pottery class">Pottery class</option>
-                            </select>
-                        </div>
+                            <div>
+                                <label class="block mb-3 font-bold text-gray-800 text-lg">What kind of event would you like to attend?</label>
+                                <select name="event_type" class="w-full bg-white border border-gray-200 px-6 py-4 rounded-xl text-lg outline-none cursor-pointer hover:border-yellow-400 focus:border-yellow-500 dependent-input" required>
+                                    <option value="" disabled selected>Select an option...</option>
+                                    <option value="Yoga class + coffee">Yoga class + coffee</option>
+                                    <option value="Bowling">Bowling</option>
+                                    <option value="Cooking class">Cooking class</option>
+                                    <option value="Pottery class">Pottery class</option>
+                                </select>
+                            </div>
 
-                        <div>
-                            <label class="block mb-3 font-bold text-gray-800 text-lg">Please let us know willingness to pay so we can lock in the event!</label>
-                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                                <label class="text-center border-2 border-gray-200 bg-white px-4 py-3 rounded-xl cursor-pointer hover:border-yellow-400 hover:bg-yellow-50 transition-all font-medium text-gray-700">
-                                    <input type="radio" name="willingness_pay" value="20-40" class="mr-2 accent-yellow-500" required> $20 - $40
-                                </label>
-                                <label class="text-center border-2 border-gray-200 bg-white px-4 py-3 rounded-xl cursor-pointer hover:border-yellow-400 hover:bg-yellow-50 transition-all font-medium text-gray-700">
-                                    <input type="radio" name="willingness_pay" value="40-50" class="mr-2 accent-yellow-500"> $40 - $50
-                                </label>
-                                <label class="text-center border-2 border-gray-200 bg-white px-4 py-3 rounded-xl cursor-pointer hover:border-yellow-400 hover:bg-yellow-50 transition-all font-medium text-gray-700">
-                                    <input type="radio" name="willingness_pay" value="50-80" class="mr-2 accent-yellow-500"> $50 - $80
-                                </label>
+                            <div>
+                                <label class="block mb-3 font-bold text-gray-800 text-lg">Please let us know willingness to pay so we can lock in the event!</label>
+                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                    <label class="text-center border-2 border-gray-200 bg-white px-4 py-3 rounded-xl cursor-pointer hover:border-yellow-400 hover:bg-yellow-50 transition-all font-medium text-gray-700">
+                                        <input type="radio" name="willingness_pay" value="20-40" class="mr-2 accent-yellow-500 dependent-input" required> $20 - $40
+                                    </label>
+                                    <label class="text-center border-2 border-gray-200 bg-white px-4 py-3 rounded-xl cursor-pointer hover:border-yellow-400 hover:bg-yellow-50 transition-all font-medium text-gray-700">
+                                        <input type="radio" name="willingness_pay" value="40-50" class="mr-2 accent-yellow-500 dependent-input"> $40 - $50
+                                    </label>
+                                    <label class="text-center border-2 border-gray-200 bg-white px-4 py-3 rounded-xl cursor-pointer hover:border-yellow-400 hover:bg-yellow-50 transition-all font-medium text-gray-700">
+                                        <input type="radio" name="willingness_pay" value="50-80" class="mr-2 accent-yellow-500 dependent-input"> $50 - $80
+                                    </label>
+                                </div>
                             </div>
                         </div>
 
@@ -760,6 +767,38 @@
             });
         });
 
+        // --- DYNAMIC SURVEY LOGIC ---
+        function toggleFutureEvents(isYes) {
+            const dependentQuestions = document.getElementById('dependent-questions');
+            const whyNoSection = document.getElementById('why-no-section');
+            
+            const requiredRadios = [
+                document.querySelector('input[name="next_week"][value="Yes weekdays"]'),
+                document.querySelector('input[name="willingness_pay"][value="20-40"]')
+            ];
+            const requiredSelect = document.querySelector('select[name="event_type"]');
+            const whyNoReason = document.getElementById('why_no_reason');
+
+            if (isYes) {
+                dependentQuestions.classList.remove('hidden');
+                whyNoSection.classList.add('hidden');
+                
+                requiredRadios.forEach(radio => { if(radio) radio.setAttribute('required', 'true'); });
+                if (requiredSelect) requiredSelect.setAttribute('required', 'true');
+                
+                whyNoReason.removeAttribute('required');
+                whyNoReason.value = '';
+            } else {
+                dependentQuestions.classList.add('hidden');
+                whyNoSection.classList.remove('hidden');
+                
+                requiredRadios.forEach(radio => { if(radio) radio.removeAttribute('required'); });
+                if (requiredSelect) requiredSelect.removeAttribute('required');
+                
+                whyNoReason.setAttribute('required', 'true');
+            }
+        }
+
         // --- EXPANDED ACTIVITIES DATABASE ---
         const activitiesDB = [
             { name: "🥾 Group Hiking & Trail Running", vibe: "Outdoor", budget: "low" },
@@ -959,13 +998,21 @@
 
                 const sourceTag = 'survey';
 
-                const surveyDetails = `
-                                Liked Experience: ${liked}
-                                Wants to Repeat: ${repeat}
-                                Available Next Week: ${nextWeek}
-                                Preferred Event: ${eventType}
-                                Willing to Pay: $${willingness}
-                            `.trim();
+                let surveyDetails = `
+Liked Experience: ${liked}
+Interested in Future Events: ${repeat}
+`.trim();
+
+                if (repeat === 'Yes') {
+                    surveyDetails += `
+Available Next Week: ${nextWeek}
+Preferred Event: ${eventType}
+Willing to Pay: $${willingness}`;
+                } else {
+                    const whyNo = document.getElementById('why_no_reason').value.trim();
+                    surveyDetails += `
+Reason for not attending future events: ${whyNo}`;
+                }
 
                 if (!window.supabase) throw new Error("Supabase library failed to load.");
                 const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
