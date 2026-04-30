@@ -597,6 +597,36 @@
         </div>
     </div>
 
+    <div id="tab-admin" class="hidden min-h-screen bg-gray-50 pt-32 pb-24">
+        <div class="max-w-6xl mx-auto px-4">
+            <button onclick="switchTab('home')" class="mb-8 inline-flex items-center text-gray-500 hover:text-yellow-500 transition-colors font-bold uppercase tracking-wider text-sm border border-gray-300 hover:border-yellow-500 px-5 py-2 rounded-full cursor-pointer">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                Exit Dashboard
+            </button>
+
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-4xl font-[Oswald] text-gray-900 uppercase tracking-wide">Admin Dashboard</h2>
+                <button onclick="loadAdminDashboard(true)" class="text-sm bg-gray-200 text-gray-700 px-4 py-2 rounded-full hover:bg-gray-300 transition-colors font-bold">↻ Refresh Data</button>
+            </div>
+
+            <div class="bg-white rounded-3xl shadow p-8 overflow-x-auto border border-gray-200">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="border-b-2 border-gray-200 text-gray-500 uppercase tracking-wider text-sm">
+                            <th class="p-4 font-bold">Name</th>
+                            <th class="p-4 font-bold">Email</th>
+                            <th class="p-4 font-bold">Event</th>
+                            <th class="p-4 font-bold">Status</th>
+                            <th class="p-4 font-bold">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-table-body">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
     <footer class="bg-black text-white py-16 text-center border-t border-gray-900">
         <p class="text-gray-500 text-sm tracking-wide uppercase">© 2026 ReadyMix Match. All rights reserved.</p>
     </footer>
@@ -605,11 +635,25 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
     <script>
-        // --- DIRECT URL SHARING & ADMIN CONFIRMATION LOGIC ---
+        const supabaseUrl = 'https://wsxnvbjcglyebnncwhsi.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndzeG52YmpjZ2x5ZWJubmN3aHNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMxNDQyODEsImV4cCI6MjA4ODcyMDI4MX0.vh5fy0VFOb7lJpcHOec1rVtd59z7KEoMR3PTXH74FX8';
+
+        // --- DIRECT URL SHARING & ADMIN DASHBOARD ROUTING ---
         document.addEventListener('DOMContentLoaded', () => {
             const hash = window.location.hash.substring(1);
 
-            // Handle Admin Payment Confirmation Link
+            // Access Admin Dashboard
+            if (hash === 'admin') {
+                loadAdminDashboard(false);
+                const overlay = document.getElementById('landing-overlay');
+                if (overlay) {
+                    overlay.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+                return;
+            }
+
+            // Handle Admin Payment Confirmation Link (From Email)
             if (hash.startsWith('confirm=')) {
                 const signupId = hash.split('=')[1];
                 processPaymentConfirmation(signupId);
@@ -662,11 +706,12 @@
             menuIconPath.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
         }
 
-        // Updated Tab Switching Logic with URL tracking
+        // Updated Tab Switching Logic to include Admin Tab
         function switchTab(tabId) {
             document.getElementById('tab-home').classList.add('hidden');
             document.getElementById('tab-highlights').classList.add('hidden');
             document.getElementById('tab-events').classList.add('hidden');
+            document.getElementById('tab-admin').classList.add('hidden');
 
             document.getElementById(`tab-${tabId}`).classList.remove('hidden');
             window.scrollTo(0, 0);
@@ -698,6 +743,84 @@
         }
         introSection.style.backgroundImage = `url('${heroImages[0]}')`;
         setInterval(changeHeroBackground, 5000);
+
+        // --- NEW: ADMIN DASHBOARD DATA LOADING ---
+        async function loadAdminDashboard(skipPrompt) {
+            if (!skipPrompt) {
+                const pass = prompt("Enter Admin Password:");
+                if (pass !== "mixmatch2026") { // CHANGE THIS PASSWORD
+                    alert("Incorrect password.");
+                    window.location.hash = '';
+                    return;
+                }
+            }
+
+            switchTab('admin');
+            const tbody = document.getElementById('admin-table-body');
+            tbody.innerHTML = '<tr><td colspan="5" class="p-4 text-center text-gray-500 font-bold">Loading data...</td></tr>';
+
+            try {
+                if (!window.supabase) throw new Error("Supabase not loaded");
+                const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+                const { data, error } = await supabase
+                    .from('event_signups')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+
+                if (data.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="5" class="p-4 text-center text-gray-500">No signups yet.</td></tr>';
+                    return;
+                }
+
+                tbody.innerHTML = data.map(row => `
+                        <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                            <td class="p-4 font-bold text-gray-900">${row.user_name}</td>
+                            <td class="p-4 text-gray-600">${row.user_email}</td>
+                            <td class="p-4 text-gray-600">${row.event_name}</td>
+                            <td class="p-4">
+                                <span class="px-3 py-1 rounded-full text-xs font-bold uppercase ${row.status === 'paid' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}">${row.status}</span>
+                            </td>
+                            <td class="p-4">
+                                ${row.status === 'pending' ? `<button onclick="dashboardMarkAsPaid('${row.id}')" class="text-sm bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors font-bold shadow-md cursor-pointer">Mark Paid</button>` : '<span class="text-gray-400 font-bold uppercase tracking-widest text-xs">Confirmed</span>'}
+                            </td>
+                        </tr>
+                    `).join('');
+            } catch (err) {
+                console.error(err);
+                tbody.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-red-500">Error loading data: ${err.message}</td></tr>`;
+            }
+        }
+
+        // --- NEW: IN-DASHBOARD MARK AS PAID BUTTON ---
+        async function dashboardMarkAsPaid(signupId) {
+            if (!confirm("Are you sure you want to mark this as paid? This will immediately email the user their final receipt.")) return;
+
+            try {
+                const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+                // Fetch details first to send email
+                const { data: signup } = await supabase.from('event_signups').select('*').eq('id', signupId).single();
+
+                // Update DB
+                const { error } = await supabase.from('event_signups').update({ status: 'paid' }).eq('id', signupId);
+                if (error) throw error;
+
+                // Send Email
+                await supabase.functions.invoke('send-welcome-email', {
+                    body: { name: signup.user_name, email: signup.user_email, source: 'event_signup_confirmed', event: signup.event_name }
+                });
+
+                alert("Successfully marked as paid! Email sent.");
+                loadAdminDashboard(true); // Reload table silently
+
+            } catch (e) {
+                alert("Error: " + e.message);
+            }
+        }
+
 
         let currentStep = 1;
         const totalSteps = 5;
@@ -1022,10 +1145,7 @@
             } else { container.classList.add('hidden'); }
         }
 
-        const supabaseUrl = 'https://wsxnvbjcglyebnncwhsi.supabase.co';
-        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndzeG52YmpjZ2x5ZWJubmN3aHNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMxNDQyODEsImV4cCI6MjA4ODcyMDI4MX0.vh5fy0VFOb7lJpcHOec1rVtd59z7KEoMR3PTXH74FX8';
-
-        // --- NEW: ADMIN CONFIRMATION FUNCTION ---
+        // --- ADMIN CONFIRMATION FROM EMAIL LOGIC ---
         async function processPaymentConfirmation(signupId) {
             document.body.innerHTML = `<div style="display:flex; justify-content:center; align-items:center; height:100vh; font-family:sans-serif; background:#f9fafb; padding-top:20vh; flex-direction:column;">
                     <h2 style="font-size:24px; color:#333;">Processing Payment Confirmation... Please wait.</h2>
@@ -1257,7 +1377,6 @@ Reason for not attending future events: ${whyNo}`;
                 if (dbError) throw new Error("Could not save signup: " + dbError.message);
 
                 // 2. Generate the unique Admin Confirmation URL (FIXED FOR EMAIL COMPATIBILITY)
-                // We use your live domain here so email clients don't block the link when testing locally
                 const confirmUrl = 'https://readymixmatch.com/#confirm=' + newSignup[0].id;
 
                 // 3. Trigger Emails
