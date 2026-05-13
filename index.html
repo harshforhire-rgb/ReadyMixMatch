@@ -5,12 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ReadyMix Match</title>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
 
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
+        body {
+            font-family: 'Raleway', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
         .custom-scrollbar::-webkit-scrollbar {
             width: 6px;
         }
@@ -23,9 +27,10 @@
         }
         .premium-input {
             transition: all 0.3s ease;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
         }
         .premium-input:focus {
-            box-shadow: 0 4px 20px rgba(234, 179, 8, 0.15);
+            box-shadow: 0 0 0 4px rgba(234, 179, 8, 0.15), inset 0 2px 4px rgba(0,0,0,0.02);
             border-color: #eab308;
             background-color: #ffffff;
         }
@@ -47,12 +52,16 @@
             background: linear-gradient(135deg, #fbbf24, #d97706);
             color: white;
             transform: scale(1.15);
-            box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
+            box-shadow: 0 10px 25px rgba(245, 158, 11, 0.4);
             border-color: transparent;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
         }
     </style>
 </head>
-<body class="font-[Raleway] bg-gray-50 text-gray-800" style="overflow: hidden;">
+<body class="bg-gray-50 text-gray-800" style="overflow: hidden;">
 
     <div id="landing-overlay" class="fixed inset-0 z-[9999] flex items-center justify-center bg-black transition-opacity duration-700">
         <div class="absolute inset-0 bg-cover bg-center opacity-50 mix-blend-screen pointer-events-none" style="background-image: url('IMG_8497.jpg');"></div>
@@ -70,37 +79,36 @@
     </div>
 
     <nav id="tm-nav" class="fixed top-0 w-full z-50 transition-all duration-500 bg-black bg-opacity-0">
-        <div class="max-w-6xl mx-auto px-4 py-4 md:py-6 flex justify-between items-center relative">
+        <div class="max-w-7xl mx-auto px-4 py-4 md:py-5 flex justify-between items-center relative">
 
-            <h1 onclick="switchTab('home')" class="cursor-pointer text-white text-2xl md:text-3xl font-semibold tracking-widest uppercase font-[Oswald] drop-shadow-md hover:text-yellow-500 transition relative z-50">ReadyMix Match</h1>
+            <h1 onclick="switchTab('home')" class="cursor-pointer text-white text-2xl md:text-3xl font-bold tracking-widest uppercase font-[Oswald] drop-shadow-md hover:text-yellow-500 transition relative z-50">ReadyMix</h1>
 
-            <button id="mobile-menu-btn" class="md:hidden text-white hover:text-yellow-500 focus:outline-none relative z-50 transition-colors p-2 cursor-pointer">
+            <button id="mobile-menu-btn" class="lg:hidden text-white hover:text-yellow-500 focus:outline-none relative z-50 transition-colors p-2 cursor-pointer">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path id="menu-icon-path" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                 </svg>
             </button>
 
-            <div class="hidden md:flex space-x-8 items-center">
-                <a href="#curator" onclick="switchTab('home')" class="text-white hover:text-yellow-500 transition font-medium tracking-wide drop-shadow-md">Meet the Curator</a>
-                <a href="#" onclick="switchTab('dashboard'); return false;" class="text-yellow-400 border border-yellow-400 px-4 py-1.5 rounded-full hover:bg-yellow-400 hover:text-black transition font-bold tracking-wide shadow-md">Dashboard</a>
-                <a href="#" onclick="switchTab('events'); return false;" class="text-white hover:text-yellow-500 transition font-medium tracking-wide drop-shadow-md">Upcoming Events</a>
-                <a href="#" onclick="switchTab('highlights'); return false;" class="text-white hover:text-yellow-500 transition font-medium tracking-wide drop-shadow-md">Event Highlights</a>
-                <a href="https://instagram.com/readymixmatch" target="_blank" class="text-yellow-500 hover:text-white transition items-center font-bold flex drop-shadow-md">
-                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" /></svg>
-                    Follow Us
-                </a>
+            <div class="hidden lg:flex space-x-6 items-center">
+                <a href="#curator" onclick="switchTab('home')" class="text-gray-100 hover:text-yellow-500 transition font-semibold text-sm uppercase tracking-widest drop-shadow-md">Curator</a>
+                <a href="#" onclick="switchTab('dashboard'); return false;" class="text-gray-100 hover:text-yellow-500 transition font-semibold text-sm uppercase tracking-widest drop-shadow-md">Dashboard</a>
+                <a href="#" onclick="switchTab('events'); return false;" class="text-gray-100 hover:text-yellow-500 transition font-semibold text-sm uppercase tracking-widest drop-shadow-md">Events</a>
+                <a href="#" onclick="switchTab('highlights'); return false;" class="text-gray-100 hover:text-yellow-500 transition font-semibold text-sm uppercase tracking-widest drop-shadow-md">Highlights</a>
+                
+                <div class="w-px h-6 bg-white/20 mx-2"></div>
+                
+                <button onclick="goToSignup('login')" class="text-white hover:text-yellow-400 font-bold uppercase tracking-widest text-sm transition-colors">Log In</button>
+                <button onclick="goToSignup('signup')" class="bg-gradient-to-r from-yellow-500 to-yellow-400 text-black px-7 py-2.5 rounded-full font-bold uppercase tracking-widest text-sm hover:from-yellow-400 hover:to-yellow-300 transition-all shadow-[0_4px_15px_rgba(234,179,8,0.4)] transform hover:-translate-y-0.5">Sign Up</button>
             </div>
 
-            <div id="mobile-menu" class="fixed inset-0 bg-black/95 flex flex-col items-center justify-center space-y-8 transform translate-x-full transition-transform duration-300 z-40 md:hidden">
-                <a href="#curator" onclick="closeMobileMenu(); switchTab('home')" class="text-white hover:text-yellow-500 text-3xl font-[Oswald] uppercase tracking-widest transition">Meet the Curator</a>
-                <a href="#" onclick="closeMobileMenu(); switchTab('dashboard'); return false;" class="text-yellow-400 text-3xl font-[Oswald] uppercase tracking-widest transition">Dashboard</a>
-                <a href="#" onclick="closeMobileMenu(); switchTab('events'); return false;" class="text-white hover:text-yellow-500 text-3xl font-[Oswald] uppercase tracking-widest transition">Upcoming Events</a>
-                <a href="#" onclick="closeMobileMenu(); switchTab('highlights'); return false;" class="text-white hover:text-yellow-500 text-3xl font-[Oswald] uppercase tracking-widest transition">Event Highlights</a>
-                <div class="w-16 h-px bg-gray-600 my-4"></div>
-                <a href="https://instagram.com/readymixmatch" target="_blank" class="text-yellow-500 hover:text-white transition items-center font-bold flex text-2xl">
-                    <svg class="w-8 h-8 mr-3" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" /></svg>
-                    Follow Us
-                </a>
+            <div id="mobile-menu" class="fixed inset-0 bg-black/95 flex flex-col items-center justify-center space-y-8 transform translate-x-full transition-transform duration-300 z-40 lg:hidden">
+                <a href="#curator" onclick="closeMobileMenu(); switchTab('home')" class="text-white hover:text-yellow-500 text-2xl font-[Oswald] uppercase tracking-widest transition">Meet the Curator</a>
+                <a href="#" onclick="closeMobileMenu(); switchTab('dashboard'); return false;" class="text-white hover:text-yellow-500 text-2xl font-[Oswald] uppercase tracking-widest transition">Dashboard</a>
+                <a href="#" onclick="closeMobileMenu(); switchTab('events'); return false;" class="text-white hover:text-yellow-500 text-2xl font-[Oswald] uppercase tracking-widest transition">Upcoming Events</a>
+                <a href="#" onclick="closeMobileMenu(); switchTab('highlights'); return false;" class="text-white hover:text-yellow-500 text-2xl font-[Oswald] uppercase tracking-widest transition">Event Highlights</a>
+                <div class="w-16 h-px bg-gray-600 my-2"></div>
+                <button onclick="closeMobileMenu(); goToSignup('login')" class="text-yellow-500 font-[Oswald] uppercase tracking-widest text-2xl">Log In</button>
+                <button onclick="closeMobileMenu(); goToSignup('signup')" class="bg-yellow-500 text-black px-10 py-4 rounded-full font-[Oswald] uppercase tracking-widest text-xl mt-4">Sign Up Free</button>
             </div>
 
         </div>
@@ -109,46 +117,46 @@
     <div id="tab-home">
 
         <div id="intro" class="relative bg-cover bg-center bg-no-repeat min-h-[700px] md:min-h-[850px] flex flex-col justify-center" style="background-image: url('IMG_8497.jpg'); background-color: #1a1a1a; background-attachment: fixed;">
-            <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-black/80"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/90"></div>
 
-            <div class="relative max-w-md mx-auto px-4 z-10 mt-16" data-aos="fade-up">
-                <div class="bg-black/80 p-8 md:p-10 mb-8 text-center rounded-3xl shadow-2xl backdrop-blur-xl border border-white/10">
-                    <h2 class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-100 text-3xl md:text-4xl font-bold mb-6 font-[Oswald] uppercase tracking-wider">
+            <div class="relative max-w-lg mx-auto px-4 z-10 mt-16" data-aos="fade-up">
+                <div class="glass-panel p-8 md:p-12 mb-10 text-center rounded-[2rem] shadow-2xl border border-white/20">
+                    <h2 class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 to-yellow-500 text-4xl md:text-5xl font-bold mb-6 font-[Oswald] uppercase tracking-wider">
                         Find your people.
                     </h2>
-                    <p class="text-gray-200 leading-relaxed text-lg font-light mb-8">
-                        At <strong class="text-white font-semibold">ReadyMix Match</strong>, we curate small-group events designed to spark genuine connections.
+                    <p class="text-gray-700 leading-relaxed text-lg mb-8 font-medium">
+                        At <strong class="text-black">ReadyMix Match</strong>, we curate small-group events designed to spark genuine connections.
                     </p>
                     <div class="flex flex-col space-y-6 text-left max-w-sm mx-auto">
-                        <div class="flex items-start">
-                            <span class="text-yellow-400 mr-4 text-xl mt-0.5 flex-shrink-0">✨</span>
-                            <p class="text-gray-300 text-sm font-medium leading-relaxed">Tell us your preferences and what you love to do.</p>
+                        <div class="flex items-start bg-gray-50 p-4 rounded-2xl border border-gray-100">
+                            <span class="text-yellow-500 mr-4 text-xl mt-0.5 flex-shrink-0">✨</span>
+                            <p class="text-gray-600 text-sm font-semibold leading-relaxed">Tell us your preferences and what you love to do.</p>
                         </div>
-                        <div class="flex items-start">
-                            <span class="text-yellow-400 mr-4 text-xl mt-0.5 flex-shrink-0">🤝</span>
-                            <p class="text-gray-300 text-sm font-medium leading-relaxed">Get matched with a tailored group of like-minded people.</p>
+                        <div class="flex items-start bg-gray-50 p-4 rounded-2xl border border-gray-100">
+                            <span class="text-yellow-500 mr-4 text-xl mt-0.5 flex-shrink-0">🤝</span>
+                            <p class="text-gray-600 text-sm font-semibold leading-relaxed">Get matched with a tailored group of like-minded people.</p>
                         </div>
-                        <div class="flex items-start">
-                            <span class="text-yellow-400 mr-4 text-xl mt-0.5 flex-shrink-0">💌</span>
-                            <p class="text-gray-300 text-sm font-medium leading-relaxed">Receive a personal invite to an upcoming experience that fits your schedule.</p>
+                        <div class="flex items-start bg-gray-50 p-4 rounded-2xl border border-gray-100">
+                            <span class="text-yellow-500 mr-4 text-xl mt-0.5 flex-shrink-0">💌</span>
+                            <p class="text-gray-600 text-sm font-semibold leading-relaxed">Receive a personal invite to an upcoming experience that fits your schedule.</p>
                         </div>
                     </div>
                 </div>
                 <div class="text-center">
-                    <a href="#signup" onclick="document.getElementById('signup').scrollIntoView({behavior: 'smooth'})" class="inline-flex items-center justify-center bg-yellow-500 text-black py-4 px-12 rounded-full font-bold text-lg hover:bg-yellow-400 transition-all shadow-[0_10px_30px_rgba(234,179,8,0.3)] transform hover:-translate-y-1 uppercase tracking-widest relative z-50 cursor-pointer">
+                    <button onclick="goToSignup('signup')" class="inline-flex items-center justify-center bg-yellow-500 text-black py-4 px-12 rounded-full font-bold text-lg hover:bg-yellow-400 transition-all shadow-[0_10px_30px_rgba(234,179,8,0.4)] transform hover:-translate-y-1 uppercase tracking-widest relative z-50 cursor-pointer">
                         Find Your Crew
-                    </a>
+                    </button>
                 </div>
             </div>
         </div>
 
         <div id="survey-section" class="bg-white py-24 px-4 relative overflow-hidden">
-            <div class="absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 30px 30px;"></div>
+            <div class="absolute inset-0 opacity-[0.02]" style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 30px 30px;"></div>
             <div class="max-w-4xl mx-auto text-center relative z-10" data-aos="fade-up">
-                <div class="inline-block bg-yellow-500 text-black font-bold px-4 py-1.5 rounded-full uppercase tracking-widest text-xs mb-6 shadow-sm">Post-Event Feedback</div>
+                <div class="inline-block bg-yellow-100 text-yellow-800 font-bold px-4 py-1.5 rounded-full uppercase tracking-widest text-xs mb-6 shadow-sm border border-yellow-200">Post-Event Feedback</div>
                 <h2 class="text-5xl md:text-6xl font-[Oswald] text-gray-900 mb-6 uppercase tracking-wide">How was the vibe?</h2>
 
-                <p class="text-lg text-gray-600 mb-10 leading-relaxed max-w-xl mx-auto">
+                <p class="text-lg text-gray-500 mb-10 leading-relaxed max-w-xl mx-auto">
                     We're always looking to improve our experiences. If you recently attended one of our events, let us know what you thought!
                 </p>
 
@@ -161,10 +169,10 @@
                         <div>
                             <label class="block mb-3 font-bold text-gray-800 text-lg">Did you like the experience?</label>
                             <div class="flex gap-4">
-                                <label class="flex-1 text-center border-2 border-gray-200 bg-white px-4 py-3 rounded-xl cursor-pointer hover:border-yellow-400 hover:bg-yellow-50 transition-all font-medium text-gray-700">
+                                <label class="flex-1 text-center border-2 border-gray-200 bg-white px-4 py-4 rounded-xl cursor-pointer hover:border-yellow-400 hover:bg-yellow-50 transition-all font-bold text-gray-700 shadow-sm">
                                     <input type="radio" name="liked_exp" value="Yes" class="mr-2 accent-yellow-500" required> Yes
                                 </label>
-                                <label class="flex-1 text-center border-2 border-gray-200 bg-white px-4 py-3 rounded-xl cursor-pointer hover:border-yellow-400 hover:bg-yellow-50 transition-all font-medium text-gray-700">
+                                <label class="flex-1 text-center border-2 border-gray-200 bg-white px-4 py-4 rounded-xl cursor-pointer hover:border-yellow-400 hover:bg-yellow-50 transition-all font-bold text-gray-700 shadow-sm">
                                     <input type="radio" name="liked_exp" value="No" class="mr-2 accent-yellow-500"> No
                                 </label>
                             </div>
@@ -173,10 +181,10 @@
                         <div>
                             <label class="block mb-3 font-bold text-gray-800 text-lg">Would you be interested in attending future events?</label>
                             <div class="flex gap-4">
-                                <label class="flex-1 text-center border-2 border-gray-200 bg-white px-4 py-3 rounded-xl cursor-pointer hover:border-yellow-400 hover:bg-yellow-50 transition-all font-medium text-gray-700">
+                                <label class="flex-1 text-center border-2 border-gray-200 bg-white px-4 py-4 rounded-xl cursor-pointer hover:border-yellow-400 hover:bg-yellow-50 transition-all font-bold text-gray-700 shadow-sm">
                                     <input type="radio" name="repeat_exp" value="Yes" class="mr-2 accent-yellow-500" onchange="toggleFutureEvents(true)" required> Yes
                                 </label>
-                                <label class="flex-1 text-center border-2 border-gray-200 bg-white px-4 py-3 rounded-xl cursor-pointer hover:border-yellow-400 hover:bg-yellow-50 transition-all font-medium text-gray-700">
+                                <label class="flex-1 text-center border-2 border-gray-200 bg-white px-4 py-4 rounded-xl cursor-pointer hover:border-yellow-400 hover:bg-yellow-50 transition-all font-bold text-gray-700 shadow-sm">
                                     <input type="radio" name="repeat_exp" value="No" class="mr-2 accent-yellow-500" onchange="toggleFutureEvents(false)"> No
                                 </label>
                             </div>
@@ -184,20 +192,20 @@
 
                         <div id="why-no-section" class="hidden mt-8">
                             <label class="block mb-3 font-bold text-gray-800 text-lg">We're sorry to hear that! What could we have done better?</label>
-                            <textarea id="why_no_reason" rows="3" class="w-full bg-white border border-gray-200 p-4 rounded-xl text-lg outline-none resize-none hover:border-yellow-400 focus:border-yellow-500" placeholder="Let us know your thoughts..."></textarea>
+                            <textarea id="why_no_reason" rows="3" class="w-full bg-white border border-gray-200 p-5 rounded-xl text-lg outline-none resize-none hover:border-yellow-400 focus:border-yellow-500 shadow-sm premium-input" placeholder="Let us know your thoughts..."></textarea>
                         </div>
 
                         <div id="dependent-questions" class="space-y-8 mt-8">
                             <div>
                                 <label class="block mb-3 font-bold text-gray-800 text-lg">Are you available to join the event next week?</label>
                                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                                    <label class="text-center border-2 border-gray-200 bg-white px-4 py-3 rounded-xl cursor-pointer hover:border-yellow-400 hover:bg-yellow-50 transition-all font-medium text-gray-700">
+                                    <label class="text-center border-2 border-gray-200 bg-white px-4 py-4 rounded-xl cursor-pointer hover:border-yellow-400 hover:bg-yellow-50 transition-all font-bold text-gray-700 shadow-sm">
                                         <input type="radio" name="next_week" value="Yes weekdays" class="mr-2 accent-yellow-500 dependent-input" required> Yes weekdays
                                     </label>
-                                    <label class="text-center border-2 border-gray-200 bg-white px-4 py-3 rounded-xl cursor-pointer hover:border-yellow-400 hover:bg-yellow-50 transition-all font-medium text-gray-700">
+                                    <label class="text-center border-2 border-gray-200 bg-white px-4 py-4 rounded-xl cursor-pointer hover:border-yellow-400 hover:bg-yellow-50 transition-all font-bold text-gray-700 shadow-sm">
                                         <input type="radio" name="next_week" value="Yes weekends" class="mr-2 accent-yellow-500 dependent-input"> Yes weekends
                                     </label>
-                                    <label class="text-center border-2 border-gray-200 bg-white px-4 py-3 rounded-xl cursor-pointer hover:border-yellow-400 hover:bg-yellow-50 transition-all font-medium text-gray-700">
+                                    <label class="text-center border-2 border-gray-200 bg-white px-4 py-4 rounded-xl cursor-pointer hover:border-yellow-400 hover:bg-yellow-50 transition-all font-bold text-gray-700 shadow-sm">
                                         <input type="radio" name="next_week" value="No" class="mr-2 accent-yellow-500 dependent-input"> No
                                     </label>
                                 </div>
@@ -205,7 +213,7 @@
 
                             <div>
                                 <label class="block mb-3 font-bold text-gray-800 text-lg">What kind of event would you like to attend?</label>
-                                <select name="event_type" class="w-full bg-white border border-gray-200 px-6 py-4 rounded-xl text-lg outline-none cursor-pointer hover:border-yellow-400 focus:border-yellow-500 dependent-input" required>
+                                <select name="event_type" class="w-full bg-white border border-gray-200 px-6 py-4 rounded-xl text-lg outline-none cursor-pointer hover:border-yellow-400 focus:border-yellow-500 shadow-sm dependent-input" required>
                                     <option value="" disabled selected>Select an option...</option>
                                     <option value="Yoga class + coffee">Yoga class + coffee</option>
                                     <option value="Bowling">Bowling</option>
@@ -217,34 +225,34 @@
                             <div>
                                 <label class="block mb-3 font-bold text-gray-800 text-lg">Please let us know willingness to pay so we can lock in the event!</label>
                                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                                    <label class="text-center border-2 border-gray-200 bg-white px-4 py-3 rounded-xl cursor-pointer hover:border-yellow-400 hover:bg-yellow-50 transition-all font-medium text-gray-700">
-                                        <input type="radio" name="willingness_pay" value="20-40" class="mr-2 accent-yellow-500 dependent-input" required> $20 - $40
+                                    <label class="text-center border-2 border-gray-200 bg-white px-4 py-4 rounded-xl cursor-pointer hover:border-yellow-400 hover:bg-yellow-50 transition-all font-bold text-gray-700 shadow-sm">
+                                        <input type="radio" name="willingness_pay" value="20-50" class="mr-2 accent-yellow-500 dependent-input" required> $20 - $50
                                     </label>
-                                    <label class="text-center border-2 border-gray-200 bg-white px-4 py-3 rounded-xl cursor-pointer hover:border-yellow-400 hover:bg-yellow-50 transition-all font-medium text-gray-700">
-                                        <input type="radio" name="willingness_pay" value="40-60" class="mr-2 accent-yellow-500 dependent-input"> $40 - $60
+                                    <label class="text-center border-2 border-gray-200 bg-white px-4 py-4 rounded-xl cursor-pointer hover:border-yellow-400 hover:bg-yellow-50 transition-all font-bold text-gray-700 shadow-sm">
+                                        <input type="radio" name="willingness_pay" value="50-100" class="mr-2 accent-yellow-500 dependent-input"> $50 - $100
                                     </label>
-                                    <label class="text-center border-2 border-gray-200 bg-white px-4 py-3 rounded-xl cursor-pointer hover:border-yellow-400 hover:bg-yellow-50 transition-all font-medium text-gray-700">
-                                        <input type="radio" name="willingness_pay" value="80+" class="mr-2 accent-yellow-500 dependent-input"> $80+
+                                    <label class="text-center border-2 border-gray-200 bg-white px-4 py-4 rounded-xl cursor-pointer hover:border-yellow-400 hover:bg-yellow-50 transition-all font-bold text-gray-700 shadow-sm">
+                                        <input type="radio" name="willingness_pay" value="100+" class="mr-2 accent-yellow-500 dependent-input"> $100+
                                     </label>
                                 </div>
                             </div>
                         </div>
 
                         <hr class="border-gray-200 my-8">
-                        <p class="text-sm text-gray-500 mb-4 uppercase tracking-widest font-bold">Your Details</p>
+                        <p class="text-sm text-gray-400 mb-4 uppercase tracking-widest font-bold">Your Details</p>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label class="block mb-2 font-bold text-gray-800 text-lg">Your Name</label>
-                                <input type="text" id="survey_name" placeholder="Enter your name" required class="w-full bg-white border border-gray-200 px-6 py-4 rounded-xl text-lg outline-none hover:border-yellow-400 focus:border-yellow-500">
+                                <label class="block mb-2 font-bold text-gray-800">Your Name</label>
+                                <input type="text" id="survey_name" placeholder="Enter your name" required class="w-full bg-white border border-gray-200 px-6 py-4 rounded-xl text-lg outline-none hover:border-yellow-400 focus:border-yellow-500 shadow-sm premium-input">
                             </div>
                             <div>
-                                <label class="block mb-2 font-bold text-gray-800 text-lg">Your Email</label>
-                                <input type="email" id="survey_email" placeholder="Enter your email address" required class="w-full bg-white border border-gray-200 px-6 py-4 rounded-xl text-lg outline-none hover:border-yellow-400 focus:border-yellow-500">
+                                <label class="block mb-2 font-bold text-gray-800">Your Email</label>
+                                <input type="email" id="survey_email" placeholder="Enter your email address" required class="w-full bg-white border border-gray-200 px-6 py-4 rounded-xl text-lg outline-none hover:border-yellow-400 focus:border-yellow-500 shadow-sm premium-input">
                             </div>
                         </div>
 
-                        <button type="submit" id="survey-submit-btn" class="w-full bg-yellow-500 text-black px-10 py-4 font-bold text-lg rounded-xl hover:bg-yellow-400 transition-all shadow-[0_4px_14px_rgba(234,179,8,0.3)] transform hover:-translate-y-1 uppercase tracking-wide mt-4 cursor-pointer">
+                        <button type="submit" id="survey-submit-btn" class="w-full bg-yellow-500 text-black px-10 py-5 font-bold text-xl rounded-xl hover:bg-yellow-400 transition-all shadow-[0_4px_14px_rgba(234,179,8,0.3)] transform hover:-translate-y-1 uppercase tracking-wide mt-4 cursor-pointer">
                             Submit Feedback
                         </button>
                     </form>
@@ -252,25 +260,25 @@
             </div>
         </div>
 
-        <div class="bg-[#111] py-24 px-4 border-t-4 border-yellow-500 relative overflow-hidden shadow-inner">
-            <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div class="bg-[#0a0a0a] py-24 px-4 border-t-4 border-yellow-500 relative overflow-hidden shadow-inner">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                 <div class="relative z-10" data-aos="fade-right">
                     <h2 class="text-5xl md:text-6xl font-[Oswald] text-yellow-500 uppercase tracking-widest mb-10 drop-shadow-lg">Why we are different?</h2>
                     <ul class="space-y-6 text-xl md:text-2xl text-gray-300 font-light tracking-wide">
-                        <li class="flex items-center bg-white/5 p-4 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors">
+                        <li class="flex items-center bg-white/5 p-5 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors">
                             <svg class="w-8 h-8 text-red-500 mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg>
                             No endless swiping
                         </li>
-                        <li class="flex items-center bg-white/5 p-4 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors">
+                        <li class="flex items-center bg-white/5 p-5 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors">
                             <svg class="w-8 h-8 text-red-500 mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg>
                             No large, awkward meetups
                         </li>
-                        <li class="flex items-center bg-white/5 p-4 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors">
+                        <li class="flex items-center bg-white/5 p-5 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors">
                             <svg class="w-8 h-8 text-red-500 mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg>
                             No random group chats
                         </li>
                     </ul>
-                    <div class="mt-12 inline-block bg-white text-black px-8 py-5 rounded-2xl font-bold text-2xl md:text-3xl shadow-2xl transform -rotate-2 border-4 border-yellow-500 hover:-rotate-1 transition-transform">
+                    <div class="mt-14 inline-block bg-white text-black px-8 py-5 rounded-2xl font-bold text-2xl md:text-3xl shadow-[0_10px_30px_rgba(255,255,255,0.1)] transform -rotate-2 border-4 border-yellow-500 hover:-rotate-1 transition-transform">
                         Just curated groups that actually <span class="text-yellow-500 font-[Oswald] uppercase tracking-widest">click.</span>
                     </div>
                 </div>
@@ -283,24 +291,27 @@
             </div>
         </div>
 
-        <div id="signup" class="py-24 bg-gray-100">
+        <div id="signup" class="py-24 bg-gradient-to-br from-gray-100 via-white to-gray-50 scroll-mt-24">
             <div class="container mx-auto max-w-4xl px-4" data-aos="fade-up">
-                <div class="bg-white rounded-3xl shadow-[0_8px_40px_rgba(0,0,0,0.08)] p-8 md:p-12 border border-gray-200/60">
+                <div class="bg-white rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.05)] p-8 md:p-14 border border-gray-100">
 
-                    <div class="flex border-b border-gray-200 mb-10 w-full">
-                        <button id="tab-btn-signup" onclick="toggleAuth('signup')" class="w-1/2 py-4 font-[Oswald] text-xl uppercase tracking-widest font-bold border-b-4 border-yellow-500 text-gray-900 transition-colors cursor-pointer">Sign Up</button>
-                        <button id="tab-btn-login" onclick="toggleAuth('login')" class="w-1/2 py-4 font-[Oswald] text-xl uppercase tracking-widest font-bold border-b-4 border-transparent text-gray-400 hover:text-gray-600 transition-colors cursor-pointer">Log In</button>
+                    <div class="flex border-b border-gray-200 mb-12 w-full">
+                        <button id="tab-btn-signup" onclick="toggleAuth('signup')" class="w-1/2 py-4 font-[Oswald] text-2xl uppercase tracking-widest font-bold border-b-4 border-yellow-500 text-gray-900 transition-colors cursor-pointer">Sign Up</button>
+                        <button id="tab-btn-login" onclick="toggleAuth('login')" class="w-1/2 py-4 font-[Oswald] text-2xl uppercase tracking-widest font-bold border-b-4 border-transparent text-gray-400 hover:text-gray-600 transition-colors cursor-pointer">Log In</button>
                     </div>
 
-                    <div id="auth-login" class="hidden max-w-xl mx-auto">
-                        <div class="text-center mb-8">
-                            <h2 class="text-3xl font-bold text-gray-800">Welcome Back</h2>
-                            <p class="text-gray-500">Log in to view your upcoming events.</p>
+                    <div id="auth-login" class="hidden max-w-lg mx-auto">
+                        <div class="text-center mb-10">
+                            <div class="w-20 h-20 bg-yellow-50 rounded-full flex items-center justify-center mx-auto mb-6">
+                                <span class="text-3xl">👋</span>
+                            </div>
+                            <h2 class="text-3xl font-bold text-gray-800 mb-2">Welcome Back</h2>
+                            <p class="text-gray-500 font-medium">Log in to view your upcoming curated events.</p>
                         </div>
-                        <div class="space-y-5">
-                            <input type="email" placeholder="Email Address" class="w-full bg-gray-50 border border-gray-200 px-6 py-4 rounded-xl text-lg premium-input outline-none">
-                            <input type="password" placeholder="Password" class="w-full bg-gray-50 border border-gray-200 px-6 py-4 rounded-xl text-lg premium-input outline-none">
-                            <button onclick="switchTab('dashboard')" class="w-full bg-black text-white px-6 py-4 font-bold text-lg rounded-xl hover:bg-gray-800 transition-all shadow-md mt-4 cursor-pointer">
+                        <div class="space-y-6">
+                            <input type="email" placeholder="Email Address" class="w-full bg-gray-50 border border-gray-200 px-6 py-5 rounded-2xl text-lg premium-input outline-none">
+                            <input type="password" placeholder="Password" class="w-full bg-gray-50 border border-gray-200 px-6 py-5 rounded-2xl text-lg premium-input outline-none">
+                            <button onclick="switchTab('dashboard')" class="w-full bg-black text-white px-6 py-5 font-bold text-xl rounded-2xl hover:bg-gray-800 transition-all shadow-lg mt-6 cursor-pointer transform hover:-translate-y-1">
                                 Log In
                             </button>
                         </div>
@@ -311,64 +322,64 @@
                             <div class="flex justify-between mb-3">
                                 <span id="step-counter" class="text-xs font-bold text-gray-400 uppercase tracking-widest">Step 1 of 5</span>
                             </div>
-                            <div class="w-full bg-gray-100 rounded-full h-2">
-                                <div id="progress-bar" class="bg-yellow-500 h-2 rounded-full transition-all duration-700 ease-out shadow-sm" style="width: 20%"></div>
+                            <div class="w-full bg-gray-100 rounded-full h-2.5 overflow-hidden">
+                                <div id="progress-bar" class="bg-gradient-to-r from-yellow-400 to-yellow-500 h-full rounded-full transition-all duration-700 ease-out shadow-sm" style="width: 20%"></div>
                             </div>
                         </div>
 
                         <form id="readymix-form" class="space-y-6" onsubmit="event.preventDefault();">
 
-                            <div class="form-step max-w-3xl mx-auto" id="step-1">
+                            <div class="form-step max-w-2xl mx-auto" id="step-1">
                                 <div class="text-center mb-10">
-                                    <h2 class="text-4xl font-[Oswald] text-gray-900 mb-2 uppercase tracking-wide">Tell us about you</h2>
-                                    <p class="text-gray-500">The essentials to get you matched with your crew.</p>
+                                    <h2 class="text-4xl font-[Oswald] text-gray-900 mb-3 uppercase tracking-wide">Tell us about you</h2>
+                                    <p class="text-gray-500 text-lg">The essentials to get you matched with your crew.</p>
                                 </div>
 
                                 <div class="space-y-5">
                                     <div>
-                                        <input type="text" id="user_name" placeholder="Full Name *" class="w-full bg-gray-50 border border-gray-200 px-6 py-4 rounded-xl text-lg premium-input outline-none">
+                                        <input type="text" id="user_name" placeholder="Full Name *" class="w-full bg-gray-50 border border-gray-200 px-6 py-5 rounded-2xl text-lg premium-input outline-none">
                                         <p id="name_error" class="error-msg text-red-500 text-sm font-semibold mt-2 ml-2 hidden">Please enter your name.</p>
                                     </div>
                                     
                                     <div>
-                                        <input type="email" id="user_email" placeholder="Email Address *" class="w-full bg-gray-50 border border-gray-200 px-6 py-4 rounded-xl text-lg premium-input outline-none">
+                                        <input type="email" id="user_email" placeholder="Email Address *" class="w-full bg-gray-50 border border-gray-200 px-6 py-5 rounded-2xl text-lg premium-input outline-none">
                                         <p id="email_error" class="error-msg text-red-500 text-sm font-semibold mt-2 ml-2 hidden">Please enter a valid email address.</p>
                                     </div>
 
                                     <div>
-                                        <input type="password" id="user_password" placeholder="Create Password *" class="w-full bg-gray-50 border border-gray-200 px-6 py-4 rounded-xl text-lg premium-input outline-none">
+                                        <input type="password" id="user_password" placeholder="Create Password *" class="w-full bg-gray-50 border border-gray-200 px-6 py-5 rounded-2xl text-lg premium-input outline-none">
                                     </div>
 
                                     <div>
-                                        <input type="number" id="user_age" placeholder="Your Age *" class="w-full bg-gray-50 border border-gray-200 px-6 py-4 rounded-xl text-lg premium-input outline-none">
+                                        <input type="number" id="user_age" placeholder="Your Age *" class="w-full bg-gray-50 border border-gray-200 px-6 py-5 rounded-2xl text-lg premium-input outline-none">
                                         <p id="age_error" class="error-msg text-red-500 text-sm font-semibold mt-2 ml-2 hidden">You must be 18 or older to join.</p>
                                     </div>
 
                                     <div>
-                                        <input type="tel" id="user_phone" placeholder="Phone Number (Optional - For day-of updates)" class="w-full bg-gray-50 border border-gray-200 px-6 py-4 rounded-xl text-lg premium-input outline-none">
+                                        <input type="tel" id="user_phone" placeholder="Phone Number (Optional - For day-of updates)" class="w-full bg-gray-50 border border-gray-200 px-6 py-5 rounded-2xl text-lg premium-input outline-none">
                                         <p id="phone_error" class="error-msg text-red-500 text-sm font-semibold mt-2 ml-2 hidden">Please enter a valid 10-digit phone number.</p>
                                     </div>
                                 </div>
 
-                                <div id="step-1-buttons" class="flex flex-col gap-4 mt-12">
-                                    <button type="button" class="w-full bg-yellow-500 text-black px-6 py-4 font-bold text-lg rounded-xl hover:bg-yellow-400 transition-colors shadow-sm cursor-pointer" onclick="changeStep(1)">
+                                <div id="step-1-buttons" class="flex flex-col mt-10">
+                                    <button type="button" class="w-full bg-yellow-500 text-black px-6 py-5 font-bold text-xl rounded-2xl hover:bg-yellow-400 transition-colors shadow-sm cursor-pointer transform hover:-translate-y-1" onclick="changeStep(1)">
                                         Next: Set Preferences
                                     </button>
                                 </div>
                             </div>
 
                             <div class="form-step hidden max-w-3xl mx-auto" id="step-2">
-                                <h2 class="text-3xl font-bold mb-8 text-gray-800">Location & Availability</h2>
+                                <h2 class="text-4xl font-[Oswald] text-gray-900 mb-8 uppercase tracking-wide text-center">Location & Availability</h2>
 
-                                <label class="block mb-4 font-semibold text-gray-700 text-lg">Where are you looking to hang out?</label>
-                                <div class="flex space-x-6 mb-8 bg-gray-50 p-4 rounded-xl border border-gray-100">
-                                    <label class="flex items-center cursor-pointer text-lg font-medium text-gray-700 hover:text-yellow-600 transition-colors"><input type="radio" name="loc_type" value="city" class="mr-3 w-5 h-5 accent-yellow-500" checked onchange="toggleLocationMode()"> Search by City</label>
-                                    <label class="flex items-center cursor-pointer text-lg font-medium text-gray-700 hover:text-yellow-600 transition-colors"><input type="radio" name="loc_type" value="zip" class="mr-3 w-5 h-5 accent-yellow-500" onchange="toggleLocationMode()"> Search by Zip Code</label>
+                                <label class="block mb-4 font-bold text-gray-800 text-lg">Where are you looking to hang out?</label>
+                                <div class="flex space-x-6 mb-8 bg-white p-5 rounded-2xl border border-gray-200 shadow-sm">
+                                    <label class="flex items-center cursor-pointer text-lg font-bold text-gray-700 hover:text-yellow-600 transition-colors"><input type="radio" name="loc_type" value="city" class="mr-3 w-5 h-5 accent-yellow-500" checked onchange="toggleLocationMode()"> Search by City</label>
+                                    <label class="flex items-center cursor-pointer text-lg font-bold text-gray-700 hover:text-yellow-600 transition-colors"><input type="radio" name="loc_type" value="zip" class="mr-3 w-5 h-5 accent-yellow-500" onchange="toggleLocationMode()"> Search by Zip Code</label>
                                 </div>
 
                                 <div id="city-section" class="mb-10">
-                                    <label class="block mb-2 text-sm font-semibold text-gray-500 uppercase tracking-wider">Select up to 5 cities</label>
-                                    <input list="us-cities" id="city-input" placeholder="Start typing a city..." class="w-full bg-gray-50 border border-gray-200 px-6 py-4 rounded-xl text-lg premium-input outline-none mb-3">
+                                    <label class="block mb-2 text-sm font-bold text-gray-500 uppercase tracking-wider">Select up to 5 cities</label>
+                                    <input list="us-cities" id="city-input" placeholder="Start typing a city..." class="w-full bg-white border border-gray-200 px-6 py-5 rounded-2xl text-lg premium-input outline-none mb-3 shadow-sm">
                                     <datalist id="us-cities">
                                         <option value="New York, NY"></option>
                                         <option value="Los Angeles, CA"></option>
@@ -386,94 +397,101 @@
                                     <div id="selected-cities" class="flex flex-wrap gap-2 mt-3"></div>
                                 </div>
 
-                                <div id="zip-section" class="hidden mb-10 p-6 bg-gray-50 border border-gray-200 rounded-2xl shadow-sm">
-                                    <input type="text" id="zip-input" placeholder="Enter Zip Code" class="w-full bg-white border border-gray-200 px-6 py-4 rounded-xl text-lg premium-input outline-none mb-6" onkeyup="simulateRadiusSearch()" maxlength="5">
-                                    <label class="block mb-3 font-bold text-gray-700">Search Radius: <span id="radius-display" class="text-yellow-600 ml-2">25 miles</span></label>
+                                <div id="zip-section" class="hidden mb-10 p-8 bg-white border border-gray-200 rounded-3xl shadow-sm">
+                                    <input type="text" id="zip-input" placeholder="Enter Zip Code" class="w-full bg-gray-50 border border-gray-200 px-6 py-5 rounded-2xl text-lg premium-input outline-none mb-8" onkeyup="simulateRadiusSearch()" maxlength="5">
+                                    <label class="block mb-4 font-bold text-gray-800 text-lg">Search Radius: <span id="radius-display" class="text-yellow-600 ml-2 bg-yellow-50 px-3 py-1 rounded-full text-base border border-yellow-200">25 miles</span></label>
                                     <input type="range" id="radius-slider" min="5" max="250" step="5" value="25" class="w-full accent-yellow-500 mb-2" onchange="updateRadiusDisplay(); simulateRadiusSearch();">
-                                    <div class="flex justify-between text-xs text-gray-400 font-bold uppercase tracking-widest"><span>5 mi</span><span>125 mi</span><span>250 mi</span></div>
+                                    <div class="flex justify-between text-xs text-gray-400 font-bold uppercase tracking-widest mt-2"><span>5 mi</span><span>125 mi</span><span>250 mi</span></div>
                                     <div id="dynamic-cities-container" class="mt-8 hidden">
                                         <label class="block mb-3 text-sm font-bold text-gray-500 uppercase tracking-wider">Select up to 5 nearby cities:</label>
-                                        <div id="nearby-cities-list" class="flex flex-wrap gap-2 max-h-48 overflow-y-auto custom-scrollbar p-2 bg-white rounded-xl border border-gray-100"></div>
+                                        <div id="nearby-cities-list" class="flex flex-wrap gap-3 max-h-48 overflow-y-auto custom-scrollbar p-3 bg-gray-50 rounded-2xl border border-gray-100"></div>
                                         <p id="city-limit-warning" class="text-red-500 text-xs mt-2 hidden font-semibold">You can only select up to 5 cities.</p>
                                     </div>
                                 </div>
                                 <p id="location_error" class="error-msg text-red-500 text-sm font-semibold mb-6 hidden">Please select a location before continuing.</p>
 
-                                <label class="block mb-4 font-semibold text-gray-700 text-lg">When are you usually free?</label>
+                                <label class="block mb-4 font-bold text-gray-800 text-lg">When are you usually free?</label>
                                 <div class="flex flex-wrap gap-3 mb-10">
-                                    <label class="selectable-chip border-2 border-gray-200 bg-white px-5 py-3 rounded-xl cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md"><input type="checkbox" class="hidden" value="weekday"> Weekday Evenings</label>
-                                    <label class="selectable-chip border-2 border-gray-200 bg-white px-5 py-3 rounded-xl cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md"><input type="checkbox" class="hidden" value="weekend"> Weekends</label>
-                                    <label class="selectable-chip border-2 border-gray-200 bg-white px-5 py-3 rounded-xl cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md"><input type="checkbox" class="hidden" value="anytime"> Anytime</label>
+                                    <label class="selectable-chip border-2 border-gray-200 bg-white px-6 py-4 rounded-xl cursor-pointer transition-all duration-200 text-gray-700 font-bold hover:border-yellow-400 shadow-sm hover:shadow-md"><input type="checkbox" class="hidden" value="weekday"> Weekday Evenings</label>
+                                    <label class="selectable-chip border-2 border-gray-200 bg-white px-6 py-4 rounded-xl cursor-pointer transition-all duration-200 text-gray-700 font-bold hover:border-yellow-400 shadow-sm hover:shadow-md"><input type="checkbox" class="hidden" value="weekend"> Weekends</label>
+                                    <label class="selectable-chip border-2 border-gray-200 bg-white px-6 py-4 rounded-xl cursor-pointer transition-all duration-200 text-gray-700 font-bold hover:border-yellow-400 shadow-sm hover:shadow-md"><input type="checkbox" class="hidden" value="anytime"> Anytime</label>
                                 </div>
 
-                                <label class="block mb-4 font-semibold text-gray-700 text-lg">Dietary preferences?</label>
-                                <select class="w-full bg-gray-50 border border-gray-200 px-6 py-4 rounded-xl text-lg premium-input outline-none cursor-pointer appearance-none" id="diet_pref">
+                                <label class="block mb-4 font-bold text-gray-800 text-lg">Dietary preferences?</label>
+                                <select class="w-full bg-white border border-gray-200 px-6 py-5 rounded-2xl text-lg premium-input outline-none cursor-pointer shadow-sm font-medium text-gray-700" id="diet_pref">
                                     <option>No Restrictions</option>
                                     <option>Vegetarian</option>
                                     <option>Vegan</option>
+                                    <option>Pescatarian</option>
                                     <option>Gluten-Free</option>
+                                    <option>Lactose-Free</option>
+                                    <option>Dairy-Free</option>
+                                    <option>Kosher</option>
                                     <option>Halal</option>
                                 </select>
                             </div>
 
-                            <div class="form-step hidden max-w-3xl mx-auto" id="step-3">
-                                <h2 class="text-3xl font-bold mb-8 text-gray-800">Event Preferences</h2>
-                                <label class="block mb-4 font-semibold text-gray-700 text-lg">Typical budget per event?</label>
-                                <div class="flex flex-col sm:flex-row gap-4 mb-10">
-                                    <label class="selectable-chip flex-1 text-center border-2 border-gray-200 bg-white px-4 py-4 rounded-xl cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md">
-                                        <input type="radio" name="budget" class="hidden budget-input" value="low"> <span class="block text-lg">💸</span> $20 - $40
+                            <div class="form-step hidden max-w-4xl mx-auto" id="step-3">
+                                <h2 class="text-4xl font-[Oswald] text-gray-900 mb-8 uppercase tracking-wide text-center">Event Preferences</h2>
+                                
+                                <label class="block mb-4 font-bold text-gray-800 text-lg">Typical budget per event?</label>
+                                <div class="flex flex-col sm:flex-row gap-4 mb-12">
+                                    <label class="selectable-chip flex-1 text-center border-2 border-gray-200 bg-white px-4 py-5 rounded-2xl cursor-pointer transition-all duration-200 text-gray-700 font-bold hover:border-yellow-400 shadow-sm hover:shadow-md">
+                                        <input type="radio" name="budget" class="hidden budget-input" value="low"> <span class="block text-2xl mb-2">💸</span> $20 - $50
                                     </label>
-                                    <label class="selectable-chip flex-1 text-center border-2 border-gray-200 bg-white px-4 py-4 rounded-xl cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md">
-                                        <input type="radio" name="budget" class="hidden budget-input" value="mid"> <span class="block text-lg">💳</span> $40 - $60
+                                    <label class="selectable-chip flex-1 text-center border-2 border-gray-200 bg-white px-4 py-5 rounded-2xl cursor-pointer transition-all duration-200 text-gray-700 font-bold hover:border-yellow-400 shadow-sm hover:shadow-md">
+                                        <input type="radio" name="budget" class="hidden budget-input" value="mid"> <span class="block text-2xl mb-2">💳</span> $50 - $100
                                     </label>
-                                    <label class="selectable-chip flex-1 text-center border-2 border-gray-200 bg-white px-4 py-4 rounded-xl cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md">
-                                        <input type="radio" name="budget" class="hidden budget-input" value="high"> <span class="block text-lg">💎</span> $80+
+                                    <label class="selectable-chip flex-1 text-center border-2 border-gray-200 bg-white px-4 py-5 rounded-2xl cursor-pointer transition-all duration-200 text-gray-700 font-bold hover:border-yellow-400 shadow-sm hover:shadow-md">
+                                        <input type="radio" name="budget" class="hidden budget-input" value="high"> <span class="block text-2xl mb-2">💎</span> $100+
                                     </label>
                                 </div>
 
-                                <label class="block mb-4 font-semibold text-gray-700 text-lg">What kind of vibe? (Select all that apply)</label>
+                                <label class="block mb-4 font-bold text-gray-800 text-lg">What kind of vibe? (Select all that apply)</label>
                                 <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-10">
-                                    <label class="selectable-chip border-2 border-gray-200 bg-white p-5 rounded-xl text-center cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md flex flex-col items-center justify-center gap-2"><input type="checkbox" class="hidden vibe-input" value="Outdoor"> <span class="text-2xl">🌳</span> Outdoor</label>
-                                    <label class="selectable-chip border-2 border-gray-200 bg-white p-5 rounded-xl text-center cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md flex flex-col items-center justify-center gap-2"><input type="checkbox" class="hidden vibe-input" value="Indoor"> <span class="text-2xl">🏠</span> Indoor</label>
-                                    <label class="selectable-chip border-2 border-gray-200 bg-white p-5 rounded-xl text-center cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md flex flex-col items-center justify-center gap-2"><input type="checkbox" class="hidden vibe-input" value="Food"> <span class="text-2xl">🍕</span> Food & Drink</label>
-                                    <label class="selectable-chip border-2 border-gray-200 bg-white p-5 rounded-xl text-center cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md flex flex-col items-center justify-center gap-2"><input type="checkbox" class="hidden vibe-input" value="Recreation"> <span class="text-2xl">🎯</span> Recreation</label>
-                                    <label class="selectable-chip border-2 border-gray-200 bg-white p-5 rounded-xl text-center cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md flex flex-col items-center justify-center gap-2"><input type="checkbox" class="hidden vibe-input" value="Education"> <span class="text-2xl">🧠</span> Education</label>
+                                    <label class="selectable-chip border-2 border-gray-200 bg-white p-6 rounded-2xl text-center cursor-pointer transition-all duration-200 text-gray-700 font-bold hover:border-yellow-400 shadow-sm hover:shadow-md flex flex-col items-center justify-center gap-3"><input type="checkbox" class="hidden vibe-input" value="Outdoor"> <span class="text-3xl">🌳</span> Outdoor</label>
+                                    <label class="selectable-chip border-2 border-gray-200 bg-white p-6 rounded-2xl text-center cursor-pointer transition-all duration-200 text-gray-700 font-bold hover:border-yellow-400 shadow-sm hover:shadow-md flex flex-col items-center justify-center gap-3"><input type="checkbox" class="hidden vibe-input" value="Indoor"> <span class="text-3xl">🏠</span> Indoor</label>
+                                    <label class="selectable-chip border-2 border-gray-200 bg-white p-6 rounded-2xl text-center cursor-pointer transition-all duration-200 text-gray-700 font-bold hover:border-yellow-400 shadow-sm hover:shadow-md flex flex-col items-center justify-center gap-3"><input type="checkbox" class="hidden vibe-input" value="Food"> <span class="text-3xl">🍕</span> Food & Drink</label>
+                                    <label class="selectable-chip border-2 border-gray-200 bg-white p-6 rounded-2xl text-center cursor-pointer transition-all duration-200 text-gray-700 font-bold hover:border-yellow-400 shadow-sm hover:shadow-md flex flex-col items-center justify-center gap-3"><input type="checkbox" class="hidden vibe-input" value="Recreation"> <span class="text-3xl">🎯</span> Recreation</label>
+                                    <label class="selectable-chip border-2 border-gray-200 bg-white p-6 rounded-2xl text-center cursor-pointer transition-all duration-200 text-gray-700 font-bold hover:border-yellow-400 shadow-sm hover:shadow-md flex flex-col items-center justify-center gap-3"><input type="checkbox" class="hidden vibe-input" value="Education"> <span class="text-3xl">🧠</span> Education</label>
+                                    <label class="selectable-chip border-2 border-gray-200 bg-white p-6 rounded-2xl text-center cursor-pointer transition-all duration-200 text-gray-700 font-bold hover:border-yellow-400 shadow-sm hover:shadow-md flex flex-col items-center justify-center gap-3"><input type="checkbox" class="hidden vibe-input" value="Creative"> <span class="text-3xl">🎨</span> Arts & Creative</label>
                                 </div>
 
-                                <div id="recommendations-section" class="hidden bg-yellow-50 border-2 border-yellow-200 p-6 rounded-2xl shadow-sm transition-all duration-500">
-                                    <label class="block mb-4 font-bold text-yellow-800 text-lg">✨ Recommended Activities for You</label>
-                                    <p class="text-sm text-yellow-700 mb-4 opacity-80">Select the ones that sound like a good time.</p>
-                                    <div id="dynamic-activities" class="flex flex-wrap gap-2"></div>
+                                <div id="recommendations-section" class="hidden bg-gradient-to-br from-yellow-50 to-yellow-100 border border-yellow-200 p-8 rounded-3xl shadow-sm transition-all duration-500">
+                                    <label class="block mb-2 font-bold text-yellow-800 text-xl">✨ Curated Match Previews</label>
+                                    <p class="text-sm font-medium text-yellow-700 mb-6 opacity-90">Select the ones that sound like a good time.</p>
+                                    <div id="dynamic-activities" class="flex flex-wrap gap-3"></div>
                                 </div>
                             </div>
 
                             <div class="form-step hidden max-w-3xl mx-auto" id="step-4">
-                                <h2 class="text-3xl font-bold mb-8 text-gray-800">The Crowd</h2>
-                                <label class="block mb-4 font-semibold text-gray-700 text-lg">Who are you looking to connect with?</label>
-                                <div class="flex flex-col space-y-4 mb-8 bg-gray-50 p-6 border border-gray-200 rounded-2xl shadow-sm">
-                                    <label class="flex items-center text-lg cursor-pointer font-medium hover:text-yellow-600 transition-colors"><input type="radio" name="gender_pref" class="mr-4 w-5 h-5 accent-yellow-500"> Same gender</label>
-                                    <label class="flex items-center text-lg cursor-pointer font-medium hover:text-yellow-600 transition-colors"><input type="radio" name="gender_pref" class="mr-4 w-5 h-5 accent-yellow-500"> Mixed gender / Gender-balanced</label>
+                                <h2 class="text-4xl font-[Oswald] text-gray-900 mb-8 uppercase tracking-wide text-center">The Crowd</h2>
+                                
+                                <label class="block mb-4 font-bold text-gray-800 text-lg">Who are you looking to connect with?</label>
+                                <div class="flex flex-col space-y-4 mb-10 bg-white p-8 border border-gray-200 rounded-3xl shadow-sm">
+                                    <label class="flex items-center text-lg cursor-pointer font-bold text-gray-700 hover:text-yellow-600 transition-colors"><input type="radio" name="gender_pref" class="mr-4 w-6 h-6 accent-yellow-500"> Same gender</label>
+                                    <label class="flex items-center text-lg cursor-pointer font-bold text-gray-700 hover:text-yellow-600 transition-colors"><input type="radio" name="gender_pref" class="mr-4 w-6 h-6 accent-yellow-500"> Mixed gender / Gender-balanced</label>
                                 </div>
 
-                                <label class="block mb-4 font-semibold text-gray-700 text-lg">Age preference:</label>
-                                <div class="flex flex-col space-y-4 mb-10 bg-gray-50 p-6 border border-gray-200 rounded-2xl shadow-sm">
-                                    <label class="flex items-center text-lg cursor-pointer font-medium hover:text-yellow-600 transition-colors"><input type="radio" name="age_pref" class="mr-4 w-5 h-5 accent-yellow-500"> Keep it close to my age (+/- 5 years)</label>
-                                    <label class="flex items-center text-lg cursor-pointer font-medium hover:text-yellow-600 transition-colors"><input type="radio" name="age_pref" class="mr-4 w-5 h-5 accent-yellow-500"> I'm open to all ages</label>
+                                <label class="block mb-4 font-bold text-gray-800 text-lg">Age preference:</label>
+                                <div class="flex flex-col space-y-4 mb-10 bg-white p-8 border border-gray-200 rounded-3xl shadow-sm">
+                                    <label class="flex items-center text-lg cursor-pointer font-bold text-gray-700 hover:text-yellow-600 transition-colors"><input type="radio" name="age_pref" class="mr-4 w-6 h-6 accent-yellow-500"> Keep it close to my age (+/- 5 years)</label>
+                                    <label class="flex items-center text-lg cursor-pointer font-bold text-gray-700 hover:text-yellow-600 transition-colors"><input type="radio" name="age_pref" class="mr-4 w-6 h-6 accent-yellow-500"> I'm open to all ages</label>
                                 </div>
 
-                                <div class="bg-gray-50 p-6 border border-gray-200 rounded-2xl shadow-sm space-y-6">
-                                    <div class="flex items-center justify-between border-b border-gray-200 pb-6">
-                                        <span class="font-bold text-gray-700 text-lg">Looking for professional networking?</span>
+                                <div class="bg-white p-8 border border-gray-200 rounded-3xl shadow-sm space-y-8">
+                                    <div class="flex items-center justify-between border-b border-gray-100 pb-6">
+                                        <span class="font-bold text-gray-800 text-lg">Looking for professional networking?</span>
                                         <label class="relative inline-flex items-center cursor-pointer">
                                             <input type="checkbox" class="sr-only peer">
-                                            <div class="w-11 h-6 bg-gray-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-yellow-500"></div>
+                                            <div class="w-14 h-7 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-yellow-500"></div>
                                         </label>
                                     </div>
                                     <div class="flex items-center justify-between">
-                                        <span class="font-bold text-gray-700 text-lg">Bringing a plus one?</span>
+                                        <span class="font-bold text-gray-800 text-lg">Bringing a plus one?</span>
                                         <label class="relative inline-flex items-center cursor-pointer">
                                             <input type="checkbox" class="sr-only peer">
-                                            <div class="w-11 h-6 bg-gray-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-yellow-500"></div>
+                                            <div class="w-14 h-7 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-yellow-500"></div>
                                         </label>
                                     </div>
                                 </div>
@@ -481,271 +499,217 @@
 
                             <div class="form-step hidden w-full" id="step-5">
                                 
-                                <div class="text-center mb-10 max-w-3xl mx-auto">
-                                    <h2 class="text-4xl font-[Oswald] text-gray-900 mb-3 uppercase tracking-wide">Let's get to know you</h2>
-                                    <p class="text-gray-500 mb-6 leading-relaxed">We skip the surface level. We curate your crew based on the things that actually matter:</p>
-                                    <div class="flex flex-wrap justify-center gap-2 mb-4">
-                                        <span class="bg-gray-100 text-gray-700 text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider shadow-sm border border-gray-200">🌱 Life Stage</span>
-                                        <span class="bg-gray-100 text-gray-700 text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider shadow-sm border border-gray-200">⚡ Social Energy</span>
-                                        <span class="bg-gray-100 text-gray-700 text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider shadow-sm border border-gray-200">💬 Comm Style</span>
-                                        <span class="bg-gray-100 text-gray-700 text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider shadow-sm border border-gray-200">🧭 Values</span>
+                                <div class="text-center mb-12 max-w-3xl mx-auto">
+                                    <h2 class="text-4xl font-[Oswald] text-gray-900 mb-4 uppercase tracking-wide">Let's get to know you</h2>
+                                    <p class="text-gray-500 text-lg mb-8 leading-relaxed font-medium">We skip the surface level. We curate your crew based on the things that actually matter:</p>
+                                    
+                                    <div class="flex flex-wrap justify-center gap-3 mb-4">
+                                        <span class="bg-white text-gray-700 text-sm font-bold px-4 py-2 rounded-full shadow-sm border border-gray-200 flex items-center"><span class="mr-2 text-lg">🌱</span> Life Stage</span>
+                                        <span class="bg-white text-gray-700 text-sm font-bold px-4 py-2 rounded-full shadow-sm border border-gray-200 flex items-center"><span class="mr-2 text-lg">⚡</span> Social Energy</span>
+                                        <span class="bg-white text-gray-700 text-sm font-bold px-4 py-2 rounded-full shadow-sm border border-gray-200 flex items-center"><span class="mr-2 text-lg">💬</span> Comm Style</span>
+                                        <span class="bg-white text-gray-700 text-sm font-bold px-4 py-2 rounded-full shadow-sm border border-gray-200 flex items-center"><span class="mr-2 text-lg">🧭</span> Values</span>
                                     </div>
                                 </div>
 
-                                <div class="mb-12 border-b border-gray-100 pb-12">
-                                    <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">Where are you at right now? <span class="block text-sm font-normal text-gray-400 mt-1 uppercase tracking-widest">(Select all that apply)</span></h3>
-                                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                                <div class="mb-14 bg-white p-8 md:p-10 rounded-[2rem] border border-gray-100 shadow-sm">
+                                    <h3 class="text-2xl font-bold text-gray-900 mb-8 text-center">Where are you at right now? <span class="block text-sm font-bold text-gray-400 mt-2 uppercase tracking-widest">(Select all that apply)</span></h3>
+                                    <div class="grid grid-cols-2 md:grid-cols-3 gap-5">
                                         <label class="relative cursor-pointer group">
                                             <input type="checkbox" class="peer sr-only">
-                                            <div class="h-full p-5 bg-white border-2 border-gray-100 rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex flex-col items-center text-center gap-2">
-                                                <span class="text-4xl group-hover:scale-110 transition-transform mb-2">🏙️</span>
-                                                <span class="font-bold text-gray-700 text-lg">New to Chicago</span>
-                                                <span class="text-xs text-gray-500">(within 2 years)</span>
+                                            <div class="h-full p-6 bg-gray-50 border-2 border-transparent rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex flex-col items-center text-center gap-3">
+                                                <span class="text-4xl group-hover:scale-110 transition-transform mb-1">🏙️</span>
+                                                <span class="font-bold text-gray-800 text-lg leading-tight">New to Chicago</span>
+                                                <span class="text-sm text-gray-500 font-medium">(within 2 years)</span>
                                             </div>
                                         </label>
                                         <label class="relative cursor-pointer group">
                                             <input type="checkbox" class="peer sr-only">
-                                            <div class="h-full p-5 bg-white border-2 border-gray-100 rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex flex-col items-center text-center gap-2">
-                                                <span class="text-4xl group-hover:scale-110 transition-transform mb-2">💼</span>
-                                                <span class="font-bold text-gray-700 text-lg">Career Shift</span>
-                                                <span class="text-xs text-gray-500">Recently changed paths</span>
+                                            <div class="h-full p-6 bg-gray-50 border-2 border-transparent rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex flex-col items-center text-center gap-3">
+                                                <span class="text-4xl group-hover:scale-110 transition-transform mb-1">💼</span>
+                                                <span class="font-bold text-gray-800 text-lg leading-tight">Career Shift</span>
+                                                <span class="text-sm text-gray-500 font-medium">Recently changed paths</span>
                                             </div>
                                         </label>
                                         <label class="relative cursor-pointer group">
                                             <input type="checkbox" class="peer sr-only">
-                                            <div class="h-full p-5 bg-white border-2 border-gray-100 rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex flex-col items-center text-center gap-2">
-                                                <span class="text-4xl group-hover:scale-110 transition-transform mb-2">💔</span>
-                                                <span class="font-bold text-gray-700 text-lg">Recently Single</span>
-                                                <span class="text-xs text-gray-500">Navigating a new chapter</span>
+                                            <div class="h-full p-6 bg-gray-50 border-2 border-transparent rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex flex-col items-center text-center gap-3">
+                                                <span class="text-4xl group-hover:scale-110 transition-transform mb-1">💔</span>
+                                                <span class="font-bold text-gray-800 text-lg leading-tight">Recently Single</span>
+                                                <span class="text-sm text-gray-500 font-medium">Navigating a new chapter</span>
                                             </div>
                                         </label>
                                         <label class="relative cursor-pointer group">
                                             <input type="checkbox" class="peer sr-only">
-                                            <div class="h-full p-5 bg-white border-2 border-gray-100 rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex flex-col items-center text-center gap-2">
-                                                <span class="text-4xl group-hover:scale-110 transition-transform mb-2">🔄</span>
-                                                <span class="font-bold text-gray-700 text-lg">Major Life Shift</span>
-                                                <span class="text-xs text-gray-500">Building a new circle</span>
+                                            <div class="h-full p-6 bg-gray-50 border-2 border-transparent rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex flex-col items-center text-center gap-3">
+                                                <span class="text-4xl group-hover:scale-110 transition-transform mb-1">🔄</span>
+                                                <span class="font-bold text-gray-800 text-lg leading-tight">Major Life Shift</span>
+                                                <span class="text-sm text-gray-500 font-medium">Building a new circle</span>
                                             </div>
                                         </label>
                                         <label class="relative cursor-pointer group">
                                             <input type="checkbox" class="peer sr-only">
-                                            <div class="h-full p-5 bg-white border-2 border-gray-100 rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex flex-col items-center text-center gap-2">
-                                                <span class="text-4xl group-hover:scale-110 transition-transform mb-2">🌍</span>
-                                                <span class="font-bold text-gray-700 text-lg">Friends Scattered</span>
-                                                <span class="text-xs text-gray-500">Life's stable, but lonely</span>
+                                            <div class="h-full p-6 bg-gray-50 border-2 border-transparent rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex flex-col items-center text-center gap-3">
+                                                <span class="text-4xl group-hover:scale-110 transition-transform mb-1">🌍</span>
+                                                <span class="font-bold text-gray-800 text-lg leading-tight">Friends Scattered</span>
+                                                <span class="text-sm text-gray-500 font-medium">Life's stable, but lonely</span>
                                             </div>
                                         </label>
                                         <label class="relative cursor-pointer group">
                                             <input type="checkbox" class="peer sr-only">
-                                            <div class="h-full p-5 bg-white border-2 border-gray-100 rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex flex-col items-center text-center gap-2">
-                                                <span class="text-4xl group-hover:scale-110 transition-transform mb-2">➕</span>
-                                                <span class="font-bold text-gray-700 text-lg">Expanding Circle</span>
-                                                <span class="text-xs text-gray-500">Life is great, want more</span>
+                                            <div class="h-full p-6 bg-gray-50 border-2 border-transparent rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex flex-col items-center text-center gap-3">
+                                                <span class="text-4xl group-hover:scale-110 transition-transform mb-1">➕</span>
+                                                <span class="font-bold text-gray-800 text-lg leading-tight">Expanding Circle</span>
+                                                <span class="text-sm text-gray-500 font-medium">Life is great, want more</span>
                                             </div>
                                         </label>
                                     </div>
                                 </div>
 
-                                <div class="mb-12 border-b border-gray-100 pb-12">
-                                    <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">Your ideal hangout vibe right now? <span class="block text-sm font-normal text-gray-400 mt-1 uppercase tracking-widest">(Select one)</span></h3>
-                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="mb-14 bg-white p-8 md:p-10 rounded-[2rem] border border-gray-100 shadow-sm">
+                                    <h3 class="text-2xl font-bold text-gray-900 mb-8 text-center">Your ideal hangout vibe right now? <span class="block text-sm font-bold text-gray-400 mt-2 uppercase tracking-widest">(Select one)</span></h3>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                                         <label class="relative cursor-pointer group">
                                             <input type="radio" name="energy_vibe" class="peer sr-only">
-                                            <div class="h-full p-6 bg-white border-2 border-gray-100 rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex items-center gap-5">
-                                                <span class="text-4xl group-hover:scale-110 transition-transform">🎉</span>
+                                            <div class="h-full p-6 bg-gray-50 border-2 border-transparent rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex items-center gap-5">
+                                                <span class="text-5xl group-hover:scale-110 transition-transform">🎉</span>
                                                 <div class="flex flex-col text-left">
-                                                    <span class="font-bold text-gray-800 text-lg">High Energy</span>
-                                                    <span class="text-sm text-gray-500">Loud bar, big group, electric night.</span>
-                                                </div>
-                                            </div>
-                                        </label>
-                                        <label class="relative cursor-pointer group">
-                                            <input type="radio" name="energy_vibe" class="peer sr-only">
-                                            <div class="h-full p-6 bg-white border-2 border-gray-100 rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex items-center gap-5">
-                                                <span class="text-4xl group-hover:scale-110 transition-transform">🍷</span>
-                                                <div class="flex flex-col text-left">
-                                                    <span class="font-bold text-gray-800 text-lg">Deep Chats</span>
-                                                    <span class="text-sm text-gray-500">Small dinner, real talk.</span>
+                                                    <span class="font-bold text-gray-900 text-xl mb-1">High Energy</span>
+                                                    <span class="text-sm text-gray-500 font-medium leading-snug">Loud bar, big group, electric night.</span>
                                                 </div>
                                             </div>
                                         </label>
                                         <label class="relative cursor-pointer group">
                                             <input type="radio" name="energy_vibe" class="peer sr-only">
-                                            <div class="h-full p-6 bg-white border-2 border-gray-100 rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex items-center gap-5">
-                                                <span class="text-4xl group-hover:scale-110 transition-transform">🧗</span>
+                                            <div class="h-full p-6 bg-gray-50 border-2 border-transparent rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex items-center gap-5">
+                                                <span class="text-5xl group-hover:scale-110 transition-transform">🍷</span>
                                                 <div class="flex flex-col text-left">
-                                                    <span class="font-bold text-gray-800 text-lg">Activity Focused</span>
-                                                    <span class="text-sm text-gray-500">Doing is the point, talk is secondary.</span>
+                                                    <span class="font-bold text-gray-900 text-xl mb-1">Deep Chats</span>
+                                                    <span class="text-sm text-gray-500 font-medium leading-snug">Small dinner, real talk.</span>
                                                 </div>
                                             </div>
                                         </label>
                                         <label class="relative cursor-pointer group">
                                             <input type="radio" name="energy_vibe" class="peer sr-only">
-                                            <div class="h-full p-6 bg-white border-2 border-gray-100 rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex items-center gap-5">
-                                                <span class="text-4xl group-hover:scale-110 transition-transform">🛋️</span>
+                                            <div class="h-full p-6 bg-gray-50 border-2 border-transparent rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex items-center gap-5">
+                                                <span class="text-5xl group-hover:scale-110 transition-transform">🧗</span>
                                                 <div class="flex flex-col text-left">
-                                                    <span class="font-bold text-gray-800 text-lg">Low-Key Hang</span>
-                                                    <span class="text-sm text-gray-500">Someone's place, low stakes, easy talk.</span>
+                                                    <span class="font-bold text-gray-900 text-xl mb-1">Activity Focused</span>
+                                                    <span class="text-sm text-gray-500 font-medium leading-snug">Doing is the point, talk is secondary.</span>
+                                                </div>
+                                            </div>
+                                        </label>
+                                        <label class="relative cursor-pointer group">
+                                            <input type="radio" name="energy_vibe" class="peer sr-only">
+                                            <div class="h-full p-6 bg-gray-50 border-2 border-transparent rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex items-center gap-5">
+                                                <span class="text-5xl group-hover:scale-110 transition-transform">🛋️</span>
+                                                <div class="flex flex-col text-left">
+                                                    <span class="font-bold text-gray-900 text-xl mb-1">Low-Key Hang</span>
+                                                    <span class="text-sm text-gray-500 font-medium leading-snug">Someone's place, low stakes, easy talk.</span>
                                                 </div>
                                             </div>
                                         </label>
                                     </div>
                                 </div>
 
-                                <div class="mb-12 border-b border-gray-100 pb-12">
-                                    <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">When getting to know someone... <span class="block text-sm font-normal text-gray-400 mt-1 uppercase tracking-widest">(Select one)</span></h3>
-                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="mb-14 bg-white p-8 md:p-10 rounded-[2rem] border border-gray-100 shadow-sm">
+                                    <h3 class="text-2xl font-bold text-gray-900 mb-8 text-center">When getting to know someone... <span class="block text-sm font-bold text-gray-400 mt-2 uppercase tracking-widest">(Select one)</span></h3>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                                         <label class="relative cursor-pointer group">
                                             <input type="radio" name="comm_style" class="peer sr-only">
-                                            <div class="h-full p-6 bg-white border-2 border-gray-100 rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex items-center gap-5">
-                                                <span class="text-4xl group-hover:scale-110 transition-transform">📖</span>
+                                            <div class="h-full p-6 bg-gray-50 border-2 border-transparent rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex items-center gap-5">
+                                                <span class="text-5xl group-hover:scale-110 transition-transform">📖</span>
                                                 <div class="flex flex-col text-left">
-                                                    <span class="font-bold text-gray-800 text-lg">Open Book</span>
-                                                    <span class="text-sm text-gray-500">I open up quickly & share a lot.</span>
+                                                    <span class="font-bold text-gray-900 text-xl mb-1">Open Book</span>
+                                                    <span class="text-sm text-gray-500 font-medium leading-snug">I open up quickly & share a lot.</span>
                                                 </div>
                                             </div>
                                         </label>
                                         <label class="relative cursor-pointer group">
                                             <input type="radio" name="comm_style" class="peer sr-only">
-                                            <div class="h-full p-6 bg-white border-2 border-gray-100 rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex items-center gap-5">
-                                                <span class="text-4xl group-hover:scale-110 transition-transform">🎧</span>
+                                            <div class="h-full p-6 bg-gray-50 border-2 border-transparent rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex items-center gap-5">
+                                                <span class="text-5xl group-hover:scale-110 transition-transform">🎧</span>
                                                 <div class="flex flex-col text-left">
-                                                    <span class="font-bold text-gray-800 text-lg">Listener First</span>
-                                                    <span class="text-sm text-gray-500">I observe before I share.</span>
+                                                    <span class="font-bold text-gray-900 text-xl mb-1">Listener First</span>
+                                                    <span class="text-sm text-gray-500 font-medium leading-snug">I observe before I share.</span>
                                                 </div>
                                             </div>
                                         </label>
                                         <label class="relative cursor-pointer group">
                                             <input type="radio" name="comm_style" class="peer sr-only">
-                                            <div class="h-full p-6 bg-white border-2 border-gray-100 rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex items-center gap-5">
-                                                <span class="text-4xl group-hover:scale-110 transition-transform">🤝</span>
+                                            <div class="h-full p-6 bg-gray-50 border-2 border-transparent rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex items-center gap-5">
+                                                <span class="text-5xl group-hover:scale-110 transition-transform">🤝</span>
                                                 <div class="flex flex-col text-left">
-                                                    <span class="font-bold text-gray-800 text-lg">The Doer</span>
-                                                    <span class="text-sm text-gray-500">I bond through shared experiences.</span>
+                                                    <span class="font-bold text-gray-900 text-xl mb-1">The Doer</span>
+                                                    <span class="text-sm text-gray-500 font-medium leading-snug">I bond through shared experiences.</span>
                                                 </div>
                                             </div>
                                         </label>
                                         <label class="relative cursor-pointer group">
                                             <input type="radio" name="comm_style" class="peer sr-only">
-                                            <div class="h-full p-6 bg-white border-2 border-gray-100 rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex items-center gap-5">
-                                                <span class="text-4xl group-hover:scale-110 transition-transform">😂</span>
+                                            <div class="h-full p-6 bg-gray-50 border-2 border-transparent rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex items-center gap-5">
+                                                <span class="text-5xl group-hover:scale-110 transition-transform">😂</span>
                                                 <div class="flex flex-col text-left">
-                                                    <span class="font-bold text-gray-800 text-lg">The Joker</span>
-                                                    <span class="text-sm text-gray-500">Connection through humor & lightness.</span>
+                                                    <span class="font-bold text-gray-900 text-xl mb-1">The Joker</span>
+                                                    <span class="text-sm text-gray-500 font-medium leading-snug">Connection through humor & lightness.</span>
                                                 </div>
                                             </div>
                                         </label>
                                     </div>
                                 </div>
 
-                                <div class="mb-12 border-b border-gray-100 pb-12">
-                                    <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">Which statement feels truest to you? <span class="block text-sm font-normal text-gray-400 mt-1 uppercase tracking-widest">(Select one)</span></h3>
-                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="mb-6 bg-white p-8 md:p-10 rounded-[2rem] border border-gray-100 shadow-sm">
+                                    <h3 class="text-2xl font-bold text-gray-900 mb-8 text-center">Which statement feels truest to you? <span class="block text-sm font-bold text-gray-400 mt-2 uppercase tracking-widest">(Select one)</span></h3>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                                         <label class="relative cursor-pointer group">
                                             <input type="radio" name="values" class="peer sr-only">
-                                            <div class="h-full p-6 bg-white border-2 border-gray-100 rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex items-center gap-5">
-                                                <span class="text-4xl group-hover:scale-110 transition-transform">🗓️</span>
+                                            <div class="h-full p-6 bg-gray-50 border-2 border-transparent rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex items-center gap-5">
+                                                <span class="text-5xl group-hover:scale-110 transition-transform">🗓️</span>
                                                 <div class="flex flex-col text-left">
-                                                    <span class="font-bold text-gray-800 text-lg">The Planner</span>
-                                                    <span class="text-sm text-gray-500">I like knowing what's coming next.</span>
+                                                    <span class="font-bold text-gray-900 text-xl mb-1">The Planner</span>
+                                                    <span class="text-sm text-gray-500 font-medium leading-snug">I like knowing what's coming next.</span>
                                                 </div>
                                             </div>
                                         </label>
                                         <label class="relative cursor-pointer group">
                                             <input type="radio" name="values" class="peer sr-only">
-                                            <div class="h-full p-6 bg-white border-2 border-gray-100 rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex items-center gap-5">
-                                                <span class="text-4xl group-hover:scale-110 transition-transform">🌊</span>
+                                            <div class="h-full p-6 bg-gray-50 border-2 border-transparent rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex items-center gap-5">
+                                                <span class="text-5xl group-hover:scale-110 transition-transform">🌊</span>
                                                 <div class="flex flex-col text-left">
-                                                    <span class="font-bold text-gray-800 text-lg">Go with the Flow</span>
-                                                    <span class="text-sm text-gray-500">I love spontaneity & adaptability.</span>
+                                                    <span class="font-bold text-gray-900 text-xl mb-1">Go with the Flow</span>
+                                                    <span class="text-sm text-gray-500 font-medium leading-snug">I love spontaneity & adaptability.</span>
                                                 </div>
                                             </div>
                                         </label>
                                         <label class="relative cursor-pointer group">
                                             <input type="radio" name="values" class="peer sr-only">
-                                            <div class="h-full p-6 bg-white border-2 border-gray-100 rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex items-center gap-5">
-                                                <span class="text-4xl group-hover:scale-110 transition-transform">🚀</span>
+                                            <div class="h-full p-6 bg-gray-50 border-2 border-transparent rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex items-center gap-5">
+                                                <span class="text-5xl group-hover:scale-110 transition-transform">🚀</span>
                                                 <div class="flex flex-col text-left">
-                                                    <span class="font-bold text-gray-800 text-lg">Goal-Oriented</span>
-                                                    <span class="text-sm text-gray-500">I'm most myself when pushing forward.</span>
+                                                    <span class="font-bold text-gray-900 text-xl mb-1">Goal-Oriented</span>
+                                                    <span class="text-sm text-gray-500 font-medium leading-snug">I'm most myself when pushing forward.</span>
                                                 </div>
                                             </div>
                                         </label>
                                         <label class="relative cursor-pointer group">
                                             <input type="radio" name="values" class="peer sr-only">
-                                            <div class="h-full p-6 bg-white border-2 border-gray-100 rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex items-center gap-5">
-                                                <span class="text-4xl group-hover:scale-110 transition-transform">🧘</span>
+                                            <div class="h-full p-6 bg-gray-50 border-2 border-transparent rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex items-center gap-5">
+                                                <span class="text-5xl group-hover:scale-110 transition-transform">🧘</span>
                                                 <div class="flex flex-col text-left">
-                                                    <span class="font-bold text-gray-800 text-lg">Chill & Present</span>
-                                                    <span class="text-sm text-gray-500">I'm not trying to optimize everything.</span>
+                                                    <span class="font-bold text-gray-900 text-xl mb-1">Chill & Present</span>
+                                                    <span class="text-sm text-gray-500 font-medium leading-snug">I'm not trying to optimize everything.</span>
                                                 </div>
                                             </div>
                                         </label>
                                     </div>
                                 </div>
-
-                                <div class="mb-4">
-                                    <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">What do you actually want to do with a new group? <span class="block text-sm font-normal text-gray-400 mt-1 uppercase tracking-widest">(Select all that apply)</span></h3>
-                                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                                        <label class="relative cursor-pointer group">
-                                            <input type="checkbox" class="peer sr-only">
-                                            <div class="h-full p-5 bg-white border-2 border-gray-100 rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex flex-col items-center text-center gap-2">
-                                                <span class="text-4xl group-hover:scale-110 transition-transform mb-2">🍽️</span>
-                                                <span class="font-bold text-gray-700 text-lg">Food & Drink</span>
-                                                <span class="text-xs text-gray-500">New spots & bars</span>
-                                            </div>
-                                        </label>
-                                        <label class="relative cursor-pointer group">
-                                            <input type="checkbox" class="peer sr-only">
-                                            <div class="h-full p-5 bg-white border-2 border-gray-100 rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex flex-col items-center text-center gap-2">
-                                                <span class="text-4xl group-hover:scale-110 transition-transform mb-2">🏕️</span>
-                                                <span class="font-bold text-gray-700 text-lg">Outdoorsy</span>
-                                                <span class="text-xs text-gray-500">Hiking, biking, sports</span>
-                                            </div>
-                                        </label>
-                                        <label class="relative cursor-pointer group">
-                                            <input type="checkbox" class="peer sr-only">
-                                            <div class="h-full p-5 bg-white border-2 border-gray-100 rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex flex-col items-center text-center gap-2">
-                                                <span class="text-4xl group-hover:scale-110 transition-transform mb-2">🎭</span>
-                                                <span class="font-bold text-gray-700 text-lg">Culture & Arts</span>
-                                                <span class="text-xs text-gray-500">Museums, music, theater</span>
-                                            </div>
-                                        </label>
-                                        <label class="relative cursor-pointer group">
-                                            <input type="checkbox" class="peer sr-only">
-                                            <div class="h-full p-5 bg-white border-2 border-gray-100 rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex flex-col items-center text-center gap-2">
-                                                <span class="text-4xl group-hover:scale-110 transition-transform mb-2">🎨</span>
-                                                <span class="font-bold text-gray-700 text-lg">Hands-on</span>
-                                                <span class="text-xs text-gray-500">Cooking, pottery, classes</span>
-                                            </div>
-                                        </label>
-                                        <label class="relative cursor-pointer group">
-                                            <input type="checkbox" class="peer sr-only">
-                                            <div class="h-full p-5 bg-white border-2 border-gray-100 rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex flex-col items-center text-center gap-2">
-                                                <span class="text-4xl group-hover:scale-110 transition-transform mb-2">🎲</span>
-                                                <span class="font-bold text-gray-700 text-lg">Games</span>
-                                                <span class="text-xs text-gray-500">Bowling, trivia, darts</span>
-                                            </div>
-                                        </label>
-                                        <label class="relative cursor-pointer group">
-                                            <input type="checkbox" class="peer sr-only">
-                                            <div class="h-full p-5 bg-white border-2 border-gray-100 rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex flex-col items-center text-center gap-2">
-                                                <span class="text-4xl group-hover:scale-110 transition-transform mb-2">🧘‍♀️</span>
-                                                <span class="font-bold text-gray-700 text-lg">Wellness</span>
-                                                <span class="text-xs text-gray-500">Yoga, fitness, running</span>
-                                            </div>
-                                        </label>
-                                    </div>
-                                </div>
-                                
                             </div>
 
-                            <div id="nav-buttons" class="hidden justify-between mt-10 pt-8 border-t border-gray-200 max-w-3xl mx-auto">
-                                <button type="button" id="prev-btn" class="hidden px-8 py-3 border-2 border-gray-300 text-gray-600 font-bold rounded-xl hover:bg-gray-100 transition-colors focus:outline-none cursor-pointer" onclick="changeStep(-1)">Back</button>
-                                <button type="button" id="next-btn" class="ml-auto bg-black text-white px-10 py-4 font-bold rounded-xl hover:bg-gray-800 transition-all shadow-[0_4px_14px_rgba(0,0,0,0.15)] flex items-center group cursor-pointer" onclick="changeStep(1)">
+                            <div id="nav-buttons" class="hidden justify-between mt-12 pt-8 border-t border-gray-200 max-w-3xl mx-auto">
+                                <button type="button" id="prev-btn" class="hidden px-8 py-4 border-2 border-gray-200 text-gray-600 font-bold text-lg rounded-full hover:bg-gray-50 hover:border-gray-300 transition-colors focus:outline-none cursor-pointer shadow-sm" onclick="changeStep(-1)">Back</button>
+                                <button type="button" id="next-btn" class="ml-auto bg-black text-white px-10 py-4 font-bold text-lg rounded-full hover:bg-gray-800 transition-all shadow-[0_10px_20px_rgba(0,0,0,0.15)] flex items-center group cursor-pointer transform hover:-translate-y-1" onclick="changeStep(1)">
                                     Next Step <svg class="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                                 </button>
-                                <button type="button" id="submit-btn" class="hidden ml-auto bg-yellow-500 text-black px-10 py-4 font-bold rounded-xl hover:bg-yellow-400 transition-all shadow-[0_4px_14px_rgba(234,179,8,0.3)] transform hover:-translate-y-1 uppercase tracking-wide cursor-pointer" onclick="switchTab('dashboard')">
+                                <button type="button" id="submit-btn" class="hidden ml-auto bg-yellow-500 text-black px-12 py-4 font-bold text-lg rounded-full hover:bg-yellow-400 transition-all shadow-[0_10px_30px_rgba(234,179,8,0.4)] transform hover:-translate-y-1 uppercase tracking-widest cursor-pointer" onclick="switchTab('dashboard')">
                                     Complete Sign Up
                                 </button>
                             </div>
@@ -842,7 +806,7 @@
                     <div class="flex gap-2 mt-2 justify-center">
                         <span class="px-3 py-1 bg-white border border-gray-200 rounded-full text-xs font-bold text-gray-600 shadow-sm">Education / Creative</span>
                         <span class="px-3 py-1 bg-white border border-gray-200 rounded-full text-xs font-bold text-gray-600 shadow-sm">Deep Convos</span>
-                        <span class="px-3 py-1 bg-white border border-gray-200 rounded-full text-xs font-bold text-gray-600 shadow-sm">$40 - $60</span>
+                        <span class="px-3 py-1 bg-white border border-gray-200 rounded-full text-xs font-bold text-gray-600 shadow-sm">$50 - $100</span>
                     </div>
                 </div>
 
@@ -864,13 +828,13 @@
                         <span class="text-sm font-bold text-green-600">Perfect Match</span>
                     </div>
                     <h3 class="text-4xl font-[Oswald] text-gray-900 mb-4 uppercase tracking-wide">Beginner Pottery Class</h3>
-                    <p class="text-gray-500 mb-8 font-medium leading-relaxed">Curated because all 6 of you value shared experiences over loud bars, selected 'Creative Experiences', and share a budget of '$40-$60'.</p>
+                    <p class="text-gray-500 mb-8 font-medium leading-relaxed">Curated because all 6 of you value shared experiences over loud bars, selected 'Creative Experiences', and share a budget of '$50-$100'.</p>
                     
                     <div class="bg-gray-50 rounded-2xl p-6 border border-gray-100 mb-8">
                         <ul class="space-y-4 text-gray-700 font-medium">
                             <li class="flex items-center"><span class="w-8 text-2xl">📍</span> Penguin Foot Pottery</li>
                             <li class="flex items-center"><span class="w-8 text-2xl">📅</span> This Saturday, 2:00 PM</li>
-                            <li class="flex items-center"><span class="w-8 text-2xl">🎟️</span> $45.00 (Includes clay & firing)</li>
+                            <li class="flex items-center"><span class="w-8 text-2xl">🎟️</span> $65.00 (Includes clay & firing)</li>
                         </ul>
                     </div>
 
@@ -926,8 +890,8 @@
                     <h3 class="text-4xl font-[Oswald] uppercase tracking-wide mb-4 text-gray-900">Event #2 is Brewing!</h3>
                     <p class="text-xl text-gray-500 mb-10 max-w-2xl mx-auto font-light leading-relaxed">Great news! Mike, Sarah, and Ashley also wanted to see you again. We're curating a slightly smaller, more intimate event based on your secondary interests.</p>
                     
-                    <div class="inline-block bg-white border border-gray-200 p-8 rounded-3xl text-left mb-10 max-w-md mx-auto shadow-lg relative transform hover:scale-105 transition-transform cursor-default">
-                        <div class="absolute -top-4 -right-4 bg-yellow-500 text-black font-bold text-xs uppercase tracking-widest px-3 py-1 rounded-full shadow-md">Locked In</div>
+                    <div class="inline-block bg-white border border-gray-200 p-8 rounded-3xl text-left mb-10 max-w-md mx-auto shadow-xl relative transform hover:scale-105 transition-transform cursor-default">
+                        <div class="absolute -top-4 -right-4 bg-yellow-500 text-black font-bold text-xs uppercase tracking-widest px-4 py-1.5 rounded-full shadow-md">Locked In</div>
                         <p class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">Sneak Peek</p>
                         <p class="text-2xl font-[Oswald] uppercase tracking-wide text-gray-900 mb-2">Speakeasy Cocktail Tasting</p>
                         <p class="text-gray-500 font-medium flex items-center"><span class="mr-2">💌</span> Official invites drop on Tuesday.</p>
@@ -1158,6 +1122,14 @@
             }, 700);
         }
 
+        function goToSignup(mode) {
+            switchTab('home');
+            toggleAuth(mode);
+            setTimeout(() => {
+                document.getElementById('signup').scrollIntoView({behavior: 'smooth', block: 'start'});
+            }, 150);
+        }
+
         const heroImages = ['IMG_8498.jpg', 'IMG_8499.jpg', 'IMG_8500.jpg', 'IMG_8501.jpg'];
         let currentImageIndex = 0;
         const introSection = document.getElementById('intro');
@@ -1176,13 +1148,13 @@
             const loginForm = document.getElementById('auth-login');
 
             if(mode === 'signup') {
-                signupTab.className = "w-1/2 py-4 font-[Oswald] text-xl uppercase tracking-widest font-bold border-b-4 border-yellow-500 text-gray-900 transition-colors cursor-pointer";
-                loginTab.className = "w-1/2 py-4 font-[Oswald] text-xl uppercase tracking-widest font-bold border-b-4 border-transparent text-gray-400 hover:text-gray-600 transition-colors cursor-pointer";
+                signupTab.className = "w-1/2 py-4 font-[Oswald] text-2xl uppercase tracking-widest font-bold border-b-4 border-yellow-500 text-gray-900 transition-colors cursor-pointer";
+                loginTab.className = "w-1/2 py-4 font-[Oswald] text-2xl uppercase tracking-widest font-bold border-b-4 border-transparent text-gray-400 hover:text-gray-600 transition-colors cursor-pointer";
                 signupForm.classList.remove('hidden');
                 loginForm.classList.add('hidden');
             } else {
-                loginTab.className = "w-1/2 py-4 font-[Oswald] text-xl uppercase tracking-widest font-bold border-b-4 border-yellow-500 text-gray-900 transition-colors cursor-pointer";
-                signupTab.className = "w-1/2 py-4 font-[Oswald] text-xl uppercase tracking-widest font-bold border-b-4 border-transparent text-gray-400 hover:text-gray-600 transition-colors cursor-pointer";
+                loginTab.className = "w-1/2 py-4 font-[Oswald] text-2xl uppercase tracking-widest font-bold border-b-4 border-yellow-500 text-gray-900 transition-colors cursor-pointer";
+                signupTab.className = "w-1/2 py-4 font-[Oswald] text-2xl uppercase tracking-widest font-bold border-b-4 border-transparent text-gray-400 hover:text-gray-600 transition-colors cursor-pointer";
                 loginForm.classList.remove('hidden');
                 signupForm.classList.add('hidden');
             }
@@ -1473,7 +1445,7 @@
 
             const requiredRadios = [
                 document.querySelector('input[name="next_week"][value="Yes weekdays"]'),
-                document.querySelector('input[name="willingness_pay"][value="20-40"]')
+                document.querySelector('input[name="willingness_pay"][value="20-50"]')
             ];
             const requiredSelect = document.querySelector('select[name="event_type"]');
             const whyNoReason = document.getElementById('why_no_reason');
@@ -1548,11 +1520,11 @@
             { name: "🗣️ Language Exchange Meetup", vibe: "Education", budget: "low" },
             { name: "🎲 Board Game & Card Game Design", vibe: "Education", budget: "low" },
             { name: "📈 Tech, Data & Investing Networking", vibe: "Education", budget: "low" },
-            { name: "🎥 Short Filmmaking & Storyboarding", vibe: "Education", budget: "mid" },
-            { name: "🏺 Pottery & Ceramics Workshop", vibe: "Education", budget: "mid" },
-            { name: "🪴 Terrarium & Bonsai Building", vibe: "Education", budget: "mid" },
+            { name: "🎥 Short Filmmaking & Storyboarding", vibe: "Creative", budget: "mid" },
+            { name: "🏺 Pottery Classes", vibe: "Creative", budget: "mid" },
+            { name: "🪴 Terrarium & Bonsai Building", vibe: "Creative", budget: "mid" },
             { name: "🖨️ 3D Printing & Maker Workshop", vibe: "Education", budget: "mid" },
-            { name: "📸 Photography Masterclass", vibe: "Education", budget: "high" }
+            { name: "📸 Photography Masterclass", vibe: "Creative", budget: "high" }
         ];
 
         document.querySelectorAll('.budget-input, .vibe-input').forEach(input => {
@@ -1576,7 +1548,7 @@
                     list.innerHTML = '';
                     matches.forEach(act => {
                         const label = document.createElement('label');
-                        label.className = "selectable-chip border-2 border-yellow-300 bg-white px-5 py-3 rounded-full cursor-pointer transition-all duration-200 text-yellow-800 font-medium hover:border-yellow-500 shadow-sm mb-3 mr-3 inline-block";
+                        label.className = "selectable-chip border-2 border-yellow-300 bg-white px-5 py-3 rounded-full cursor-pointer transition-all duration-200 text-yellow-800 font-bold hover:border-yellow-500 shadow-sm mb-3 mr-3 inline-block";
                         label.innerHTML = `<input type="checkbox" class="hidden"> ${act.name}`;
 
                         label.addEventListener('click', function (e) {
