@@ -14,26 +14,42 @@
         .custom-scrollbar::-webkit-scrollbar {
             width: 6px;
         }
-
         .custom-scrollbar::-webkit-scrollbar-thumb {
             background-color: #cbd5e1;
             border-radius: 10px;
         }
-
         #intro {
             transition: background-image 1.5s ease-in-out;
         }
-
-        /* Custom input styling for a more premium feel */
         .premium-input {
             transition: all 0.3s ease;
         }
-
-            .premium-input:focus {
-                box-shadow: 0 4px 20px rgba(234, 179, 8, 0.15);
-                border-color: #eab308;
-                background-color: #ffffff;
-            }
+        .premium-input:focus {
+            box-shadow: 0 4px 20px rgba(234, 179, 8, 0.15);
+            border-color: #eab308;
+            background-color: #ffffff;
+        }
+        /* Custom Stepper for Dashboard */
+        .stepper-line {
+            position: absolute;
+            top: 24px;
+            left: 10%;
+            right: 10%;
+            height: 4px;
+            background-color: #e5e7eb;
+            z-index: 0;
+            border-radius: 4px;
+        }
+        .step-circle {
+            transition: all 0.4s ease;
+        }
+        .step-circle.active {
+            background: linear-gradient(135deg, #fbbf24, #d97706);
+            color: white;
+            transform: scale(1.15);
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
+            border-color: transparent;
+        }
     </style>
 </head>
 <body class="font-[Raleway] bg-gray-50 text-gray-800" style="overflow: hidden;">
@@ -66,6 +82,7 @@
 
             <div class="hidden md:flex space-x-8 items-center">
                 <a href="#curator" onclick="switchTab('home')" class="text-white hover:text-yellow-500 transition font-medium tracking-wide drop-shadow-md">Meet the Curator</a>
+                <a href="#" onclick="switchTab('dashboard'); return false;" class="text-yellow-400 border border-yellow-400 px-4 py-1.5 rounded-full hover:bg-yellow-400 hover:text-black transition font-bold tracking-wide shadow-md">Dashboard</a>
                 <a href="#" onclick="switchTab('events'); return false;" class="text-white hover:text-yellow-500 transition font-medium tracking-wide drop-shadow-md">Upcoming Events</a>
                 <a href="#" onclick="switchTab('highlights'); return false;" class="text-white hover:text-yellow-500 transition font-medium tracking-wide drop-shadow-md">Event Highlights</a>
                 <a href="https://instagram.com/readymixmatch" target="_blank" class="text-yellow-500 hover:text-white transition items-center font-bold flex drop-shadow-md">
@@ -76,6 +93,7 @@
 
             <div id="mobile-menu" class="fixed inset-0 bg-black/95 flex flex-col items-center justify-center space-y-8 transform translate-x-full transition-transform duration-300 z-40 md:hidden">
                 <a href="#curator" onclick="closeMobileMenu(); switchTab('home')" class="text-white hover:text-yellow-500 text-3xl font-[Oswald] uppercase tracking-widest transition">Meet the Curator</a>
+                <a href="#" onclick="closeMobileMenu(); switchTab('dashboard'); return false;" class="text-yellow-400 text-3xl font-[Oswald] uppercase tracking-widest transition">Dashboard</a>
                 <a href="#" onclick="closeMobileMenu(); switchTab('events'); return false;" class="text-white hover:text-yellow-500 text-3xl font-[Oswald] uppercase tracking-widest transition">Upcoming Events</a>
                 <a href="#" onclick="closeMobileMenu(); switchTab('highlights'); return false;" class="text-white hover:text-yellow-500 text-3xl font-[Oswald] uppercase tracking-widest transition">Event Highlights</a>
                 <div class="w-16 h-px bg-gray-600 my-4"></div>
@@ -203,10 +221,10 @@
                                         <input type="radio" name="willingness_pay" value="20-40" class="mr-2 accent-yellow-500 dependent-input" required> $20 - $40
                                     </label>
                                     <label class="text-center border-2 border-gray-200 bg-white px-4 py-3 rounded-xl cursor-pointer hover:border-yellow-400 hover:bg-yellow-50 transition-all font-medium text-gray-700">
-                                        <input type="radio" name="willingness_pay" value="40-50" class="mr-2 accent-yellow-500 dependent-input"> $40 - $50
+                                        <input type="radio" name="willingness_pay" value="40-60" class="mr-2 accent-yellow-500 dependent-input"> $40 - $60
                                     </label>
                                     <label class="text-center border-2 border-gray-200 bg-white px-4 py-3 rounded-xl cursor-pointer hover:border-yellow-400 hover:bg-yellow-50 transition-all font-medium text-gray-700">
-                                        <input type="radio" name="willingness_pay" value="50-80" class="mr-2 accent-yellow-500 dependent-input"> $50 - $80
+                                        <input type="radio" name="willingness_pay" value="80+" class="mr-2 accent-yellow-500 dependent-input"> $80+
                                     </label>
                                 </div>
                             </div>
@@ -266,224 +284,475 @@
         </div>
 
         <div id="signup" class="py-24 bg-gray-100">
-            <div class="container mx-auto max-w-3xl px-4" data-aos="fade-up">
+            <div class="container mx-auto max-w-4xl px-4" data-aos="fade-up">
                 <div class="bg-white rounded-3xl shadow-[0_8px_40px_rgba(0,0,0,0.08)] p-8 md:p-12 border border-gray-200/60">
 
-                    <div id="progress-container" class="mb-10 hidden">
-                        <div class="flex justify-between mb-3">
-                            <span id="step-counter" class="text-xs font-bold text-gray-400 uppercase tracking-widest">Step 1 of 5</span>
+                    <div class="flex border-b border-gray-200 mb-10 w-full">
+                        <button id="tab-btn-signup" onclick="toggleAuth('signup')" class="w-1/2 py-4 font-[Oswald] text-xl uppercase tracking-widest font-bold border-b-4 border-yellow-500 text-gray-900 transition-colors cursor-pointer">Sign Up</button>
+                        <button id="tab-btn-login" onclick="toggleAuth('login')" class="w-1/2 py-4 font-[Oswald] text-xl uppercase tracking-widest font-bold border-b-4 border-transparent text-gray-400 hover:text-gray-600 transition-colors cursor-pointer">Log In</button>
+                    </div>
+
+                    <div id="auth-login" class="hidden max-w-xl mx-auto">
+                        <div class="text-center mb-8">
+                            <h2 class="text-3xl font-bold text-gray-800">Welcome Back</h2>
+                            <p class="text-gray-500">Log in to view your upcoming events.</p>
                         </div>
-                        <div class="w-full bg-gray-100 rounded-full h-2">
-                            <div id="progress-bar" class="bg-yellow-500 h-2 rounded-full transition-all duration-700 ease-out shadow-sm" style="width: 20%"></div>
+                        <div class="space-y-5">
+                            <input type="email" placeholder="Email Address" class="w-full bg-gray-50 border border-gray-200 px-6 py-4 rounded-xl text-lg premium-input outline-none">
+                            <input type="password" placeholder="Password" class="w-full bg-gray-50 border border-gray-200 px-6 py-4 rounded-xl text-lg premium-input outline-none">
+                            <button onclick="switchTab('dashboard')" class="w-full bg-black text-white px-6 py-4 font-bold text-lg rounded-xl hover:bg-gray-800 transition-all shadow-md mt-4 cursor-pointer">
+                                Log In
+                            </button>
                         </div>
                     </div>
 
-                    <form id="readymix-form" class="space-y-6" onsubmit="event.preventDefault();">
-
-                        <div class="form-step" id="step-1">
-                            <div class="text-center mb-10">
-                                <h2 class="text-4xl font-[Oswald] text-gray-900 mb-2 uppercase tracking-wide">Join the Waitlist</h2>
-                                <p class="text-gray-500">The essentials to get you on the radar.</p>
+                    <div id="auth-signup">
+                        <div id="progress-container" class="mb-10 hidden max-w-3xl mx-auto">
+                            <div class="flex justify-between mb-3">
+                                <span id="step-counter" class="text-xs font-bold text-gray-400 uppercase tracking-widest">Step 1 of 5</span>
                             </div>
-
-                            <div class="space-y-5">
-                                <div>
-                                    <input type="text" id="user_name" placeholder="What should we call you? *" class="w-full bg-gray-50 border border-gray-200 px-6 py-4 rounded-xl text-lg premium-input outline-none">
-                                    <p id="name_error" class="error-msg text-red-500 text-sm font-semibold mt-2 ml-2 hidden">Please enter your name.</p>
-                                </div>
-
-                                <div>
-                                    <input type="number" id="user_age" placeholder="Your Age *" class="w-full bg-gray-50 border border-gray-200 px-6 py-4 rounded-xl text-lg premium-input outline-none">
-                                    <p id="age_error" class="error-msg text-red-500 text-sm font-semibold mt-2 ml-2 hidden">You must be 18 or older to join.</p>
-                                </div>
-
-                                <div>
-                                    <input type="text" id="user_email" placeholder="Where can we send your invites? *" class="w-full bg-gray-50 border border-gray-200 px-6 py-4 rounded-xl text-lg premium-input outline-none">
-                                    <p id="email_error" class="error-msg text-red-500 text-sm font-semibold mt-2 ml-2 hidden">Please enter a valid email address.</p>
-                                </div>
-
-                                <div>
-                                    <input type="tel" id="user_phone" placeholder="Phone Number (Optional - For day-of updates)" class="w-full bg-gray-50 border border-gray-200 px-6 py-4 rounded-xl text-lg premium-input outline-none">
-                                    <p id="phone_error" class="error-msg text-red-500 text-sm font-semibold mt-2 ml-2 hidden">Please enter a valid 10-digit phone number.</p>
-                                </div>
-                            </div>
-
-                            <div id="step-1-buttons" class="flex flex-col gap-4 mt-12">
-                                <button type="button" id="quick-submit-btn" class="w-full bg-black text-white px-6 py-4 font-bold text-lg rounded-xl hover:bg-gray-800 transition-all shadow-[0_4px_14px_rgba(0,0,0,0.15)] flex justify-center items-center group cursor-pointer" onclick="submitForm('quick')">
-                                    Join Waitlist
-                                </button>
-
-                                <div class="flex items-center justify-center my-2">
-                                    <div class="border-t border-gray-200 flex-grow"></div>
-                                    <span class="px-4 text-sm text-gray-400 font-bold uppercase tracking-widest">or</span>
-                                    <div class="border-t border-gray-200 flex-grow"></div>
-                                </div>
-
-                                <button type="button" class="w-full bg-white border-2 border-yellow-500 text-yellow-600 px-6 py-4 font-bold text-lg rounded-xl hover:bg-yellow-50 transition-colors shadow-sm cursor-pointer" onclick="changeStep(1)">
-                                    Let's customize it for future preferences
-                                </button>
+                            <div class="w-full bg-gray-100 rounded-full h-2">
+                                <div id="progress-bar" class="bg-yellow-500 h-2 rounded-full transition-all duration-700 ease-out shadow-sm" style="width: 20%"></div>
                             </div>
                         </div>
 
-                        <div class="form-step hidden" id="step-2">
-                            <h2 class="text-3xl font-bold mb-8 text-gray-800">Location & Availability</h2>
+                        <form id="readymix-form" class="space-y-6" onsubmit="event.preventDefault();">
 
-                            <label class="block mb-4 font-semibold text-gray-700 text-lg">Where are you looking to hang out?</label>
-                            <div class="flex space-x-6 mb-8 bg-gray-50 p-4 rounded-xl border border-gray-100">
-                                <label class="flex items-center cursor-pointer text-lg font-medium text-gray-700 hover:text-yellow-600 transition-colors"><input type="radio" name="loc_type" value="city" class="mr-3 w-5 h-5 accent-yellow-500" checked onchange="toggleLocationMode()"> Search by City</label>
-                                <label class="flex items-center cursor-pointer text-lg font-medium text-gray-700 hover:text-yellow-600 transition-colors"><input type="radio" name="loc_type" value="zip" class="mr-3 w-5 h-5 accent-yellow-500" onchange="toggleLocationMode()"> Search by Zip Code</label>
-                            </div>
+                            <div class="form-step max-w-3xl mx-auto" id="step-1">
+                                <div class="text-center mb-10">
+                                    <h2 class="text-4xl font-[Oswald] text-gray-900 mb-2 uppercase tracking-wide">Tell us about you</h2>
+                                    <p class="text-gray-500">The essentials to get you matched with your crew.</p>
+                                </div>
 
-                            <div id="city-section" class="mb-10">
-                                <label class="block mb-2 text-sm font-semibold text-gray-500 uppercase tracking-wider">Select up to 5 cities</label>
-                                <input list="us-cities" id="city-input" placeholder="Start typing a city..." class="w-full bg-gray-50 border border-gray-200 px-6 py-4 rounded-xl text-lg premium-input outline-none mb-3">
-                                <datalist id="us-cities">
-                                    <option value="New York, NY"></option>
-                                    <option value="Los Angeles, CA"></option>
-                                    <option value="Chicago, IL"></option>
-                                    <option value="Houston, TX"></option>
-                                    <option value="Phoenix, AZ"></option>
-                                    <option value="Philadelphia, PA"></option>
-                                    <option value="San Antonio, TX"></option>
-                                    <option value="San Diego, CA"></option>
-                                    <option value="Dallas, TX"></option>
-                                    <option value="Austin, TX"></option>
-                                    <option value="Lancaster, PA"></option>
-                                    <option value="Orlando, FL"></option>
-                                </datalist>
-                                <div id="selected-cities" class="flex flex-wrap gap-2 mt-3"></div>
-                            </div>
+                                <div class="space-y-5">
+                                    <div>
+                                        <input type="text" id="user_name" placeholder="Full Name *" class="w-full bg-gray-50 border border-gray-200 px-6 py-4 rounded-xl text-lg premium-input outline-none">
+                                        <p id="name_error" class="error-msg text-red-500 text-sm font-semibold mt-2 ml-2 hidden">Please enter your name.</p>
+                                    </div>
+                                    
+                                    <div>
+                                        <input type="email" id="user_email" placeholder="Email Address *" class="w-full bg-gray-50 border border-gray-200 px-6 py-4 rounded-xl text-lg premium-input outline-none">
+                                        <p id="email_error" class="error-msg text-red-500 text-sm font-semibold mt-2 ml-2 hidden">Please enter a valid email address.</p>
+                                    </div>
 
-                            <div id="zip-section" class="hidden mb-10 p-6 bg-gray-50 border border-gray-200 rounded-2xl shadow-sm">
-                                <input type="text" id="zip-input" placeholder="Enter Zip Code" class="w-full bg-white border border-gray-200 px-6 py-4 rounded-xl text-lg premium-input outline-none mb-6" onkeyup="simulateRadiusSearch()" maxlength="5">
-                                <label class="block mb-3 font-bold text-gray-700">Search Radius: <span id="radius-display" class="text-yellow-600 ml-2">25 miles</span></label>
-                                <input type="range" id="radius-slider" min="5" max="250" step="5" value="25" class="w-full accent-yellow-500 mb-2" onchange="updateRadiusDisplay(); simulateRadiusSearch();">
-                                <div class="flex justify-between text-xs text-gray-400 font-bold uppercase tracking-widest"><span>5 mi</span><span>125 mi</span><span>250 mi</span></div>
-                                <div id="dynamic-cities-container" class="mt-8 hidden">
-                                    <label class="block mb-3 text-sm font-bold text-gray-500 uppercase tracking-wider">Select up to 5 nearby cities:</label>
-                                    <div id="nearby-cities-list" class="flex flex-wrap gap-2 max-h-48 overflow-y-auto custom-scrollbar p-2 bg-white rounded-xl border border-gray-100"></div>
-                                    <p id="city-limit-warning" class="text-red-500 text-xs mt-2 hidden font-semibold">You can only select up to 5 cities.</p>
+                                    <div>
+                                        <input type="password" id="user_password" placeholder="Create Password *" class="w-full bg-gray-50 border border-gray-200 px-6 py-4 rounded-xl text-lg premium-input outline-none">
+                                    </div>
+
+                                    <div>
+                                        <input type="number" id="user_age" placeholder="Your Age *" class="w-full bg-gray-50 border border-gray-200 px-6 py-4 rounded-xl text-lg premium-input outline-none">
+                                        <p id="age_error" class="error-msg text-red-500 text-sm font-semibold mt-2 ml-2 hidden">You must be 18 or older to join.</p>
+                                    </div>
+
+                                    <div>
+                                        <input type="tel" id="user_phone" placeholder="Phone Number (Optional - For day-of updates)" class="w-full bg-gray-50 border border-gray-200 px-6 py-4 rounded-xl text-lg premium-input outline-none">
+                                        <p id="phone_error" class="error-msg text-red-500 text-sm font-semibold mt-2 ml-2 hidden">Please enter a valid 10-digit phone number.</p>
+                                    </div>
+                                </div>
+
+                                <div id="step-1-buttons" class="flex flex-col gap-4 mt-12">
+                                    <button type="button" class="w-full bg-yellow-500 text-black px-6 py-4 font-bold text-lg rounded-xl hover:bg-yellow-400 transition-colors shadow-sm cursor-pointer" onclick="changeStep(1)">
+                                        Next: Set Preferences
+                                    </button>
                                 </div>
                             </div>
-                            <p id="location_error" class="error-msg text-red-500 text-sm font-semibold mb-6 hidden">Please select a location before continuing.</p>
 
-                            <label class="block mb-4 font-semibold text-gray-700 text-lg">When are you usually free?</label>
-                            <div class="flex flex-wrap gap-3 mb-10">
-                                <label class="selectable-chip border-2 border-gray-200 bg-white px-5 py-3 rounded-xl cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md"><input type="checkbox" class="hidden" value="weekday"> Weekday Evenings</label>
-                                <label class="selectable-chip border-2 border-gray-200 bg-white px-5 py-3 rounded-xl cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md"><input type="checkbox" class="hidden" value="weekend"> Weekends</label>
-                                <label class="selectable-chip border-2 border-gray-200 bg-white px-5 py-3 rounded-xl cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md"><input type="checkbox" class="hidden" value="anytime"> Anytime</label>
+                            <div class="form-step hidden max-w-3xl mx-auto" id="step-2">
+                                <h2 class="text-3xl font-bold mb-8 text-gray-800">Location & Availability</h2>
+
+                                <label class="block mb-4 font-semibold text-gray-700 text-lg">Where are you looking to hang out?</label>
+                                <div class="flex space-x-6 mb-8 bg-gray-50 p-4 rounded-xl border border-gray-100">
+                                    <label class="flex items-center cursor-pointer text-lg font-medium text-gray-700 hover:text-yellow-600 transition-colors"><input type="radio" name="loc_type" value="city" class="mr-3 w-5 h-5 accent-yellow-500" checked onchange="toggleLocationMode()"> Search by City</label>
+                                    <label class="flex items-center cursor-pointer text-lg font-medium text-gray-700 hover:text-yellow-600 transition-colors"><input type="radio" name="loc_type" value="zip" class="mr-3 w-5 h-5 accent-yellow-500" onchange="toggleLocationMode()"> Search by Zip Code</label>
+                                </div>
+
+                                <div id="city-section" class="mb-10">
+                                    <label class="block mb-2 text-sm font-semibold text-gray-500 uppercase tracking-wider">Select up to 5 cities</label>
+                                    <input list="us-cities" id="city-input" placeholder="Start typing a city..." class="w-full bg-gray-50 border border-gray-200 px-6 py-4 rounded-xl text-lg premium-input outline-none mb-3">
+                                    <datalist id="us-cities">
+                                        <option value="New York, NY"></option>
+                                        <option value="Los Angeles, CA"></option>
+                                        <option value="Chicago, IL"></option>
+                                        <option value="Houston, TX"></option>
+                                        <option value="Phoenix, AZ"></option>
+                                        <option value="Philadelphia, PA"></option>
+                                        <option value="San Antonio, TX"></option>
+                                        <option value="San Diego, CA"></option>
+                                        <option value="Dallas, TX"></option>
+                                        <option value="Austin, TX"></option>
+                                        <option value="Lancaster, PA"></option>
+                                        <option value="Orlando, FL"></option>
+                                    </datalist>
+                                    <div id="selected-cities" class="flex flex-wrap gap-2 mt-3"></div>
+                                </div>
+
+                                <div id="zip-section" class="hidden mb-10 p-6 bg-gray-50 border border-gray-200 rounded-2xl shadow-sm">
+                                    <input type="text" id="zip-input" placeholder="Enter Zip Code" class="w-full bg-white border border-gray-200 px-6 py-4 rounded-xl text-lg premium-input outline-none mb-6" onkeyup="simulateRadiusSearch()" maxlength="5">
+                                    <label class="block mb-3 font-bold text-gray-700">Search Radius: <span id="radius-display" class="text-yellow-600 ml-2">25 miles</span></label>
+                                    <input type="range" id="radius-slider" min="5" max="250" step="5" value="25" class="w-full accent-yellow-500 mb-2" onchange="updateRadiusDisplay(); simulateRadiusSearch();">
+                                    <div class="flex justify-between text-xs text-gray-400 font-bold uppercase tracking-widest"><span>5 mi</span><span>125 mi</span><span>250 mi</span></div>
+                                    <div id="dynamic-cities-container" class="mt-8 hidden">
+                                        <label class="block mb-3 text-sm font-bold text-gray-500 uppercase tracking-wider">Select up to 5 nearby cities:</label>
+                                        <div id="nearby-cities-list" class="flex flex-wrap gap-2 max-h-48 overflow-y-auto custom-scrollbar p-2 bg-white rounded-xl border border-gray-100"></div>
+                                        <p id="city-limit-warning" class="text-red-500 text-xs mt-2 hidden font-semibold">You can only select up to 5 cities.</p>
+                                    </div>
+                                </div>
+                                <p id="location_error" class="error-msg text-red-500 text-sm font-semibold mb-6 hidden">Please select a location before continuing.</p>
+
+                                <label class="block mb-4 font-semibold text-gray-700 text-lg">When are you usually free?</label>
+                                <div class="flex flex-wrap gap-3 mb-10">
+                                    <label class="selectable-chip border-2 border-gray-200 bg-white px-5 py-3 rounded-xl cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md"><input type="checkbox" class="hidden" value="weekday"> Weekday Evenings</label>
+                                    <label class="selectable-chip border-2 border-gray-200 bg-white px-5 py-3 rounded-xl cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md"><input type="checkbox" class="hidden" value="weekend"> Weekends</label>
+                                    <label class="selectable-chip border-2 border-gray-200 bg-white px-5 py-3 rounded-xl cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md"><input type="checkbox" class="hidden" value="anytime"> Anytime</label>
+                                </div>
+
+                                <label class="block mb-4 font-semibold text-gray-700 text-lg">Dietary preferences?</label>
+                                <select class="w-full bg-gray-50 border border-gray-200 px-6 py-4 rounded-xl text-lg premium-input outline-none cursor-pointer appearance-none" id="diet_pref">
+                                    <option>No Restrictions</option>
+                                    <option>Vegetarian</option>
+                                    <option>Vegan</option>
+                                    <option>Gluten-Free</option>
+                                    <option>Halal</option>
+                                </select>
                             </div>
 
-                            <label class="block mb-4 font-semibold text-gray-700 text-lg">Dietary preferences?</label>
-                            <select class="w-full bg-gray-50 border border-gray-200 px-6 py-4 rounded-xl text-lg premium-input outline-none cursor-pointer appearance-none" id="diet_pref">
-                                <option>No Restrictions</option>
-                                <option>Vegetarian</option>
-                                <option>Vegan</option>
-                                <option>Gluten-Free</option>
-                                <option>Halal</option>
-                            </select>
-                        </div>
-
-                        <div class="form-step hidden" id="step-3">
-                            <h2 class="text-3xl font-bold mb-8 text-gray-800">Event Preferences</h2>
-                            <label class="block mb-4 font-semibold text-gray-700 text-lg">Typical budget per event?</label>
-                            <div class="flex flex-col sm:flex-row gap-4 mb-10">
-                                <label class="selectable-chip flex-1 text-center border-2 border-gray-200 bg-white px-4 py-4 rounded-xl cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md">
-                                    <input type="radio" name="budget" class="hidden budget-input" value="low"> <span class="block text-lg">💸</span> Ballin' on a budget (<$20)
-                                </label>
-                                <label class="selectable-chip flex-1 text-center border-2 border-gray-200 bg-white px-4 py-4 rounded-xl cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md">
-                                    <input type="radio" name="budget" class="hidden budget-input" value="mid"> <span class="block text-lg">💳</span> Mid-range ($20-$40)
-                                </label>
-                                <label class="selectable-chip flex-1 text-center border-2 border-gray-200 bg-white px-4 py-4 rounded-xl cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md">
-                                    <input type="radio" name="budget" class="hidden budget-input" value="high"> <span class="block text-lg">💎</span> Treat myself ($40-$80+)
-                                </label>
-                            </div>
-
-                            <label class="block mb-4 font-semibold text-gray-700 text-lg">What kind of vibe? (Select all that apply)</label>
-                            <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-10">
-                                <label class="selectable-chip border-2 border-gray-200 bg-white p-5 rounded-xl text-center cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md flex flex-col items-center justify-center gap-2"><input type="checkbox" class="hidden vibe-input" value="Outdoor"> <span class="text-2xl">🌳</span> Outdoor</label>
-                                <label class="selectable-chip border-2 border-gray-200 bg-white p-5 rounded-xl text-center cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md flex flex-col items-center justify-center gap-2"><input type="checkbox" class="hidden vibe-input" value="Indoor"> <span class="text-2xl">🏠</span> Indoor</label>
-                                <label class="selectable-chip border-2 border-gray-200 bg-white p-5 rounded-xl text-center cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md flex flex-col items-center justify-center gap-2"><input type="checkbox" class="hidden vibe-input" value="Food"> <span class="text-2xl">🍕</span> Food & Drink</label>
-                                <label class="selectable-chip border-2 border-gray-200 bg-white p-5 rounded-xl text-center cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md flex flex-col items-center justify-center gap-2"><input type="checkbox" class="hidden vibe-input" value="Recreation"> <span class="text-2xl">🎯</span> Recreation</label>
-                                <label class="selectable-chip border-2 border-gray-200 bg-white p-5 rounded-xl text-center cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md flex flex-col items-center justify-center gap-2"><input type="checkbox" class="hidden vibe-input" value="Education"> <span class="text-2xl">🧠</span> Education</label>
-                            </div>
-
-                            <div id="recommendations-section" class="hidden bg-yellow-50 border-2 border-yellow-200 p-6 rounded-2xl shadow-sm transition-all duration-500">
-                                <label class="block mb-4 font-bold text-yellow-800 text-lg">✨ Recommended Activities for You</label>
-                                <p class="text-sm text-yellow-700 mb-4 opacity-80">Select the ones that sound like a good time.</p>
-                                <div id="dynamic-activities" class="flex flex-wrap gap-2"></div>
-                            </div>
-                        </div>
-
-                        <div class="form-step hidden" id="step-4">
-                            <h2 class="text-3xl font-bold mb-8 text-gray-800">The Crowd</h2>
-                            <label class="block mb-4 font-semibold text-gray-700 text-lg">Who are you looking to connect with?</label>
-                            <div class="flex flex-col space-y-4 mb-8 bg-gray-50 p-6 border border-gray-200 rounded-2xl shadow-sm">
-                                <label class="flex items-center text-lg cursor-pointer font-medium hover:text-yellow-600 transition-colors"><input type="radio" name="gender_pref" class="mr-4 w-5 h-5 accent-yellow-500"> Same gender</label>
-                                <label class="flex items-center text-lg cursor-pointer font-medium hover:text-yellow-600 transition-colors"><input type="radio" name="gender_pref" class="mr-4 w-5 h-5 accent-yellow-500"> Mixed gender / Gender-balanced</label>
-                            </div>
-
-                            <label class="block mb-4 font-semibold text-gray-700 text-lg">Age preference:</label>
-                            <div class="flex flex-col space-y-4 mb-10 bg-gray-50 p-6 border border-gray-200 rounded-2xl shadow-sm">
-                                <label class="flex items-center text-lg cursor-pointer font-medium hover:text-yellow-600 transition-colors"><input type="radio" name="age_pref" class="mr-4 w-5 h-5 accent-yellow-500"> Keep it close to my age (+/- 5 years)</label>
-                                <label class="flex items-center text-lg cursor-pointer font-medium hover:text-yellow-600 transition-colors"><input type="radio" name="age_pref" class="mr-4 w-5 h-5 accent-yellow-500"> I'm open to all ages</label>
-                            </div>
-
-                            <div class="bg-gray-50 p-6 border border-gray-200 rounded-2xl shadow-sm space-y-6">
-                                <div class="flex items-center justify-between border-b border-gray-200 pb-6">
-                                    <span class="font-bold text-gray-700 text-lg">Looking for professional networking?</span>
-                                    <label class="relative inline-flex items-center cursor-pointer">
-                                        <input type="checkbox" class="sr-only peer">
-                                        <div class="w-11 h-6 bg-gray-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-yellow-500"></div>
+                            <div class="form-step hidden max-w-3xl mx-auto" id="step-3">
+                                <h2 class="text-3xl font-bold mb-8 text-gray-800">Event Preferences</h2>
+                                <label class="block mb-4 font-semibold text-gray-700 text-lg">Typical budget per event?</label>
+                                <div class="flex flex-col sm:flex-row gap-4 mb-10">
+                                    <label class="selectable-chip flex-1 text-center border-2 border-gray-200 bg-white px-4 py-4 rounded-xl cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md">
+                                        <input type="radio" name="budget" class="hidden budget-input" value="low"> <span class="block text-lg">💸</span> $20 - $40
+                                    </label>
+                                    <label class="selectable-chip flex-1 text-center border-2 border-gray-200 bg-white px-4 py-4 rounded-xl cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md">
+                                        <input type="radio" name="budget" class="hidden budget-input" value="mid"> <span class="block text-lg">💳</span> $40 - $60
+                                    </label>
+                                    <label class="selectable-chip flex-1 text-center border-2 border-gray-200 bg-white px-4 py-4 rounded-xl cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md">
+                                        <input type="radio" name="budget" class="hidden budget-input" value="high"> <span class="block text-lg">💎</span> $80+
                                     </label>
                                 </div>
-                                <div class="flex items-center justify-between">
-                                    <span class="font-bold text-gray-700 text-lg">Bringing a plus one?</span>
-                                    <label class="relative inline-flex items-center cursor-pointer">
-                                        <input type="checkbox" class="sr-only peer">
-                                        <div class="w-11 h-6 bg-gray-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-yellow-500"></div>
-                                    </label>
+
+                                <label class="block mb-4 font-semibold text-gray-700 text-lg">What kind of vibe? (Select all that apply)</label>
+                                <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-10">
+                                    <label class="selectable-chip border-2 border-gray-200 bg-white p-5 rounded-xl text-center cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md flex flex-col items-center justify-center gap-2"><input type="checkbox" class="hidden vibe-input" value="Outdoor"> <span class="text-2xl">🌳</span> Outdoor</label>
+                                    <label class="selectable-chip border-2 border-gray-200 bg-white p-5 rounded-xl text-center cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md flex flex-col items-center justify-center gap-2"><input type="checkbox" class="hidden vibe-input" value="Indoor"> <span class="text-2xl">🏠</span> Indoor</label>
+                                    <label class="selectable-chip border-2 border-gray-200 bg-white p-5 rounded-xl text-center cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md flex flex-col items-center justify-center gap-2"><input type="checkbox" class="hidden vibe-input" value="Food"> <span class="text-2xl">🍕</span> Food & Drink</label>
+                                    <label class="selectable-chip border-2 border-gray-200 bg-white p-5 rounded-xl text-center cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md flex flex-col items-center justify-center gap-2"><input type="checkbox" class="hidden vibe-input" value="Recreation"> <span class="text-2xl">🎯</span> Recreation</label>
+                                    <label class="selectable-chip border-2 border-gray-200 bg-white p-5 rounded-xl text-center cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm hover:shadow-md flex flex-col items-center justify-center gap-2"><input type="checkbox" class="hidden vibe-input" value="Education"> <span class="text-2xl">🧠</span> Education</label>
                                 </div>
-                            </div>
-                        </div>
 
-                        <div class="form-step hidden" id="step-5">
-                            <h2 class="text-3xl font-bold mb-8 text-gray-800">About You</h2>
-                            <label class="block mb-4 font-semibold text-gray-700 text-lg">Personality? (Select up to 3)</label>
-                            <div class="flex flex-wrap gap-3 mb-10">
-                                <label class="selectable-chip border-2 border-gray-200 bg-white px-5 py-2 rounded-full cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm"><input type="checkbox" class="hidden" value="Outgoing"> Outgoing</label>
-                                <label class="selectable-chip border-2 border-gray-200 bg-white px-5 py-2 rounded-full cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm"><input type="checkbox" class="hidden" value="Introverted"> Introverted</label>
-                                <label class="selectable-chip border-2 border-gray-200 bg-white px-5 py-2 rounded-full cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm"><input type="checkbox" class="hidden" value="Extroverted"> Extroverted</label>
-                                <label class="selectable-chip border-2 border-gray-200 bg-white px-5 py-2 rounded-full cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm"><input type="checkbox" class="hidden" value="Trustworthy"> Trustworthy</label>
-                                <label class="selectable-chip border-2 border-gray-200 bg-white px-5 py-2 rounded-full cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm"><input type="checkbox" class="hidden" value="Skeptical"> Skeptical</label>
-                                <label class="selectable-chip border-2 border-gray-200 bg-white px-5 py-2 rounded-full cursor-pointer transition-all duration-200 text-gray-600 font-medium hover:border-yellow-400 shadow-sm"><input type="checkbox" class="hidden" value="Cautious"> Cautious</label>
-                            </div>
-
-                            <label class="block mb-6 font-semibold text-gray-700 text-lg">Willing to step out of your comfort zone?</label>
-                            <div class="mb-10 bg-gray-50 p-6 rounded-2xl border border-gray-200 shadow-sm">
-                                <input type="range" id="comfort_zone" min="1" max="3" step="1" class="w-full accent-yellow-500 bg-gray-200 h-2 rounded-lg appearance-none cursor-pointer">
-                                <div class="flex justify-between text-xs text-gray-500 font-bold mt-4 uppercase tracking-widest">
-                                    <span>Stick to what I know</span>
-                                    <span class="text-center">Maybe a little</span>
-                                    <span>Absolutely!</span>
+                                <div id="recommendations-section" class="hidden bg-yellow-50 border-2 border-yellow-200 p-6 rounded-2xl shadow-sm transition-all duration-500">
+                                    <label class="block mb-4 font-bold text-yellow-800 text-lg">✨ Recommended Activities for You</label>
+                                    <p class="text-sm text-yellow-700 mb-4 opacity-80">Select the ones that sound like a good time.</p>
+                                    <div id="dynamic-activities" class="flex flex-wrap gap-2"></div>
                                 </div>
                             </div>
 
-                            <label class="block mb-4 font-semibold text-gray-700 text-lg">What are you looking for?</label>
-                            <textarea id="looking_for" rows="4" class="w-full bg-gray-50 border border-gray-200 p-6 rounded-2xl text-lg premium-input outline-none resize-none" placeholder="e.g., Someone to try new restaurants with, a gym buddy, or just good conversation..."></textarea>
-                        </div>
+                            <div class="form-step hidden max-w-3xl mx-auto" id="step-4">
+                                <h2 class="text-3xl font-bold mb-8 text-gray-800">The Crowd</h2>
+                                <label class="block mb-4 font-semibold text-gray-700 text-lg">Who are you looking to connect with?</label>
+                                <div class="flex flex-col space-y-4 mb-8 bg-gray-50 p-6 border border-gray-200 rounded-2xl shadow-sm">
+                                    <label class="flex items-center text-lg cursor-pointer font-medium hover:text-yellow-600 transition-colors"><input type="radio" name="gender_pref" class="mr-4 w-5 h-5 accent-yellow-500"> Same gender</label>
+                                    <label class="flex items-center text-lg cursor-pointer font-medium hover:text-yellow-600 transition-colors"><input type="radio" name="gender_pref" class="mr-4 w-5 h-5 accent-yellow-500"> Mixed gender / Gender-balanced</label>
+                                </div>
 
-                        <div id="nav-buttons" class="hidden justify-between mt-10 pt-8 border-t border-gray-200">
-                            <button type="button" id="prev-btn" class="hidden px-8 py-3 border-2 border-gray-300 text-gray-600 font-bold rounded-xl hover:bg-gray-100 transition-colors focus:outline-none cursor-pointer" onclick="changeStep(-1)">Back</button>
-                            <button type="button" id="next-btn" class="ml-auto bg-black text-white px-10 py-4 font-bold rounded-xl hover:bg-gray-800 transition-all shadow-[0_4px_14px_rgba(0,0,0,0.15)] flex items-center group cursor-pointer" onclick="changeStep(1)">
-                                Next Step <svg class="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                            </button>
-                            <button type="button" id="submit-btn" class="hidden ml-auto bg-yellow-500 text-black px-10 py-4 font-bold rounded-xl hover:bg-yellow-400 transition-all shadow-[0_4px_14px_rgba(234,179,8,0.3)] transform hover:-translate-y-1 uppercase tracking-wide cursor-pointer" onclick="submitForm('full')">
-                                Complete Sign Up
-                            </button>
-                        </div>
+                                <label class="block mb-4 font-semibold text-gray-700 text-lg">Age preference:</label>
+                                <div class="flex flex-col space-y-4 mb-10 bg-gray-50 p-6 border border-gray-200 rounded-2xl shadow-sm">
+                                    <label class="flex items-center text-lg cursor-pointer font-medium hover:text-yellow-600 transition-colors"><input type="radio" name="age_pref" class="mr-4 w-5 h-5 accent-yellow-500"> Keep it close to my age (+/- 5 years)</label>
+                                    <label class="flex items-center text-lg cursor-pointer font-medium hover:text-yellow-600 transition-colors"><input type="radio" name="age_pref" class="mr-4 w-5 h-5 accent-yellow-500"> I'm open to all ages</label>
+                                </div>
 
-                    </form>
+                                <div class="bg-gray-50 p-6 border border-gray-200 rounded-2xl shadow-sm space-y-6">
+                                    <div class="flex items-center justify-between border-b border-gray-200 pb-6">
+                                        <span class="font-bold text-gray-700 text-lg">Looking for professional networking?</span>
+                                        <label class="relative inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" class="sr-only peer">
+                                            <div class="w-11 h-6 bg-gray-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-yellow-500"></div>
+                                        </label>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <span class="font-bold text-gray-700 text-lg">Bringing a plus one?</span>
+                                        <label class="relative inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" class="sr-only peer">
+                                            <div class="w-11 h-6 bg-gray-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-yellow-500"></div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-step hidden w-full" id="step-5">
+                                
+                                <div class="text-center mb-10 max-w-3xl mx-auto">
+                                    <h2 class="text-4xl font-[Oswald] text-gray-900 mb-3 uppercase tracking-wide">Let's get to know you</h2>
+                                    <p class="text-gray-500 mb-6 leading-relaxed">We skip the surface level. We curate your crew based on the things that actually matter:</p>
+                                    <div class="flex flex-wrap justify-center gap-2 mb-4">
+                                        <span class="bg-gray-100 text-gray-700 text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider shadow-sm border border-gray-200">🌱 Life Stage</span>
+                                        <span class="bg-gray-100 text-gray-700 text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider shadow-sm border border-gray-200">⚡ Social Energy</span>
+                                        <span class="bg-gray-100 text-gray-700 text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider shadow-sm border border-gray-200">💬 Comm Style</span>
+                                        <span class="bg-gray-100 text-gray-700 text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider shadow-sm border border-gray-200">🧭 Values</span>
+                                    </div>
+                                </div>
+
+                                <div class="mb-12 border-b border-gray-100 pb-12">
+                                    <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">Where are you at right now? <span class="block text-sm font-normal text-gray-400 mt-1 uppercase tracking-widest">(Select all that apply)</span></h3>
+                                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                                        <label class="relative cursor-pointer group">
+                                            <input type="checkbox" class="peer sr-only">
+                                            <div class="h-full p-5 bg-white border-2 border-gray-100 rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex flex-col items-center text-center gap-2">
+                                                <span class="text-4xl group-hover:scale-110 transition-transform mb-2">🏙️</span>
+                                                <span class="font-bold text-gray-700 text-lg">New to Chicago</span>
+                                                <span class="text-xs text-gray-500">(within 2 years)</span>
+                                            </div>
+                                        </label>
+                                        <label class="relative cursor-pointer group">
+                                            <input type="checkbox" class="peer sr-only">
+                                            <div class="h-full p-5 bg-white border-2 border-gray-100 rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex flex-col items-center text-center gap-2">
+                                                <span class="text-4xl group-hover:scale-110 transition-transform mb-2">💼</span>
+                                                <span class="font-bold text-gray-700 text-lg">Career Shift</span>
+                                                <span class="text-xs text-gray-500">Recently changed paths</span>
+                                            </div>
+                                        </label>
+                                        <label class="relative cursor-pointer group">
+                                            <input type="checkbox" class="peer sr-only">
+                                            <div class="h-full p-5 bg-white border-2 border-gray-100 rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex flex-col items-center text-center gap-2">
+                                                <span class="text-4xl group-hover:scale-110 transition-transform mb-2">💔</span>
+                                                <span class="font-bold text-gray-700 text-lg">Recently Single</span>
+                                                <span class="text-xs text-gray-500">Navigating a new chapter</span>
+                                            </div>
+                                        </label>
+                                        <label class="relative cursor-pointer group">
+                                            <input type="checkbox" class="peer sr-only">
+                                            <div class="h-full p-5 bg-white border-2 border-gray-100 rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex flex-col items-center text-center gap-2">
+                                                <span class="text-4xl group-hover:scale-110 transition-transform mb-2">🔄</span>
+                                                <span class="font-bold text-gray-700 text-lg">Major Life Shift</span>
+                                                <span class="text-xs text-gray-500">Building a new circle</span>
+                                            </div>
+                                        </label>
+                                        <label class="relative cursor-pointer group">
+                                            <input type="checkbox" class="peer sr-only">
+                                            <div class="h-full p-5 bg-white border-2 border-gray-100 rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex flex-col items-center text-center gap-2">
+                                                <span class="text-4xl group-hover:scale-110 transition-transform mb-2">🌍</span>
+                                                <span class="font-bold text-gray-700 text-lg">Friends Scattered</span>
+                                                <span class="text-xs text-gray-500">Life's stable, but lonely</span>
+                                            </div>
+                                        </label>
+                                        <label class="relative cursor-pointer group">
+                                            <input type="checkbox" class="peer sr-only">
+                                            <div class="h-full p-5 bg-white border-2 border-gray-100 rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex flex-col items-center text-center gap-2">
+                                                <span class="text-4xl group-hover:scale-110 transition-transform mb-2">➕</span>
+                                                <span class="font-bold text-gray-700 text-lg">Expanding Circle</span>
+                                                <span class="text-xs text-gray-500">Life is great, want more</span>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="mb-12 border-b border-gray-100 pb-12">
+                                    <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">Your ideal hangout vibe right now? <span class="block text-sm font-normal text-gray-400 mt-1 uppercase tracking-widest">(Select one)</span></h3>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <label class="relative cursor-pointer group">
+                                            <input type="radio" name="energy_vibe" class="peer sr-only">
+                                            <div class="h-full p-6 bg-white border-2 border-gray-100 rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex items-center gap-5">
+                                                <span class="text-4xl group-hover:scale-110 transition-transform">🎉</span>
+                                                <div class="flex flex-col text-left">
+                                                    <span class="font-bold text-gray-800 text-lg">High Energy</span>
+                                                    <span class="text-sm text-gray-500">Loud bar, big group, electric night.</span>
+                                                </div>
+                                            </div>
+                                        </label>
+                                        <label class="relative cursor-pointer group">
+                                            <input type="radio" name="energy_vibe" class="peer sr-only">
+                                            <div class="h-full p-6 bg-white border-2 border-gray-100 rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex items-center gap-5">
+                                                <span class="text-4xl group-hover:scale-110 transition-transform">🍷</span>
+                                                <div class="flex flex-col text-left">
+                                                    <span class="font-bold text-gray-800 text-lg">Deep Chats</span>
+                                                    <span class="text-sm text-gray-500">Small dinner, real talk.</span>
+                                                </div>
+                                            </div>
+                                        </label>
+                                        <label class="relative cursor-pointer group">
+                                            <input type="radio" name="energy_vibe" class="peer sr-only">
+                                            <div class="h-full p-6 bg-white border-2 border-gray-100 rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex items-center gap-5">
+                                                <span class="text-4xl group-hover:scale-110 transition-transform">🧗</span>
+                                                <div class="flex flex-col text-left">
+                                                    <span class="font-bold text-gray-800 text-lg">Activity Focused</span>
+                                                    <span class="text-sm text-gray-500">Doing is the point, talk is secondary.</span>
+                                                </div>
+                                            </div>
+                                        </label>
+                                        <label class="relative cursor-pointer group">
+                                            <input type="radio" name="energy_vibe" class="peer sr-only">
+                                            <div class="h-full p-6 bg-white border-2 border-gray-100 rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex items-center gap-5">
+                                                <span class="text-4xl group-hover:scale-110 transition-transform">🛋️</span>
+                                                <div class="flex flex-col text-left">
+                                                    <span class="font-bold text-gray-800 text-lg">Low-Key Hang</span>
+                                                    <span class="text-sm text-gray-500">Someone's place, low stakes, easy talk.</span>
+                                                </div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="mb-12 border-b border-gray-100 pb-12">
+                                    <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">When getting to know someone... <span class="block text-sm font-normal text-gray-400 mt-1 uppercase tracking-widest">(Select one)</span></h3>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <label class="relative cursor-pointer group">
+                                            <input type="radio" name="comm_style" class="peer sr-only">
+                                            <div class="h-full p-6 bg-white border-2 border-gray-100 rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex items-center gap-5">
+                                                <span class="text-4xl group-hover:scale-110 transition-transform">📖</span>
+                                                <div class="flex flex-col text-left">
+                                                    <span class="font-bold text-gray-800 text-lg">Open Book</span>
+                                                    <span class="text-sm text-gray-500">I open up quickly & share a lot.</span>
+                                                </div>
+                                            </div>
+                                        </label>
+                                        <label class="relative cursor-pointer group">
+                                            <input type="radio" name="comm_style" class="peer sr-only">
+                                            <div class="h-full p-6 bg-white border-2 border-gray-100 rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex items-center gap-5">
+                                                <span class="text-4xl group-hover:scale-110 transition-transform">🎧</span>
+                                                <div class="flex flex-col text-left">
+                                                    <span class="font-bold text-gray-800 text-lg">Listener First</span>
+                                                    <span class="text-sm text-gray-500">I observe before I share.</span>
+                                                </div>
+                                            </div>
+                                        </label>
+                                        <label class="relative cursor-pointer group">
+                                            <input type="radio" name="comm_style" class="peer sr-only">
+                                            <div class="h-full p-6 bg-white border-2 border-gray-100 rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex items-center gap-5">
+                                                <span class="text-4xl group-hover:scale-110 transition-transform">🤝</span>
+                                                <div class="flex flex-col text-left">
+                                                    <span class="font-bold text-gray-800 text-lg">The Doer</span>
+                                                    <span class="text-sm text-gray-500">I bond through shared experiences.</span>
+                                                </div>
+                                            </div>
+                                        </label>
+                                        <label class="relative cursor-pointer group">
+                                            <input type="radio" name="comm_style" class="peer sr-only">
+                                            <div class="h-full p-6 bg-white border-2 border-gray-100 rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex items-center gap-5">
+                                                <span class="text-4xl group-hover:scale-110 transition-transform">😂</span>
+                                                <div class="flex flex-col text-left">
+                                                    <span class="font-bold text-gray-800 text-lg">The Joker</span>
+                                                    <span class="text-sm text-gray-500">Connection through humor & lightness.</span>
+                                                </div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="mb-12 border-b border-gray-100 pb-12">
+                                    <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">Which statement feels truest to you? <span class="block text-sm font-normal text-gray-400 mt-1 uppercase tracking-widest">(Select one)</span></h3>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <label class="relative cursor-pointer group">
+                                            <input type="radio" name="values" class="peer sr-only">
+                                            <div class="h-full p-6 bg-white border-2 border-gray-100 rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex items-center gap-5">
+                                                <span class="text-4xl group-hover:scale-110 transition-transform">🗓️</span>
+                                                <div class="flex flex-col text-left">
+                                                    <span class="font-bold text-gray-800 text-lg">The Planner</span>
+                                                    <span class="text-sm text-gray-500">I like knowing what's coming next.</span>
+                                                </div>
+                                            </div>
+                                        </label>
+                                        <label class="relative cursor-pointer group">
+                                            <input type="radio" name="values" class="peer sr-only">
+                                            <div class="h-full p-6 bg-white border-2 border-gray-100 rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex items-center gap-5">
+                                                <span class="text-4xl group-hover:scale-110 transition-transform">🌊</span>
+                                                <div class="flex flex-col text-left">
+                                                    <span class="font-bold text-gray-800 text-lg">Go with the Flow</span>
+                                                    <span class="text-sm text-gray-500">I love spontaneity & adaptability.</span>
+                                                </div>
+                                            </div>
+                                        </label>
+                                        <label class="relative cursor-pointer group">
+                                            <input type="radio" name="values" class="peer sr-only">
+                                            <div class="h-full p-6 bg-white border-2 border-gray-100 rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex items-center gap-5">
+                                                <span class="text-4xl group-hover:scale-110 transition-transform">🚀</span>
+                                                <div class="flex flex-col text-left">
+                                                    <span class="font-bold text-gray-800 text-lg">Goal-Oriented</span>
+                                                    <span class="text-sm text-gray-500">I'm most myself when pushing forward.</span>
+                                                </div>
+                                            </div>
+                                        </label>
+                                        <label class="relative cursor-pointer group">
+                                            <input type="radio" name="values" class="peer sr-only">
+                                            <div class="h-full p-6 bg-white border-2 border-gray-100 rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex items-center gap-5">
+                                                <span class="text-4xl group-hover:scale-110 transition-transform">🧘</span>
+                                                <div class="flex flex-col text-left">
+                                                    <span class="font-bold text-gray-800 text-lg">Chill & Present</span>
+                                                    <span class="text-sm text-gray-500">I'm not trying to optimize everything.</span>
+                                                </div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="mb-4">
+                                    <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">What do you actually want to do with a new group? <span class="block text-sm font-normal text-gray-400 mt-1 uppercase tracking-widest">(Select all that apply)</span></h3>
+                                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                                        <label class="relative cursor-pointer group">
+                                            <input type="checkbox" class="peer sr-only">
+                                            <div class="h-full p-5 bg-white border-2 border-gray-100 rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex flex-col items-center text-center gap-2">
+                                                <span class="text-4xl group-hover:scale-110 transition-transform mb-2">🍽️</span>
+                                                <span class="font-bold text-gray-700 text-lg">Food & Drink</span>
+                                                <span class="text-xs text-gray-500">New spots & bars</span>
+                                            </div>
+                                        </label>
+                                        <label class="relative cursor-pointer group">
+                                            <input type="checkbox" class="peer sr-only">
+                                            <div class="h-full p-5 bg-white border-2 border-gray-100 rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex flex-col items-center text-center gap-2">
+                                                <span class="text-4xl group-hover:scale-110 transition-transform mb-2">🏕️</span>
+                                                <span class="font-bold text-gray-700 text-lg">Outdoorsy</span>
+                                                <span class="text-xs text-gray-500">Hiking, biking, sports</span>
+                                            </div>
+                                        </label>
+                                        <label class="relative cursor-pointer group">
+                                            <input type="checkbox" class="peer sr-only">
+                                            <div class="h-full p-5 bg-white border-2 border-gray-100 rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex flex-col items-center text-center gap-2">
+                                                <span class="text-4xl group-hover:scale-110 transition-transform mb-2">🎭</span>
+                                                <span class="font-bold text-gray-700 text-lg">Culture & Arts</span>
+                                                <span class="text-xs text-gray-500">Museums, music, theater</span>
+                                            </div>
+                                        </label>
+                                        <label class="relative cursor-pointer group">
+                                            <input type="checkbox" class="peer sr-only">
+                                            <div class="h-full p-5 bg-white border-2 border-gray-100 rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex flex-col items-center text-center gap-2">
+                                                <span class="text-4xl group-hover:scale-110 transition-transform mb-2">🎨</span>
+                                                <span class="font-bold text-gray-700 text-lg">Hands-on</span>
+                                                <span class="text-xs text-gray-500">Cooking, pottery, classes</span>
+                                            </div>
+                                        </label>
+                                        <label class="relative cursor-pointer group">
+                                            <input type="checkbox" class="peer sr-only">
+                                            <div class="h-full p-5 bg-white border-2 border-gray-100 rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex flex-col items-center text-center gap-2">
+                                                <span class="text-4xl group-hover:scale-110 transition-transform mb-2">🎲</span>
+                                                <span class="font-bold text-gray-700 text-lg">Games</span>
+                                                <span class="text-xs text-gray-500">Bowling, trivia, darts</span>
+                                            </div>
+                                        </label>
+                                        <label class="relative cursor-pointer group">
+                                            <input type="checkbox" class="peer sr-only">
+                                            <div class="h-full p-5 bg-white border-2 border-gray-100 rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all shadow-sm hover:shadow-md flex flex-col items-center text-center gap-2">
+                                                <span class="text-4xl group-hover:scale-110 transition-transform mb-2">🧘‍♀️</span>
+                                                <span class="font-bold text-gray-700 text-lg">Wellness</span>
+                                                <span class="text-xs text-gray-500">Yoga, fitness, running</span>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                            </div>
+
+                            <div id="nav-buttons" class="hidden justify-between mt-10 pt-8 border-t border-gray-200 max-w-3xl mx-auto">
+                                <button type="button" id="prev-btn" class="hidden px-8 py-3 border-2 border-gray-300 text-gray-600 font-bold rounded-xl hover:bg-gray-100 transition-colors focus:outline-none cursor-pointer" onclick="changeStep(-1)">Back</button>
+                                <button type="button" id="next-btn" class="ml-auto bg-black text-white px-10 py-4 font-bold rounded-xl hover:bg-gray-800 transition-all shadow-[0_4px_14px_rgba(0,0,0,0.15)] flex items-center group cursor-pointer" onclick="changeStep(1)">
+                                    Next Step <svg class="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                </button>
+                                <button type="button" id="submit-btn" class="hidden ml-auto bg-yellow-500 text-black px-10 py-4 font-bold rounded-xl hover:bg-yellow-400 transition-all shadow-[0_4px_14px_rgba(234,179,8,0.3)] transform hover:-translate-y-1 uppercase tracking-wide cursor-pointer" onclick="switchTab('dashboard')">
+                                    Complete Sign Up
+                                </button>
+                            </div>
+
+                        </form>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -511,6 +780,166 @@
                         </p>
                     </div>
                 </a>
+            </div>
+        </div>
+    </div>
+
+    <div id="tab-dashboard" class="hidden min-h-screen bg-gray-50 pt-32 pb-24">
+        <div class="max-w-5xl mx-auto px-4" data-aos="fade-up">
+            
+            <div class="flex justify-between items-end mb-10 border-b border-gray-200 pb-6">
+                <div>
+                    <h2 class="text-4xl md:text-5xl font-[Oswald] text-gray-900 uppercase tracking-widest">My Dashboard</h2>
+                    <p class="text-gray-500 text-lg mt-2">Welcome back! Here's where your connections happen.</p>
+                </div>
+                <div class="bg-yellow-100 text-yellow-800 px-4 py-2 rounded-full font-bold text-sm tracking-wide shadow-sm border border-yellow-200 flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-yellow-500 animate-pulse"></span>
+                    Events Completed: 0 / 6
+                </div>
+            </div>
+
+            <div class="relative mb-16 pt-4 pb-8 max-w-4xl mx-auto">
+                <div class="stepper-line"></div>
+                <div class="flex justify-between relative z-10">
+                    <div class="flex flex-col items-center cursor-pointer group" onclick="setMockState(1)">
+                        <div id="step-btn-1" class="step-circle active w-12 h-12 rounded-full border-4 border-gray-200 bg-white flex items-center justify-center font-bold text-gray-400 group-hover:border-yellow-400 mb-2">1</div>
+                        <span class="text-xs font-bold text-gray-500 uppercase tracking-widest">Matched</span>
+                    </div>
+                    <div class="flex flex-col items-center cursor-pointer group" onclick="setMockState(2)">
+                        <div id="step-btn-2" class="step-circle w-12 h-12 rounded-full border-4 border-gray-200 bg-white flex items-center justify-center font-bold text-gray-400 group-hover:border-yellow-400 mb-2">2</div>
+                        <span class="text-xs font-bold text-gray-500 uppercase tracking-widest">Proposed</span>
+                    </div>
+                    <div class="flex flex-col items-center cursor-pointer group" onclick="setMockState(3)">
+                        <div id="step-btn-3" class="step-circle w-12 h-12 rounded-full border-4 border-gray-200 bg-white flex items-center justify-center font-bold text-gray-400 group-hover:border-yellow-400 mb-2">3</div>
+                        <span class="text-xs font-bold text-gray-500 uppercase tracking-widest">Feedback</span>
+                    </div>
+                    <div class="flex flex-col items-center cursor-pointer group" onclick="setMockState(4)">
+                        <div id="step-btn-4" class="step-circle w-12 h-12 rounded-full border-4 border-gray-200 bg-white flex items-center justify-center font-bold text-gray-400 group-hover:border-yellow-400 mb-2">4</div>
+                        <span class="text-xs font-bold text-gray-500 uppercase tracking-widest">Curated</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="mock-state-1" class="mock-panel bg-white rounded-3xl shadow-[0_10px_40px_rgba(0,0,0,0.06)] border border-gray-100 p-8 md:p-12 text-center relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-yellow-300 via-yellow-500 to-yellow-300"></div>
+                <div class="w-24 h-24 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner">
+                    <span class="text-5xl drop-shadow-md">🎉</span>
+                </div>
+                <h3 class="text-4xl font-[Oswald] text-gray-900 uppercase tracking-wide mb-4">We found your people!</h3>
+                <p class="text-xl text-gray-500 mb-10 max-w-2xl mx-auto font-light">Based on your shared values, social energy, and budget, we've matched you with a group of 6 incredible individuals in Chicago.</p>
+                
+                <div class="flex justify-center -space-x-6 mb-10">
+                    <div class="w-20 h-20 rounded-full border-4 border-white bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center font-bold text-white text-xl shadow-lg transform hover:-translate-y-2 transition-transform cursor-pointer">M</div>
+                    <div class="w-20 h-20 rounded-full border-4 border-white bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center font-bold text-white text-xl shadow-lg transform hover:-translate-y-2 transition-transform cursor-pointer">S</div>
+                    <div class="w-20 h-20 rounded-full border-4 border-white bg-gradient-to-br from-red-400 to-red-600 flex items-center justify-center font-bold text-white text-xl shadow-lg transform hover:-translate-y-2 transition-transform cursor-pointer">J</div>
+                    <div class="w-20 h-20 rounded-full border-4 border-white bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center font-bold text-white text-xl shadow-lg transform hover:-translate-y-2 transition-transform cursor-pointer">A</div>
+                    <div class="w-20 h-20 rounded-full border-4 border-white bg-gradient-to-br from-indigo-400 to-indigo-600 flex items-center justify-center font-bold text-white text-xl shadow-lg transform hover:-translate-y-2 transition-transform cursor-pointer">T</div>
+                    <div class="w-20 h-20 rounded-full border-4 border-white bg-gradient-to-br from-yellow-400 to-yellow-600 flex items-center justify-center font-bold text-white text-xl shadow-lg transform hover:-translate-y-2 transition-transform cursor-pointer ring-4 ring-yellow-200">You</div>
+                </div>
+                
+                <div class="bg-gray-50 border border-gray-100 p-4 rounded-xl inline-block mb-10">
+                    <p class="text-sm font-bold text-gray-500 uppercase tracking-widest">Shared Group Vibe Match</p>
+                    <div class="flex gap-2 mt-2 justify-center">
+                        <span class="px-3 py-1 bg-white border border-gray-200 rounded-full text-xs font-bold text-gray-600 shadow-sm">Education / Creative</span>
+                        <span class="px-3 py-1 bg-white border border-gray-200 rounded-full text-xs font-bold text-gray-600 shadow-sm">Deep Convos</span>
+                        <span class="px-3 py-1 bg-white border border-gray-200 rounded-full text-xs font-bold text-gray-600 shadow-sm">$40 - $60</span>
+                    </div>
+                </div>
+
+                <br>
+                <button onclick="setMockState(2)" class="bg-black text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-gray-800 transition shadow-[0_10px_20px_rgba(0,0,0,0.15)] transform hover:-translate-y-1">View Proposed Event</button>
+            </div>
+
+            <div id="mock-state-2" class="mock-panel hidden bg-white rounded-3xl shadow-[0_10px_40px_rgba(0,0,0,0.06)] border border-gray-100 overflow-hidden flex flex-col md:flex-row">
+                <div class="md:w-1/2 bg-cover bg-center h-64 md:h-auto relative" style="background-image: url('https://images.unsplash.com/photo-1610701596007-11502861dcfa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                    <div class="absolute bottom-6 left-6 text-white">
+                        <span class="text-4xl drop-shadow-lg mb-2 block">🏺</span>
+                        <span class="font-[Oswald] text-2xl tracking-wide uppercase drop-shadow-lg">Hands-on Creative</span>
+                    </div>
+                </div>
+                <div class="md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="inline-block bg-yellow-100 text-yellow-800 font-bold px-3 py-1 rounded-full uppercase tracking-widest text-xs shadow-sm">Event 1 of 6</span>
+                        <span class="text-sm font-bold text-green-600">Perfect Match</span>
+                    </div>
+                    <h3 class="text-4xl font-[Oswald] text-gray-900 mb-4 uppercase tracking-wide">Beginner Pottery Class</h3>
+                    <p class="text-gray-500 mb-8 font-medium leading-relaxed">Curated because all 6 of you value shared experiences over loud bars, selected 'Creative Experiences', and share a budget of '$40-$60'.</p>
+                    
+                    <div class="bg-gray-50 rounded-2xl p-6 border border-gray-100 mb-8">
+                        <ul class="space-y-4 text-gray-700 font-medium">
+                            <li class="flex items-center"><span class="w-8 text-2xl">📍</span> Penguin Foot Pottery</li>
+                            <li class="flex items-center"><span class="w-8 text-2xl">📅</span> This Saturday, 2:00 PM</li>
+                            <li class="flex items-center"><span class="w-8 text-2xl">🎟️</span> $45.00 (Includes clay & firing)</li>
+                        </ul>
+                    </div>
+
+                    <div class="flex gap-4">
+                        <button onclick="setMockState(3)" class="flex-[2] bg-yellow-500 text-black px-4 py-4 rounded-xl font-bold text-lg hover:bg-yellow-400 shadow-[0_4px_14px_rgba(234,179,8,0.3)] transition transform hover:-translate-y-1">RSVP Yes</button>
+                        <button class="flex-[1] bg-white border border-gray-300 text-gray-500 px-4 py-4 rounded-xl font-bold hover:bg-gray-50 transition hover:text-gray-800">Pass</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="mock-state-3" class="mock-panel hidden bg-white rounded-3xl shadow-[0_10px_40px_rgba(0,0,0,0.06)] border border-gray-100 p-8 md:p-12 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-yellow-50 rounded-full blur-3xl -mr-10 -mt-10"></div>
+                
+                <span class="inline-block bg-black text-white font-bold px-3 py-1 rounded-full uppercase tracking-widest text-xs mb-4">Post-Event</span>
+                <h3 class="text-4xl font-[Oswald] text-gray-900 mb-2 uppercase tracking-wide">How was the Pottery Class?</h3>
+                <p class="text-gray-500 mb-10 text-lg font-light">Let us know who you clicked with. We'll use this highly private feedback to organically curate your sub-group for Event #2.</p>
+
+                <div class="bg-gray-50 p-8 rounded-2xl border border-gray-100 mb-10 shadow-sm">
+                    <label class="block mb-6 font-bold text-gray-800 text-lg">Who would you like to see again? (Select all that apply)</label>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <label class="flex items-center p-5 bg-white border-2 border-gray-200 rounded-xl cursor-pointer hover:border-yellow-400 transition shadow-sm">
+                            <input type="checkbox" class="mr-4 w-6 h-6 accent-yellow-500" checked>
+                            <div class="w-12 h-12 rounded-full bg-blue-100 text-blue-700 font-bold text-xl flex items-center justify-center mr-4">M</div>
+                            <span class="font-bold text-gray-700 text-lg">Mike</span>
+                        </label>
+                        <label class="flex items-center p-5 bg-white border-2 border-gray-200 rounded-xl cursor-pointer hover:border-yellow-400 transition shadow-sm">
+                            <input type="checkbox" class="mr-4 w-6 h-6 accent-yellow-500" checked>
+                            <div class="w-12 h-12 rounded-full bg-green-100 text-green-700 font-bold text-xl flex items-center justify-center mr-4">S</div>
+                            <span class="font-bold text-gray-700 text-lg">Sarah</span>
+                        </label>
+                        <label class="flex items-center p-5 bg-white border-2 border-gray-200 rounded-xl cursor-pointer hover:border-yellow-400 transition shadow-sm">
+                            <input type="checkbox" class="mr-4 w-6 h-6 accent-yellow-500">
+                            <div class="w-12 h-12 rounded-full bg-red-100 text-red-700 font-bold text-xl flex items-center justify-center mr-4">J</div>
+                            <span class="font-bold text-gray-700 text-lg">John</span>
+                        </label>
+                        <label class="flex items-center p-5 bg-white border-2 border-gray-200 rounded-xl cursor-pointer hover:border-yellow-400 transition shadow-sm">
+                            <input type="checkbox" class="mr-4 w-6 h-6 accent-yellow-500" checked>
+                            <div class="w-12 h-12 rounded-full bg-purple-100 text-purple-700 font-bold text-xl flex items-center justify-center mr-4">A</div>
+                            <span class="font-bold text-gray-700 text-lg">Ashley</span>
+                        </label>
+                    </div>
+                </div>
+
+                <button onclick="setMockState(4)" class="w-full bg-black text-white px-6 py-5 rounded-2xl font-bold text-xl hover:bg-gray-800 transition shadow-[0_10px_20px_rgba(0,0,0,0.15)] transform hover:-translate-y-1">Submit Private Feedback</button>
+            </div>
+
+            <div id="mock-state-4" class="mock-panel hidden bg-white rounded-3xl shadow-[0_10px_40px_rgba(0,0,0,0.06)] border border-gray-100 p-8 md:p-12 text-center relative overflow-hidden">
+                <div class="absolute inset-0 bg-cover bg-center opacity-5 pointer-events-none" style="background-image: url('IMG_8497.jpg');"></div>
+                <div class="relative z-10">
+                    <div class="w-24 h-24 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner ring-4 ring-yellow-50">
+                        <span class="text-5xl drop-shadow-md">🍸</span>
+                    </div>
+                    <h3 class="text-4xl font-[Oswald] uppercase tracking-wide mb-4 text-gray-900">Event #2 is Brewing!</h3>
+                    <p class="text-xl text-gray-500 mb-10 max-w-2xl mx-auto font-light leading-relaxed">Great news! Mike, Sarah, and Ashley also wanted to see you again. We're curating a slightly smaller, more intimate event based on your secondary interests.</p>
+                    
+                    <div class="inline-block bg-white border border-gray-200 p-8 rounded-3xl text-left mb-10 max-w-md mx-auto shadow-lg relative transform hover:scale-105 transition-transform cursor-default">
+                        <div class="absolute -top-4 -right-4 bg-yellow-500 text-black font-bold text-xs uppercase tracking-widest px-3 py-1 rounded-full shadow-md">Locked In</div>
+                        <p class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">Sneak Peek</p>
+                        <p class="text-2xl font-[Oswald] uppercase tracking-wide text-gray-900 mb-2">Speakeasy Cocktail Tasting</p>
+                        <p class="text-gray-500 font-medium flex items-center"><span class="mr-2">💌</span> Official invites drop on Tuesday.</p>
+                    </div>
+
+                    <div>
+                        <button onclick="setMockState(1)" class="text-gray-400 hover:text-yellow-600 font-bold uppercase tracking-widest text-sm flex items-center justify-center mx-auto transition-colors">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                            Restart Simulation
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -638,11 +1067,9 @@
         const supabaseUrl = 'https://wsxnvbjcglyebnncwhsi.supabase.co';
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndzeG52YmpjZ2x5ZWJubmN3aHNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMxNDQyODEsImV4cCI6MjA4ODcyMDI4MX0.vh5fy0VFOb7lJpcHOec1rVtd59z7KEoMR3PTXH74FX8';
 
-        // --- DIRECT URL SHARING & ADMIN DASHBOARD ROUTING ---
         document.addEventListener('DOMContentLoaded', () => {
             const hash = window.location.hash.substring(1);
 
-            // Access Admin Dashboard
             if (hash === 'admin') {
                 loadAdminDashboard(false);
                 const overlay = document.getElementById('landing-overlay');
@@ -653,14 +1080,13 @@
                 return;
             }
 
-            // Handle Admin Payment Confirmation Link (From Email)
             if (hash.startsWith('confirm=')) {
                 const signupId = hash.split('=')[1];
                 processPaymentConfirmation(signupId);
-                return; // Stop here, don't load the normal site
+                return; 
             }
 
-            if (hash === 'events' || hash === 'highlights') {
+            if (hash === 'events' || hash === 'highlights' || hash === 'dashboard') {
                 switchTab(hash);
                 const overlay = document.getElementById('landing-overlay');
                 if (overlay) {
@@ -683,7 +1109,6 @@
             }
         });
 
-        // --- MOBILE MENU LOGIC ---
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
         const menuIconPath = document.getElementById('menu-icon-path');
@@ -706,12 +1131,12 @@
             menuIconPath.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
         }
 
-        // Updated Tab Switching Logic to include Admin Tab
         function switchTab(tabId) {
             document.getElementById('tab-home').classList.add('hidden');
             document.getElementById('tab-highlights').classList.add('hidden');
             document.getElementById('tab-events').classList.add('hidden');
             document.getElementById('tab-admin').classList.add('hidden');
+            document.getElementById('tab-dashboard').classList.add('hidden');
 
             document.getElementById(`tab-${tabId}`).classList.remove('hidden');
             window.scrollTo(0, 0);
@@ -744,11 +1169,46 @@
         introSection.style.backgroundImage = `url('${heroImages[0]}')`;
         setInterval(changeHeroBackground, 5000);
 
-        // --- NEW: ADMIN DASHBOARD DATA LOADING ---
+        function toggleAuth(mode) {
+            const signupTab = document.getElementById('tab-btn-signup');
+            const loginTab = document.getElementById('tab-btn-login');
+            const signupForm = document.getElementById('auth-signup');
+            const loginForm = document.getElementById('auth-login');
+
+            if(mode === 'signup') {
+                signupTab.className = "w-1/2 py-4 font-[Oswald] text-xl uppercase tracking-widest font-bold border-b-4 border-yellow-500 text-gray-900 transition-colors cursor-pointer";
+                loginTab.className = "w-1/2 py-4 font-[Oswald] text-xl uppercase tracking-widest font-bold border-b-4 border-transparent text-gray-400 hover:text-gray-600 transition-colors cursor-pointer";
+                signupForm.classList.remove('hidden');
+                loginForm.classList.add('hidden');
+            } else {
+                loginTab.className = "w-1/2 py-4 font-[Oswald] text-xl uppercase tracking-widest font-bold border-b-4 border-yellow-500 text-gray-900 transition-colors cursor-pointer";
+                signupTab.className = "w-1/2 py-4 font-[Oswald] text-xl uppercase tracking-widest font-bold border-b-4 border-transparent text-gray-400 hover:text-gray-600 transition-colors cursor-pointer";
+                loginForm.classList.remove('hidden');
+                signupForm.classList.add('hidden');
+            }
+        }
+
+        // --- DASHBOARD STEPPER LOGIC ---
+        function setMockState(stateNum) {
+            document.querySelectorAll('.mock-panel').forEach(el => el.classList.add('hidden'));
+            
+            document.querySelectorAll('.step-circle').forEach((btn, index) => {
+                if(index < stateNum) {
+                    btn.classList.add('active');
+                    btn.classList.remove('border-gray-200', 'text-gray-400', 'bg-white');
+                } else {
+                    btn.classList.remove('active');
+                    btn.classList.add('border-gray-200', 'text-gray-400', 'bg-white');
+                }
+            });
+            
+            document.getElementById(`mock-state-${stateNum}`).classList.remove('hidden');
+        }
+
         async function loadAdminDashboard(skipPrompt) {
             if (!skipPrompt) {
                 const pass = prompt("Enter Admin Password:");
-                if (pass !== "mixmatch2026") { // CHANGE THIS PASSWORD
+                if (pass !== "mixmatch2026") {
                     alert("Incorrect password.");
                     window.location.hash = '';
                     return;
@@ -794,33 +1254,25 @@
             }
         }
 
-        // --- NEW: IN-DASHBOARD MARK AS PAID BUTTON ---
         async function dashboardMarkAsPaid(signupId) {
             if (!confirm("Are you sure you want to mark this as paid? This will immediately email the user their final receipt.")) return;
 
             try {
                 const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
-
-                // Fetch details first to send email
                 const { data: signup } = await supabase.from('event_signups').select('*').eq('id', signupId).single();
-
-                // Update DB
                 const { error } = await supabase.from('event_signups').update({ status: 'paid' }).eq('id', signupId);
                 if (error) throw error;
 
-                // Send Email
                 await supabase.functions.invoke('send-welcome-email', {
                     body: { name: signup.user_name, email: signup.user_email, source: 'event_signup_confirmed', event: signup.event_name }
                 });
 
                 alert("Successfully marked as paid! Email sent.");
-                loadAdminDashboard(true); // Reload table silently
-
+                loadAdminDashboard(true); 
             } catch (e) {
                 alert("Error: " + e.message);
             }
         }
-
 
         let currentStep = 1;
         const totalSteps = 5;
@@ -1015,7 +1467,6 @@
             });
         });
 
-        // --- DYNAMIC SURVEY LOGIC ---
         function toggleFutureEvents(isYes) {
             const dependentQuestions = document.getElementById('dependent-questions');
             const whyNoSection = document.getElementById('why-no-section');
@@ -1030,25 +1481,21 @@
             if (isYes) {
                 dependentQuestions.classList.remove('hidden');
                 whyNoSection.classList.add('hidden');
-
                 requiredRadios.forEach(radio => { if (radio) radio.setAttribute('required', 'true'); });
                 if (requiredSelect) requiredSelect.setAttribute('required', 'true');
-
                 whyNoReason.removeAttribute('required');
                 whyNoReason.value = '';
             } else {
                 dependentQuestions.classList.add('hidden');
                 whyNoSection.classList.remove('hidden');
-
                 requiredRadios.forEach(radio => { if (radio) radio.removeAttribute('required'); });
                 if (requiredSelect) requiredSelect.removeAttribute('required');
-
                 whyNoReason.setAttribute('required', 'true');
             }
         }
 
         const activitiesDB = [
-            { name: "🥾 Group Hiking & Trail Running", vibe: "Outdoor", budget: "low" },
+            { name: "🥾 Guided hiking/ trail running", vibe: "Outdoor", budget: "low" },
             { name: "🧺 Park Picnic & Lawn Games", vibe: "Outdoor", budget: "low" },
             { name: "🏐 Beach or Park Volleyball", vibe: "Outdoor", budget: "low" },
             { name: "🧘 Outdoor Sunrise Yoga", vibe: "Outdoor", budget: "low" },
@@ -1119,7 +1566,11 @@
             const list = document.getElementById('dynamic-activities');
 
             if (budgetChecked && activeVibes.length > 0) {
-                const matches = activitiesDB.filter(act => activeVibes.includes(act.vibe) && act.budget === budgetChecked.value);
+                let sizeFilter = 'low';
+                if(budgetChecked.value === 'mid') sizeFilter = 'mid';
+                if(budgetChecked.value === 'high') sizeFilter = 'high';
+
+                const matches = activitiesDB.filter(act => activeVibes.includes(act.vibe) && act.budget === sizeFilter);
                 if (matches.length > 0) {
                     container.classList.remove('hidden');
                     list.innerHTML = '';
@@ -1145,7 +1596,6 @@
             } else { container.classList.add('hidden'); }
         }
 
-        // --- ADMIN CONFIRMATION FROM EMAIL LOGIC ---
         async function processPaymentConfirmation(signupId) {
             document.body.innerHTML = `<div style="display:flex; justify-content:center; align-items:center; height:100vh; font-family:sans-serif; background:#f9fafb; padding-top:20vh; flex-direction:column;">
                     <h2 style="font-size:24px; color:#333;">Processing Payment Confirmation... Please wait.</h2>
@@ -1155,32 +1605,15 @@
                 if (!window.supabase) throw new Error("Supabase library failed to load.");
                 const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
-                // 1. Fetch the user's details
-                const { data: signup, error: fetchError } = await supabase
-                    .from('event_signups')
-                    .select('*')
-                    .eq('id', signupId)
-                    .single();
-
+                const { data: signup, error: fetchError } = await supabase.from('event_signups').select('*').eq('id', signupId).single();
                 if (fetchError || !signup) throw new Error("Signup not found.");
                 if (signup.status === 'paid') throw new Error("This payment has already been confirmed!");
 
-                // 2. Update status to paid
-                const { error: updateError } = await supabase
-                    .from('event_signups')
-                    .update({ status: 'paid' })
-                    .eq('id', signupId);
-
+                const { error: updateError } = await supabase.from('event_signups').update({ status: 'paid' }).eq('id', signupId);
                 if (updateError) throw new Error("Failed to update status.");
 
-                // 3. Trigger the final confirmation email to the user
                 await supabase.functions.invoke('send-welcome-email', {
-                    body: {
-                        name: signup.user_name,
-                        email: signup.user_email,
-                        source: 'event_signup_confirmed',
-                        event: signup.event_name
-                    }
+                    body: { name: signup.user_name, email: signup.user_email, source: 'event_signup_confirmed', event: signup.event_name }
                 });
 
                 document.body.innerHTML = `<div style="display:flex; flex-direction:column; align-items:center; height:100vh; font-family:sans-serif; background:#f9fafb; padding-top:20vh;">
@@ -1200,83 +1633,6 @@
             }
         }
 
-        // --- WAITLIST SUBMISSION LOGIC ---
-        async function submitForm(mode) {
-            if (mode === 'quick' && !validateStep(1)) return;
-
-            const submitBtn = mode === 'quick' ? document.getElementById('quick-submit-btn') : document.getElementById('submit-btn');
-            const originalText = submitBtn.innerText;
-
-            submitBtn.innerHTML = `<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Processing...`;
-            submitBtn.disabled = true;
-
-            try {
-                if (!window.supabase) throw new Error("Supabase library failed to load.");
-                const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
-
-                const getCheckedValues = (selector) => Array.from(document.querySelectorAll(selector)).filter(cb => cb.checked).map(cb => cb.value || cb.parentElement.innerText.trim());
-
-                const name = document.getElementById('user_name').value.trim();
-                const age = parseInt(document.getElementById('user_age').value);
-                const email = document.getElementById('user_email').value.trim();
-                const phone = document.getElementById('user_phone').value.trim();
-
-                let loc_type, zip_code, radius, free_time, diet, budget, vibes, gender_pref, age_pref, networking, plus_one, personality, comfort_zone, looking_for;
-
-                if (mode === 'full') {
-                    loc_type = document.querySelector('input[name="loc_type"]:checked')?.value;
-                    zip_code = document.getElementById('zip-input').value;
-                    radius = parseInt(document.getElementById('radius-slider').value);
-                    free_time = getCheckedValues('#step-2 input[type="checkbox"]:not(.city-checkbox)');
-                    diet = document.querySelector('#step-2 select').value;
-
-                    const budgetEl = document.querySelector('input[name="budget"]:checked');
-                    budget = budgetEl ? budgetEl.value : null;
-                    vibes = getCheckedValues('.vibe-input');
-
-                    const genderEl = document.querySelector('input[name="gender_pref"]:checked');
-                    gender_pref = genderEl ? genderEl.parentElement.innerText.trim() : null;
-
-                    const agePrefEl = document.querySelector('input[name="age_pref"]:checked');
-                    age_pref = agePrefEl ? agePrefEl.parentElement.innerText.trim() : null;
-
-                    const crowdCheckboxes = document.querySelectorAll('#step-4 input[type="checkbox"]');
-                    networking = crowdCheckboxes.length > 0 ? crowdCheckboxes[0].checked : false;
-                    plus_one = crowdCheckboxes.length > 1 ? crowdCheckboxes[1].checked : false;
-
-                    personality = getCheckedValues('#step-5 input[type="checkbox"]');
-                    comfort_zone = parseInt(document.querySelector('#step-5 input[type="range"]').value);
-                    looking_for = document.querySelector('#step-5 textarea').value;
-                }
-
-                const { data, error } = await supabase
-                    .from('readymix_users')
-                    .insert([{
-                        name, age, email, phone, location_type: loc_type || null, cities: chosenCities || [],
-                        zip_code: zip_code || null, radius: radius || null, free_time: free_time || [],
-                        diet: diet || null, budget: budget || null, vibes: vibes || [], gender_pref: gender_pref || null,
-                        age_pref: age_pref || null, networking: networking || false, plus_one: plus_one || false,
-                        personality: personality || [], comfort_zone: comfort_zone || null, looking_for: looking_for || null
-                    }]);
-
-                if (error) throw new Error("Database save failed: " + error.message);
-
-                const { data: emailData, error: emailError } = await supabase.functions.invoke('send-welcome-email', {
-                    body: { name: name, email: email, source: 'waitlist' }
-                });
-
-                alert("Success! You are on the ReadyMix Match list. Check your email for confirmation!");
-                window.location.reload();
-
-            } catch (err) {
-                console.error(err);
-                alert("System Error: " + err.message);
-                submitBtn.innerHTML = originalText;
-                submitBtn.disabled = false;
-            }
-        }
-
-        // --- SUBMIT FEEDBACK SURVEY LOGIC ---
         async function submitSurvey(event) {
             event.preventDefault();
             const btn = document.getElementById('survey-submit-btn');
@@ -1295,22 +1651,13 @@
                 const eventType = document.querySelector('select[name="event_type"]').value;
                 const willingness = document.querySelector('input[name="willingness_pay"]:checked')?.value;
 
-                const sourceTag = 'survey';
-
-                let surveyDetails = `
-Liked Experience: ${liked}
-Interested in Future Events: ${repeat}
-`.trim();
+                let surveyDetails = `Liked Experience: ${liked}\nInterested in Future Events: ${repeat}\n`.trim();
 
                 if (repeat === 'Yes') {
-                    surveyDetails += `
-Available Next Week: ${nextWeek}
-Preferred Event: ${eventType}
-Willing to Pay: $${willingness}`;
+                    surveyDetails += `\nAvailable Next Week: ${nextWeek}\nPreferred Event: ${eventType}\nWilling to Pay: $${willingness}`;
                 } else {
                     const whyNo = document.getElementById('why_no_reason').value.trim();
-                    surveyDetails += `
-Reason for not attending future events: ${whyNo}`;
+                    surveyDetails += `\nReason for not attending future events: ${whyNo}`;
                 }
 
                 if (!window.supabase) throw new Error("Supabase library failed to load.");
@@ -1319,18 +1666,13 @@ Reason for not attending future events: ${whyNo}`;
                 const feedbackData = {
                     name: name,
                     email: email,
-                    source: sourceTag,
+                    source: 'survey',
                     survey_answers: surveyDetails,
                     notify_hosts: true,
                     admin_emails: ['kvbiddle@gmail.com', 'shukladivya43@gmail.com']
                 };
 
-                const { error: emailError } = await supabase.functions.invoke('send-welcome-email', {
-                    body: feedbackData
-                });
-
-                if (emailError) console.error("Email Error:", emailError);
-
+                await supabase.functions.invoke('send-welcome-email', { body: feedbackData });
                 alert("Thank you! Your feedback has been received and a confirmation email has been sent.");
 
                 document.getElementById('feedback-form').reset();
@@ -1346,10 +1688,8 @@ Reason for not attending future events: ${whyNo}`;
             }
         }
 
-        // --- EVENT SIGNUP & VENMO ROUTING (UPDATED) ---
         async function handleEventSignup(event) {
             event.preventDefault();
-
             const submitBtn = event.target.querySelector('button[type="submit"]');
             const originalText = submitBtn.innerHTML;
             submitBtn.innerHTML = `Processing...`;
@@ -1362,39 +1702,23 @@ Reason for not attending future events: ${whyNo}`;
                 if (!window.supabase) throw new Error("Supabase library failed to load.");
                 const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
-                // 1. Save to Supabase as 'pending' AND ask Supabase to return the new ID (.select())
                 const { data: newSignup, error: dbError } = await supabase
                     .from('event_signups')
-                    .insert([{
-                        event_name: 'Dart Night',
-                        user_name: name,
-                        user_email: email,
-                        status: 'pending',
-                        amount: 22.00
-                    }])
+                    .insert([{ event_name: 'Dart Night', user_name: name, user_email: email, status: 'pending', amount: 22.00 }])
                     .select();
 
                 if (dbError) throw new Error("Could not save signup: " + dbError.message);
 
-                // 2. Generate the unique Admin Confirmation URL (FIXED FOR EMAIL COMPATIBILITY)
                 const confirmUrl = 'https://readymixmatch.com/#confirm=' + newSignup[0].id;
 
-                // 3. Trigger Emails
                 await supabase.functions.invoke('send-welcome-email', {
                     body: {
-                        name: name,
-                        email: email,
-                        source: 'event_signup_pending',
-                        event: 'Dart Night',
-                        admin_confirm_url: confirmUrl,
-                        notify_hosts: true,
-                        admin_emails: ['kvbiddle@gmail.com', 'shukladivya43@gmail.com']
+                        name: name, email: email, source: 'event_signup_pending', event: 'Dart Night',
+                        admin_confirm_url: confirmUrl, notify_hosts: true, admin_emails: ['kvbiddle@gmail.com', 'shukladivya43@gmail.com']
                     }
                 });
 
-                // 4. Redirect user to Venmo
-                const venmoUrl = "https://venmo.com/?txn=pay&audience=private&recipients=kvbiddle&amount=22.00&note=MixMatch%20Dart%20Night";
-                window.location.href = venmoUrl;
+                window.location.href = "https://venmo.com/?txn=pay&audience=private&recipients=kvbiddle&amount=22.00&note=MixMatch%20Dart%20Night";
 
             } catch (err) {
                 console.error(err);
@@ -1403,6 +1727,9 @@ Reason for not attending future events: ${whyNo}`;
                 submitBtn.disabled = false;
             }
         }
+
+        // Initialize dashboard state on load
+        setMockState(1);
     </script>
 </body>
 </html>
